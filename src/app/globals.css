@@ -215,9 +215,28 @@ body::before {
 }
 .scroll-hint { animation: scroll-hint 2.2s ease-in-out infinite; }
 
+/* slow "breathing" of the topographic contour field in the hero */
+@keyframes contour-breathe {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.025) translateY(-0.6%); }
+}
+.contour-breathe {
+  animation: contour-breathe 16s ease-in-out infinite;
+  transform-origin: 72% 32%;
+}
+
+/* outlined display type — the layered wordmark treatment in the hero */
+.text-outline {
+  color: rgba(174, 216, 238, 0.04);
+  -webkit-text-stroke: 1.5px rgba(174, 216, 238, 0.82);
+}
+@media (max-width: 640px) {
+  .text-outline { -webkit-text-stroke-width: 1px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
   .aurora-a, .aurora-b, .aurora-c { animation: none; }
-  .chip-float, .bubble, .scroll-hint { animation: none; }
+  .chip-float, .bubble, .scroll-hint, .contour-breathe { animation: none; }
   .bubble { display: none; }
 }

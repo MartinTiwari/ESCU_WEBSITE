@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 import { categories, industries, products } from "@/lib/products";
 import Reveal from "@/components/Reveal";
 import CountUp from "@/components/CountUp";
-import ChemLines from "@/components/ChemLines";
+import Contours from "@/components/Contours";
 import IntroReveal from "@/components/IntroReveal";
 
 const formulas = [
@@ -36,59 +36,48 @@ export default function Home() {
       <IntroReveal />
 
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section id="hero" className="relative bg-ink text-cream overflow-hidden">
+      <section id="hero" className="relative bg-ink text-cream overflow-hidden min-h-screen flex flex-col">
+        {/* topographic contour background */}
         <div className="absolute inset-0">
-          <div className="absolute -left-[10%] -top-[10%] h-[75vh] w-[75vh] rounded-full bg-emerald/30 blur-[130px] aurora-a" />
-          <div className="absolute -right-[8%] top-[15%] h-[62vh] w-[62vh] rounded-full bg-amber/18 blur-[130px] aurora-b" />
-          <div className="absolute left-[30%] -bottom-[15%] h-[60vh] w-[60vh] rounded-full bg-emerald-bright/22 blur-[130px] aurora-c" />
-          <ChemLines />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-transparent to-ink" />
+          <Contours />
+          {/* warm summit glow */}
+          <div className="absolute right-[6%] top-[14%] h-[52vh] w-[52vh] rounded-full bg-emerald/20 blur-[140px]" />
+          {/* keep the left column legible */}
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/72 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/30 via-transparent to-ink" />
         </div>
 
-        {/* floating formula chips */}
-        <div className="absolute inset-0 hidden lg:block pointer-events-none" aria-hidden>
-          {[
-            { f: "NaOCl", top: "22%", right: "14%", tilt: "-4deg", delay: "0s" },
-            { f: "TCCA 90%", top: "40%", right: "6%", tilt: "3deg", delay: "1.4s" },
-            { f: "Al₂(SO₄)₃", top: "60%", right: "18%", tilt: "-2deg", delay: "2.6s" },
-            { f: "H₂O", top: "76%", right: "8%", tilt: "5deg", delay: "0.8s" },
-          ].map((c) => (
-            <span
-              key={c.f}
-              className="chip-float absolute font-mono text-sm text-emerald-bright/90 border border-emerald-bright/30 bg-ink/50 backdrop-blur-sm rounded-full px-4 py-2"
-              style={{ top: c.top, right: c.right, ["--tilt" as string]: c.tilt, animationDelay: c.delay }}
-            >
-              {c.f}
-            </span>
-          ))}
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-36 pb-16 md:pt-44 md:pb-20 min-h-[90vh] flex flex-col justify-center">
+        <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-6 pt-36 pb-12 md:pt-40">
           <Reveal>
-            <div className="eyebrow text-emerald-bright/80 mb-10 flex items-center gap-4">
+            {/* eyebrow */}
+            <div className="flex items-center gap-4 mb-9">
               <span className="w-8 h-px bg-emerald-bright/50" />
-              Est. BS 2058 &nbsp;·&nbsp; Kathmandu, Nepal &nbsp;·&nbsp; {site.yearsInOperation}+ years in the trade
+              <span className="eyebrow text-emerald-bright/85">
+                Est. BS 2058 &nbsp;·&nbsp; Gokarneshor, Kathmandu
+              </span>
             </div>
 
-            <h1 className="font-display font-medium leading-[0.97] tracking-[-0.028em] max-w-4xl mb-8">
-              <span className="block text-[11.5vw] sm:text-6xl md:text-[5.25rem] lg:text-[6rem]">
+            {/* layered wordmark */}
+            <h1 className="font-display font-medium leading-[0.9] tracking-[-0.032em] mb-9">
+              <span className="block text-[12.5vw] sm:text-7xl md:text-[5.5rem] lg:text-[6.75rem]">
                 Everest Super
               </span>
-              <span className="block text-[11.5vw] sm:text-6xl md:text-[5.25rem] lg:text-[6rem]">
+              <span className="text-outline block text-[12.5vw] sm:text-7xl md:text-[5.5rem] lg:text-[6.75rem]">
                 Chemical Udhyog
               </span>
             </h1>
 
-            <p className="font-display italic text-emerald-bright text-xl md:text-2xl leading-snug mb-5 max-w-xl">
-              Precision chemistry. Dependable supply.
-            </p>
+            <div className="max-w-xl">
+              <p className="font-display italic text-emerald-bright text-xl md:text-2xl leading-snug mb-4">
+                Precision chemistry. Dependable supply.
+              </p>
+              <p className="text-cream/55 text-base md:text-lg leading-relaxed">
+                One counter in Kathmandu. Three decades of supply. Hotels, hospitals,
+                water plants, and pools across Nepal, all ordering from the same place.
+              </p>
+            </div>
 
-            <p className="text-cream/50 text-base md:text-lg leading-relaxed max-w-lg mb-12">
-              One counter in Kathmandu. Three decades of supply. Hotels, hospitals,
-              water plants, and pools across Nepal, all ordering from the same place.
-            </p>
-
-            <div className="flex items-center gap-8 flex-wrap">
+            <div className="flex items-center gap-8 flex-wrap mt-11">
               <Link
                 href="/quote"
                 className="inline-flex items-center gap-2 bg-emerald hover:bg-emerald-bright text-ink text-sm font-semibold px-8 py-4 rounded-full transition-colors"
