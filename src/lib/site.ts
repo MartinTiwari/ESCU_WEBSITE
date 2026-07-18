@@ -2,9 +2,8 @@ export const site = {
   name: "Everest Super Chemical Udhyog",
   shortName: "ESCU",
   tagline:
-    "Trusted supplier of water treatment chemicals, swimming pool solutions, housekeeping products, and catering fuel — serving hotels, resorts, hospitals, and industries across Nepal.",
-  foundedBS: 2058,
-  yearsInOperation: 2026 - 2002, // BS 2058 ≈ AD 2001/2002
+    "Trusted supplier of water treatment chemicals, pool and housekeeping products, catering fuel, and allied supplies from machine oils to test kits, serving hotels, resorts, hospitals, and industries across Nepal.",
+  yearsInOperation: 35,
   phone: "01-4543654",
   whatsapp: "+9779768380800",
   whatsappDisplay: "+977 9768380800",

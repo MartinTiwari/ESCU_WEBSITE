@@ -1,6 +1,5 @@
 export type Category =
   | "Housekeeping & Cleaning Chemicals"
-  | "Hospitality & Catering Supplies"
   | "Swimming Pool Chemicals"
   | "Water Treatment Chemicals";
 
@@ -39,9 +38,7 @@ export const products: Product[] = [
   { slug: "cleaning-powder", name: "Cleaning Powder", useCase: "Heavy Duty Cleaning", category: "Housekeeping & Cleaning Chemicals", industries: hospitality, description: "Heavy-duty abrasive cleaning powder for tough stains and grime.", sdsAvailable: false },
   { slug: "multi-cleaner-liquid", name: "Multi Cleaner Liquid", useCase: "All-Purpose Cleaner", category: "Housekeeping & Cleaning Chemicals", industries: hospitality, description: "All-purpose liquid cleaner for everyday housekeeping needs.", sdsAvailable: false },
   { slug: "ceramic-cleaner", name: "Ceramic Cleaner", useCase: "Tile & Ceramic Care", category: "Housekeeping & Cleaning Chemicals", industries: hospitality, description: "Specialized formula for cleaning and maintaining tile and ceramic surfaces.", sdsAvailable: false },
-
-  // Hospitality & Catering Supplies
-  { slug: "wax-fuel", name: "Wax Fuel", useCase: "Buffet Food Warmer Fuel", category: "Hospitality & Catering Supplies", industries: hospitality, description: "Clean-burning wax fuel for buffet food warmers and catering setups.", sdsAvailable: false },
+  { slug: "wax-fuel", name: "Wax Fuel", useCase: "Buffet Food Warmer Fuel", category: "Housekeeping & Cleaning Chemicals", industries: hospitality, description: "Clean-burning wax fuel for buffet food warmers and catering setups, popular in hotel and restaurant operations.", sdsAvailable: false },
 
   // Swimming Pool Chemicals
   { slug: "tcca-90", name: "TCCA 90%", useCase: "Pool Sanitizer", category: "Swimming Pool Chemicals", industries: pool, description: "High-strength chlorine sanitizer (90% TCCA) for swimming pool disinfection.", sdsAvailable: false },
@@ -69,7 +66,6 @@ export const categories: Category[] = [
   "Water Treatment Chemicals",
   "Swimming Pool Chemicals",
   "Housekeeping & Cleaning Chemicals",
-  "Hospitality & Catering Supplies",
 ];
 
 export const industries: Industry[] = [

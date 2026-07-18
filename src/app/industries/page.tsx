@@ -1,39 +1,50 @@
-import Link from "next/link";
 import { industries, products } from "@/lib/products";
+import Reveal from "@/components/Reveal";
+import PageHeader from "@/components/PageHeader";
+import ProductCard from "@/components/ProductCard";
 
 export const metadata = { title: "Industries We Serve | Everest Super Chemical Udhyog" };
 
 export default function IndustriesPage() {
-  return (
-    <div className="max-w-6xl mx-auto px-5 py-14">
-      <h1 className="text-3xl font-bold text-navy mb-2">Industries We Serve</h1>
-      <p className="text-grey-400 mb-10 max-w-2xl">
-        From hospitality to industrial water treatment, ESCU supplies the chemicals your
-        operation depends on. Select your industry to see relevant products.
-      </p>
+  const served = industries.filter((ind) => products.some((p) => p.industries.includes(ind)));
 
-      <div className="space-y-12">
-        {industries.map((ind) => {
+  return (
+    <div className="bg-paper">
+      <PageHeader
+        eyebrow="Applications"
+        title={<>Built for the operations <span className="italic text-emerald-bright">that depend on us.</span></>}
+        sub="From hospitality to industrial water treatment, ESCU supplies the chemicals your operation runs on. Jump to your industry to see relevant products."
+      >
+        <div className="flex flex-wrap gap-x-6 gap-y-2 mt-8">
+          {served.map((ind, i) => (
+            <a key={ind} href={`#${encodeURIComponent(ind)}`} className="eyebrow text-cream/45 hover:text-lime transition-colors text-[0.62rem]">
+              {String(i + 1).padStart(2, "0")} {ind}
+            </a>
+          ))}
+        </div>
+      </PageHeader>
+
+      <div className="max-w-6xl mx-auto px-5 py-16 space-y-20">
+        {served.map((ind, idx) => {
           const items = products.filter((p) => p.industries.includes(ind));
-          if (items.length === 0) return null;
           return (
-            <section key={ind} id={ind}>
-              <div className="flex items-center justify-between mb-4 pb-3 border-b border-grey-100">
-                <h2 className="text-xl font-bold text-navy">{ind}</h2>
-                <span className="text-xs font-semibold text-grey-700 bg-grey-100 px-3 py-1 rounded-full">
-                  {items.length} products
-                </span>
-              </div>
+            <section key={ind} id={ind} className="scroll-mt-24">
+              <Reveal>
+                <div className="flex items-end justify-between mb-8 pb-4 border-b border-line">
+                  <div>
+                    <div className="eyebrow text-emerald mb-2">{String(idx + 1).padStart(2, "0")} / Industry</div>
+                    <h2 className="font-display text-3xl md:text-4xl text-ink">{ind}</h2>
+                  </div>
+                  <span className="eyebrow text-muted whitespace-nowrap">
+                    {items.length} {items.length === 1 ? "product" : "products"}
+                  </span>
+                </div>
+              </Reveal>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {items.map((p) => (
-                  <Link
-                    key={p.slug}
-                    href={`/products/${p.slug}`}
-                    className="bg-white border border-grey-100 rounded-lg p-4 hover:border-teal hover:shadow-md transition-all"
-                  >
-                    <h3 className="font-semibold text-navy text-sm mb-1">{p.name}</h3>
-                    <p className="text-grey-400 text-xs">{p.useCase}</p>
-                  </Link>
+                {items.map((p, i) => (
+                  <Reveal key={p.slug} delay={Math.min(i * 0.04, 0.3)}>
+                    <ProductCard product={p} />
+                  </Reveal>
                 ))}
               </div>
             </section>

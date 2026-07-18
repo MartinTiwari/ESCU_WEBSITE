@@ -1,35 +1,223 @@
 @import "tailwindcss";
 
+/* ============================================================
+   ESCU design tokens
+   Palette: deep spruce ink · warm bone paper · emerald ·
+   acid-lime pop (sparing) · amber. Evolved from the old
+   navy/teal/gold so it stays recognizable but feels crafted.
+   ============================================================ */
 :root {
-  --navy: #0a1628;
-  --teal: #0e8a7a;
-  --teal-light: #13a090;
-  --gold: #c8963e;
-  --background: #ffffff;
-  --foreground: #1a2a3a;
-  --grey-50: #f0f4f8;
-  --grey-100: #dde4ee;
-  --grey-400: #8a97aa;
-  --grey-700: #3d4d63;
+  --ink: #0b1b28;
+  --ink-soft: #12324a;
+  --ink-line: rgba(224, 240, 250, 0.14);
+
+  --paper: #f4f1ea;
+  --paper-2: #ebe5d9;
+  --cream: #fbf9f4;
+
+  /* brand blue (#AED8EE) family — replaces the old green accents.
+     --emerald: contrast-safe blue for light backgrounds (buttons, links)
+     --emerald-bright: the brand pale blue, for highlights on dark
+     --lime: icy pop for key nodes / accents */
+  --emerald: #2b7aa8;
+  --emerald-bright: #aed8ee;
+  --lime: #cdeafc;
+  --amber: #d98a3d;
+
+  --fg: #17211d;
+  --muted: #67736c;
+  --line: #ddd6c7;
+
+  /* legacy aliases, kept so nothing renders off-brand if missed */
+  --navy: var(--ink);
+  --teal: var(--emerald);
+  --teal-light: var(--emerald-bright);
+  --gold: var(--amber);
+  --background: var(--paper);
+  --foreground: var(--fg);
+  --grey-50: #efeadf;
+  --grey-100: var(--line);
+  --grey-400: #8a938c;
+  --grey-700: #3a443e;
 }
 
 @theme inline {
-  --color-navy: var(--navy);
-  --color-teal: var(--teal);
-  --color-teal-light: var(--teal-light);
-  --color-gold: var(--gold);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-cream: var(--cream);
+  --color-emerald: var(--emerald);
+  --color-emerald-bright: var(--emerald-bright);
+  --color-lime: var(--lime);
+  --color-amber: var(--amber);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+
+  /* legacy token → new value */
+  --color-navy: var(--ink);
+  --color-teal: var(--emerald);
+  --color-teal-light: var(--emerald-bright);
+  --color-gold: var(--amber);
+  --color-background: var(--paper);
+  --color-foreground: var(--fg);
   --color-grey-50: var(--grey-50);
   --color-grey-100: var(--grey-100);
   --color-grey-400: var(--grey-400);
   --color-grey-700: var(--grey-700);
+
   --font-sans: var(--font-inter);
-  --font-display: var(--font-playfair);
+  --font-display: var(--font-fraunces);
+  --font-mono: var(--font-mono-tech);
+}
+
+* {
+  border-color: var(--line);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--fg);
+  font-family: var(--font-sans), "Segoe UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* subtle paper grain: the "not-flat" texture AI templates skip */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+/* ---- editorial helpers ---------------------------------- */
+
+/* monospaced technical eyebrow: the spec-sheet signal */
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.font-display {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+/* thin ruled divider with a tick, like a drafting sheet */
+.hairline {
+  border-top: 1px solid var(--line);
+}
+
+/* animated hover underline for editorial links */
+.link-ul {
+  background-image: linear-gradient(var(--emerald), var(--emerald));
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-ul:hover {
+  background-size: 100% 1.5px;
+}
+
+/* marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: inline-flex;
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* dotted engineering grid for dark panels */
+.grid-dots {
+  background-image: radial-gradient(rgba(200, 242, 74, 0.14) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* drifting aurora blobs behind the hero (mimics a living gradient) */
+@keyframes drift-a {
+  0%   { transform: translate(-6%, -4%) scale(1); }
+  50%  { transform: translate(10%, 8%) scale(1.25); }
+  100% { transform: translate(-6%, -4%) scale(1); }
+}
+@keyframes drift-b {
+  0%   { transform: translate(6%, 6%) scale(1.1); }
+  50%  { transform: translate(-8%, -6%) scale(0.9); }
+  100% { transform: translate(6%, 6%) scale(1.1); }
+}
+@keyframes drift-c {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-10%, 6%) scale(1.2); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+.aurora-a { animation: drift-a 22s ease-in-out infinite; }
+.aurora-b { animation: drift-b 26s ease-in-out infinite; }
+.aurora-c { animation: drift-c 30s ease-in-out infinite; }
+
+/* floating chemical-formula chips in the hero */
+@keyframes chip-float {
+  0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+  50% { transform: translateY(-14px) rotate(var(--tilt, 0deg)); }
+}
+.chip-float { animation: chip-float 7s ease-in-out infinite; }
+
+/* bubbles rising through the closing CTA, like an active reaction */
+@keyframes bubble-rise {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  12% { opacity: var(--bo, 0.35); }
+  100% { transform: translateY(-115vh) scale(1.35); opacity: 0; }
+}
+.bubble {
+  position: absolute;
+  bottom: -60px;
+  border-radius: 9999px;
+  border: 1px solid rgba(174, 216, 238, 0.5);
+  background: radial-gradient(circle at 32% 30%, rgba(174, 216, 238, 0.28), rgba(174, 216, 238, 0.05));
+  animation: bubble-rise var(--bd, 14s) linear infinite;
+  animation-delay: var(--bdelay, 0s);
+}
+
+/* liquid tint that rises inside a card on hover */
+.liquid-card { position: relative; overflow: hidden; }
+.liquid-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(174, 216, 238, 0.22), rgba(174, 216, 238, 0.04));
+  transform: translateY(101%);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.liquid-card:hover::after { transform: translateY(0); }
+
+/* gentle bounce for the scroll hint */
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+.scroll-hint { animation: scroll-hint 2.2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .aurora-a, .aurora-b, .aurora-c { animation: none; }
+  .chip-float, .bubble, .scroll-hint { animation: none; }
+  .bubble { display: none; }
 }
