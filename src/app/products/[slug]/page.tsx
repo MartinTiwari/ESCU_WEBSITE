@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug, products } from "@/lib/products";
-import { whatsappLink } from "@/lib/site";
+import { site, whatsappLink } from "@/lib/site";
 import Reveal from "@/components/Reveal";
+import { pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -12,7 +13,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) return {};
-  return { title: `${product.name} | Everest Super Chemical Udhyog` };
+  return pageMetadata({
+    title: `${product.name} in Nepal | ${product.useCase}`,
+    description: `${product.description} Wholesale supply of ${product.name.toLowerCase()} across Nepal for ${product.industries.join(", ").toLowerCase()}. Contact ${site.shortName} for pricing and bulk orders.`,
+    keywords: [
+      `${product.name} Nepal`,
+      `${product.name} price Nepal`,
+      `${product.name} supplier Kathmandu`,
+      product.category,
+      product.useCase,
+    ],
+    path: `/products/${product.slug}`,
+  });
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -24,8 +36,27 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     .filter((p) => p.category === product.category && p.slug !== product.slug)
     .slice(0, 4);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    category: product.category,
+    brand: { "@type": "Organization", name: site.name },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "NPR",
+      availability: "https://schema.org/InStock",
+      seller: { "@type": "Organization", name: site.name },
+    },
+  };
+
   return (
     <div className="bg-paper">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Header */}
       <div className="bg-ink text-cream relative overflow-hidden">
         <div className="absolute -right-32 -top-24 w-[420px] h-[420px] bg-emerald/12 rounded-full blur-[110px]" />

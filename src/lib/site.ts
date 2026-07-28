@@ -3,6 +3,7 @@ export const site = {
   shortName: "ESCU",
   tagline:
     "Trusted supplier of water treatment chemicals, pool and housekeeping products, catering fuel, and allied supplies from machine oils to test kits, serving hotels, resorts, hospitals, and industries across Nepal.",
+  url: "https://www.everestsuperchemical.com.np",
   yearsInOperation: 35,
   phone: "01-4543654",
   whatsapp: "+9779768380800",

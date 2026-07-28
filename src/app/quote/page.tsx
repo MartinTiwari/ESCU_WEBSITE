@@ -3,8 +3,14 @@ import QuoteForm from "@/components/QuoteForm";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
 import { site } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Get a Quote | Everest Super Chemical Udhyog" };
+export const metadata = pageMetadata({
+  title: "Get a Chemical Supply Quote | Bulk & Wholesale Pricing Nepal",
+  description: "Request a no-obligation quote for water treatment, swimming pool, or housekeeping chemicals. Bulk and B2B rates available, with same-day replies during business hours.",
+  keywords: ["chemical price quote Nepal", "bulk chemical order Nepal", "wholesale chemical pricing Nepal"],
+  path: "/quote",
+});
 
 export default function QuotePage() {
   return (

@@ -1,8 +1,14 @@
 import { site, whatsappLink } from "@/lib/site";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Contact | Everest Super Chemical Udhyog" };
+export const metadata = pageMetadata({
+  title: "Contact Us | Chemical Supplier in Kathmandu, Nepal",
+  description: `Contact ${site.name} for chemical supply pricing, bulk orders, and technical enquiries. Phone, WhatsApp, and email support based in ${site.address}.`,
+  keywords: ["chemical supplier contact Nepal", "chemical supplier Kathmandu phone", "ESCU contact"],
+  path: "/contact",
+});
 
 const methods = [
   {

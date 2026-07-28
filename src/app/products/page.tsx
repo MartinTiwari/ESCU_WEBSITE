@@ -3,8 +3,22 @@ import { categories, products } from "@/lib/products";
 import { whatsappLink } from "@/lib/site";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Products | Everest Super Chemical Udhyog" };
+export const metadata = pageMetadata({
+  title: "Chemical Products Catalogue | Water Treatment, Pool & Housekeeping",
+  description: `Browse ${products.length}+ chemical products across water treatment, swimming pool, and housekeeping categories. Wholesale pricing and bulk supply for hotels, hospitals, and industries across Nepal.`,
+  keywords: [
+    "chemical products Nepal",
+    "water treatment chemicals price Nepal",
+    "swimming pool chemicals Nepal",
+    "PAC powder Nepal",
+    "liquid chlorine Nepal",
+    "caustic soda flakes Nepal",
+    "housekeeping chemicals Nepal",
+  ],
+  path: "/products",
+});
 
 export default async function ProductsPage({
   searchParams,

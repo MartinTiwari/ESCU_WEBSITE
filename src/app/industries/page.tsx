@@ -2,8 +2,19 @@ import { industries, products } from "@/lib/products";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
 import ProductCard from "@/components/ProductCard";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Industries We Serve | Everest Super Chemical Udhyog" };
+export const metadata = pageMetadata({
+  title: "Industries We Serve | Hotels, Hospitals & Water Treatment Plants",
+  description: "ESCU supplies chemicals to hotels, resorts, hospitals, restaurants, industrial plants, and water treatment facilities across Nepal, matched to each industry's needs.",
+  keywords: [
+    "chemical supplier hotels Nepal",
+    "chemical supplier hospitals Nepal",
+    "industrial chemical supply Nepal",
+    "water treatment plant chemicals Nepal",
+  ],
+  path: "/industries",
+});
 
 export default function IndustriesPage() {
   const served = industries.filter((ind) => products.some((p) => p.industries.includes(ind)));

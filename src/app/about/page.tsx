@@ -2,8 +2,19 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "About Us | Everest Super Chemical Udhyog" };
+export const metadata = pageMetadata({
+  title: "About Us | Chemical Supplier in Kathmandu, Nepal",
+  description: `${site.name} (ESCU) has supplied water treatment, swimming pool, and housekeeping chemicals to hotels, hospitals, and industries across Nepal for ${site.yearsInOperation}+ years. Wholesale pricing, technical support, nationwide delivery.`,
+  keywords: [
+    "chemical company Nepal",
+    "chemical supplier Kathmandu",
+    "industrial chemical distributor Nepal",
+    "about Everest Super Chemical Udhyog",
+  ],
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

@@ -29,11 +29,70 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${site.name} (${site.shortName}) | Chemical Supplier in Nepal`,
+  metadataBase: new URL(site.url),
+  title: {
+    default: `${site.name} (${site.shortName}) | Chemical Supplier in Nepal`,
+    template: `%s | ${site.shortName}`,
+  },
   description: site.tagline,
+  keywords: [
+    "chemical supplier Nepal",
+    "industrial chemicals Nepal",
+    "water treatment chemicals Nepal",
+    "swimming pool chemicals Nepal",
+    "housekeeping chemicals Nepal",
+    "chemical supplier Kathmandu",
+    "PAC powder Nepal",
+    "liquid chlorine Nepal",
+    "caustic soda Nepal",
+    "alum Nepal",
+  ],
+  authors: [{ name: site.name }],
+  creator: site.name,
+  alternates: { canonical: site.url },
+  openGraph: {
+    title: `${site.name} (${site.shortName}) | Chemical Supplier in Nepal`,
+    description: site.tagline,
+    url: site.url,
+    siteName: site.name,
+    images: [{ url: "/logo-white.png" }],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} (${site.shortName}) | Chemical Supplier in Nepal`,
+    description: site.tagline,
+    images: ["/logo-white.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
 };
 
 export const viewport = { themeColor: "#0b1d19" };
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.name,
+  alternateName: site.shortName,
+  url: site.url,
+  logo: `${site.url}/logo-mark.png`,
+  description: site.tagline,
+  telephone: site.phone,
+  email: site.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address,
+    addressLocality: "Kathmandu",
+    addressCountry: "NP",
+  },
+  areaServed: "NP",
+  sameAs: [] as string[],
+};
 
 export default function RootLayout({
   children,
@@ -46,6 +105,10 @@ export default function RootLayout({
       className={`${inter.variable} ${fraunces.variable} ${spaceMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Header />
         <PageBondProgress />
         <main className="flex-1">{children}</main>
