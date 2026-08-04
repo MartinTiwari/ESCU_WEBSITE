@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import CountUp from "@/components/CountUp";
 import Contours from "@/components/Contours";
 import IntroReveal from "@/components/IntroReveal";
+import CategoryIcon from "@/components/CategoryIcon";
 
 const formulas = [
   ["NaOCl", "Liquid Chlorine"],
@@ -53,7 +54,7 @@ export default function Home() {
             <div className="flex items-center gap-4 mb-9">
               <span className="w-8 h-px bg-emerald-bright/50" />
               <span className="eyebrow text-emerald-bright/85">
-                Est. BS 2058 &nbsp;·&nbsp; Gokarneshor, Kathmandu
+                Est. BS 2058 &nbsp;·&nbsp; Banshidhar Marg, Kathmandu
               </span>
             </div>
 
@@ -72,7 +73,7 @@ export default function Home() {
                 Precision chemistry. Dependable supply.
               </p>
               <p className="text-cream/55 text-base md:text-lg leading-relaxed">
-                One counter in Kathmandu. Three decades of supply. Hotels, hospitals,
+                One warehouse in Kathmandu. Three decades of supply. Hotels, hospitals,
                 water plants, and pools across Nepal, all ordering from the same place.
               </p>
             </div>
@@ -146,14 +147,14 @@ export default function Home() {
               </div>
               <h2 className="font-display text-3xl md:text-[2.8rem] leading-[1.08] tracking-[-0.015em] mb-8 max-w-2xl">
                 Clean water, spotless rooms, running plants.{" "}
-                <span className="text-ink/38">All from one counter in Kathmandu.</span>
+                <span className="text-ink/38">All from one warehouse in Kathmandu.</span>
               </h2>
               <div className="space-y-5 text-ink/60 text-lg leading-relaxed max-w-xl mb-14">
                 <p>
                   Everest Super Chemical Udhyog has supplied water treatment plants, hotels,
                   hospital washrooms, and swimming pools across Nepal for over three decades.
-                  The same families of chemicals, reliably sourced, correctly graded, and
-                  delivered on schedule.
+                  The same families of chemicals, made in our own factory or imported
+                  direct, correctly graded, and delivered on schedule.
                 </p>
                 <p>
                   We offer wholesale pricing, technical guidance on dosing and application,
@@ -214,8 +215,8 @@ export default function Home() {
                     href={`/products?category=${encodeURIComponent(cat)}`}
                     className="group grid grid-cols-[48px_1fr_auto] md:grid-cols-[48px_1fr_340px_80px] gap-6 md:gap-10 py-8 md:py-10 border-b border-[var(--ink-line)] items-center hover:border-emerald-bright/50 transition-colors"
                   >
-                    <span className="font-mono text-xl text-emerald-bright/50 group-hover:text-emerald-bright transition-colors">
-                      {String(i + 1).padStart(2, "0")}
+                    <span className="w-11 h-11 rounded-full border border-[var(--ink-line)] grid place-items-center text-emerald-bright/60 group-hover:text-emerald-bright group-hover:border-emerald-bright/50 transition-colors shrink-0">
+                      <CategoryIcon category={cat} />
                     </span>
                     <div>
                       <div className="font-display text-2xl md:text-3xl text-cream group-hover:text-emerald-bright transition-colors leading-tight mb-1">
@@ -370,7 +371,7 @@ export default function Home() {
                   Work with us →
                 </Link>
                 <Link href="/contact" className="text-cream/60 hover:text-cream text-sm font-medium text-center link-ul">
-                  Or just call the counter
+                  Or just give us a call
                 </Link>
                 <a href={`tel:${site.phone}`} className="font-display text-2xl text-cream/80 hover:text-cream transition-colors text-center">
                   {site.phone}

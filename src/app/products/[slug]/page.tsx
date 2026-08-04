@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getProductBySlug, products } from "@/lib/products";
 import { site, whatsappLink } from "@/lib/site";
 import Reveal from "@/components/Reveal";
+import CategoryIcon from "@/components/CategoryIcon";
 import { pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -67,7 +68,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <Reveal>
             <div className="mt-8">
               <div className="eyebrow text-amber mb-5 flex items-center gap-3">
-                <span className="w-6 h-px bg-amber" />
+                <CategoryIcon category={product.category} className="w-4 h-4" />
                 {product.category}
               </div>
               <h1 className="font-display font-medium text-4xl md:text-6xl leading-[1.02] tracking-[-0.02em] mb-5">

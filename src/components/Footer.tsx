@@ -41,6 +41,7 @@ export default function Footer() {
         <div>
           <div className="eyebrow text-emerald-bright mb-4">Where</div>
           <p className="text-sm leading-relaxed">{site.address}</p>
+          <p className="text-sm mt-3 text-cream/45">{site.hours}</p>
           <p className="text-sm mt-3 text-cream/45">Deliveries nationwide across Nepal.</p>
         </div>
       </div>
