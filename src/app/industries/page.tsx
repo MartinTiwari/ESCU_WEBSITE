@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { industries, products } from "@/lib/products";
+import { photos, industryPhoto } from "@/lib/photos";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
 import ProductCard from "@/components/ProductCard";
@@ -25,6 +27,7 @@ export default function IndustriesPage() {
         eyebrow="Applications"
         title={<>Built for the operations <span className="italic text-emerald-bright">that depend on us.</span></>}
         sub="From hospitality to industrial water treatment, ESCU supplies the chemicals your operation runs on. Jump to your industry to see relevant products."
+        bgImage={photos.hero}
       >
         <div className="flex flex-wrap gap-x-6 gap-y-2 mt-8">
           {served.map((ind, i) => (
@@ -41,10 +44,21 @@ export default function IndustriesPage() {
           return (
             <section key={ind} id={ind} className="scroll-mt-24">
               <Reveal>
-                <div className="flex items-end justify-between mb-8 pb-4 border-b border-line">
-                  <div>
-                    <div className="eyebrow text-emerald mb-2">{String(idx + 1).padStart(2, "0")} / Industry</div>
-                    <h2 className="font-display text-3xl md:text-4xl text-ink">{ind}</h2>
+                <div className="flex items-end justify-between gap-6 mb-8 pb-4 border-b border-line">
+                  <div className="flex items-center gap-5">
+                    <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden shrink-0">
+                      <Image
+                        src={industryPhoto[ind]}
+                        alt=""
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <div className="eyebrow text-emerald mb-2">{String(idx + 1).padStart(2, "0")} / Industry</div>
+                      <h2 className="font-display text-3xl md:text-4xl text-ink">{ind}</h2>
+                    </div>
                   </div>
                   <span className="eyebrow text-muted whitespace-nowrap">
                     {items.length} {items.length === 1 ? "product" : "products"}

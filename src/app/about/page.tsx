@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { photos } from "@/lib/photos";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
 import { pageMetadata } from "@/lib/seo";
@@ -22,6 +24,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="35+ Years · Kathmandu"
         title={<>Three and a half decades of <span className="italic text-emerald-bright">keeping Nepal supplied.</span></>}
+        bgImage={photos.aboutHeaderBg}
       />
 
       <div className="max-w-5xl mx-auto px-5 py-16">
@@ -76,19 +79,38 @@ export default function AboutPage() {
           <div className="eyebrow text-emerald mb-3">01 / What you get</div>
           <h2 className="font-display text-3xl md:text-4xl text-ink mb-8">Why choose us</h2>
         </Reveal>
-        <div className="grid sm:grid-cols-2 border-t border-l border-line mb-20">
-          {site.whyChooseUs.map((item, i) => (
-            <Reveal key={item} delay={Math.min(i * 0.04, 0.3)}>
-              <div className="flex items-start gap-3.5 border-b border-r border-line px-6 py-5 h-full">
-                <span className="w-5 h-5 rounded-full bg-emerald/12 text-emerald grid place-items-center mt-0.5 shrink-0">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-3 h-3">
-                    <path d="M4.5 12.5 9.5 17.5 19.5 6.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                <span className="text-ink">{item}</span>
-              </div>
-            </Reveal>
-          ))}
+
+        <div className="grid md:grid-cols-[1fr_1.1fr] gap-8 mb-20 items-stretch">
+          <div className="grid sm:grid-cols-2 border-t border-l border-line">
+            {site.whyChooseUs.map((item, i) => (
+              <Reveal key={item} delay={Math.min(i * 0.04, 0.3)}>
+                <div className="flex items-start gap-3.5 border-b border-r border-line px-6 py-5 h-full">
+                  <span className="w-5 h-5 rounded-full bg-emerald/12 text-emerald grid place-items-center mt-0.5 shrink-0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-3 h-3">
+                      <path d="M4.5 12.5 9.5 17.5 19.5 6.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  <span className="text-ink">{item}</span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={0.15}>
+            <div className="relative rounded-2xl overflow-hidden h-full min-h-64">
+              <Image
+                src={photos.labQuality}
+                alt="Quality control on a batch before dispatch"
+                fill
+                sizes="(min-width: 768px) 45vw, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/0 to-ink/0" />
+              <span className="eyebrow absolute bottom-4 left-5 text-cream/85">
+                Every batch checked before it ships
+              </span>
+            </div>
+          </Reveal>
         </div>
 
         <Reveal>

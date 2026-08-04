@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { site, whatsappLink } from "@/lib/site";
+import { photos } from "@/lib/photos";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
 import { pageMetadata } from "@/lib/seo";
@@ -62,6 +64,7 @@ export default function ContactPage() {
         eyebrow="Contact"
         title={<>Talk to a <span className="italic text-emerald-bright">real supplier.</span></>}
         sub="No call centre, no ticket number. You reach the same people who pack the order and load the truck."
+        bgImage={photos.warehouse}
       />
 
       <div className="max-w-6xl mx-auto px-5 py-16">
@@ -111,9 +114,19 @@ export default function ContactPage() {
 
         <div className="grid md:grid-cols-[1fr_1.4fr] gap-8 items-stretch">
           <Reveal>
-            <div className="bg-ink text-cream rounded-2xl p-8 h-full flex flex-col justify-between relative overflow-hidden">
+            <div className="bg-ink text-cream rounded-2xl h-full flex flex-col justify-between relative overflow-hidden">
+              <div className="relative h-40 shrink-0">
+                <Image
+                  src={photos.warehouseDispatch}
+                  alt="Orders being pulled and packed at the ESCU warehouse"
+                  fill
+                  sizes="(min-width: 768px) 40vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-ink/0" />
+              </div>
               <div className="absolute -right-16 -top-16 w-52 h-52 bg-emerald/20 rounded-full blur-[80px]" />
-              <div className="relative">
+              <div className="relative px-8 pb-8 -mt-6">
                 <div className="eyebrow text-emerald-bright text-[0.58rem] mb-4">The warehouse</div>
                 <p className="font-display text-2xl leading-snug mb-4">{site.address}</p>
                 <p className="flex items-center gap-2.5 text-cream/70 text-sm mb-4">
@@ -128,7 +141,7 @@ export default function ContactPage() {
                   load it onto a truck. We deliver to every corner of Nepal.
                 </p>
               </div>
-              <div className="relative mt-8 pt-6 border-t border-[var(--ink-line)]">
+              <div className="relative px-8 pb-8 pt-6 border-t border-[var(--ink-line)]">
                 <p className="text-cream/45 text-sm leading-relaxed">
                   Supplying hotels, hospitals, pools, and treatment plants from this
                   address for over {site.yearsInOperation} years.

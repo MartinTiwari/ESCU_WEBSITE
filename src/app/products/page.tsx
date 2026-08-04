@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { categories, products } from "@/lib/products";
 import { whatsappLink } from "@/lib/site";
+import { photos, categoryPhoto } from "@/lib/photos";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
 import CategoryIcon from "@/components/CategoryIcon";
@@ -35,6 +37,7 @@ export default async function ProductsPage({
         eyebrow="Catalogue"
         title={<>Everything we supply, <span className="italic text-emerald-bright">in one place.</span></>}
         sub={`${products.length} products across ${categories.length} categories. Pricing is quote-based — ask us for current rates and bulk discounts.`}
+        bgImage={photos.drums}
       />
 
       {/* Filter tabs */}
@@ -62,9 +65,12 @@ export default async function ProductsPage({
                 <section>
                   {/* Category header */}
                   <div className="flex items-end justify-between gap-6 mb-2 pb-5 border-b-2 border-ink">
-                    <div className="flex items-baseline gap-5">
-                      <span className="w-10 h-10 rounded-full bg-emerald/10 text-emerald grid place-items-center shrink-0 -mb-1">
-                        <CategoryIcon category={cat} className="w-[18px] h-[18px]" />
+                    <div className="flex items-center gap-5">
+                      <span className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0">
+                        <Image src={categoryPhoto[cat]} alt="" fill sizes="48px" className="object-cover" />
+                        <span className="absolute inset-0 bg-ink/30 grid place-items-center text-cream">
+                          <CategoryIcon category={cat} className="w-[16px] h-[16px]" />
+                        </span>
                       </span>
                       <h2 className="font-display text-2xl md:text-3xl text-ink">{cat}</h2>
                     </div>

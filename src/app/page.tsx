@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { categories, industries, products } from "@/lib/products";
+import { photos, categoryPhoto } from "@/lib/photos";
 import Reveal from "@/components/Reveal";
 import CountUp from "@/components/CountUp";
 import Contours from "@/components/Contours";
@@ -40,6 +42,14 @@ export default function Home() {
       <section id="hero" className="relative bg-ink text-cream overflow-hidden min-h-screen flex flex-col">
         {/* topographic contour background */}
         <div className="absolute inset-0">
+          <Image
+            src={photos.hero}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-[0.22] mix-blend-luminosity"
+          />
           <Contours />
           {/* warm summit glow */}
           <div className="absolute right-[6%] top-[14%] h-[52vh] w-[52vh] rounded-full bg-emerald/20 blur-[140px]" />
@@ -213,10 +223,19 @@ export default function Home() {
                 <Reveal key={cat} delay={i * 0.08}>
                   <Link
                     href={`/products?category=${encodeURIComponent(cat)}`}
-                    className="group grid grid-cols-[48px_1fr_auto] md:grid-cols-[48px_1fr_340px_80px] gap-6 md:gap-10 py-8 md:py-10 border-b border-[var(--ink-line)] items-center hover:border-emerald-bright/50 transition-colors"
+                    className="group grid grid-cols-[64px_1fr_auto] md:grid-cols-[64px_1fr_340px_80px] gap-6 md:gap-10 py-8 md:py-10 border-b border-[var(--ink-line)] items-center hover:border-emerald-bright/50 transition-colors"
                   >
-                    <span className="w-11 h-11 rounded-full border border-[var(--ink-line)] grid place-items-center text-emerald-bright/60 group-hover:text-emerald-bright group-hover:border-emerald-bright/50 transition-colors shrink-0">
-                      <CategoryIcon category={cat} />
+                    <span className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0">
+                      <Image
+                        src={categoryPhoto[cat]}
+                        alt=""
+                        fill
+                        sizes="64px"
+                        className="object-cover opacity-70 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500"
+                      />
+                      <span className="absolute inset-0 bg-ink/35 grid place-items-center text-emerald-bright/80">
+                        <CategoryIcon category={cat} />
+                      </span>
                     </span>
                     <div>
                       <div className="font-display text-2xl md:text-3xl text-cream group-hover:text-emerald-bright transition-colors leading-tight mb-1">

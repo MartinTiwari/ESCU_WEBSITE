@@ -6,6 +6,18 @@ const nextConfig: NextConfig = {
   },
   // hide the little Next.js dev-tools indicator button
   devIndicators: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.pexels.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
