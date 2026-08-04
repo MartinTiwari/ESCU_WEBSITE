@@ -19,7 +19,11 @@ export async function POST(req: NextRequest) {
 
   try {
     await resend.emails.send({
-      from: process.env.QUOTE_FROM_EMAIL || "ESCU Website <onboarding@resend.dev>",
+      // Must be an address on a domain verified in Resend. The old default was
+      // Resend's shared sandbox (onboarding@resend.dev), which only delivers to
+      // the Resend account owner — quote requests to any other inbox were
+      // silently rejected.
+      from: process.env.QUOTE_FROM_EMAIL || `ESCU Website <quotes@${new URL(site.url).hostname.replace(/^www\./, "")}>`,
       to: site.email,
       replyTo: email || undefined,
       subject: `New Quote Request from ${name}${company ? ` (${company})` : ""}`,
