@@ -30,9 +30,15 @@ export default function AboutPage() {
             <div className="space-y-5 text-fg text-lg leading-relaxed">
               <p>
                 <span className="font-display text-2xl text-ink">Everest Super Chemical Udhyog (ESCU)</span> is
-                a Kathmandu-based supplier of water treatment chemicals, swimming pool solutions,
-                housekeeping products, and catering fuel, serving hotels, resorts, hospitals, and
-                industries across Nepal.
+                a Kathmandu-based manufacturer and supplier of water treatment chemicals, swimming
+                pool solutions, housekeeping products, and catering fuel, serving hotels, resorts,
+                hospitals, and industries across Nepal.
+              </p>
+              <p>
+                Part of what we sell we make ourselves. The rest we import directly. That means
+                we control the grade you receive rather than passing along whatever a middleman
+                had in stock, and it is why we can quote on bulk without the price drifting
+                between orders.
               </p>
               <p>
                 With {site.yearsInOperation}+ years in the trade, we&apos;ve built long-term supply
@@ -54,6 +60,19 @@ export default function AboutPage() {
         </div>
 
         <Reveal>
+          <blockquote className="relative border-l-2 border-emerald pl-7 md:pl-9 py-1 mb-20 max-w-2xl">
+            <span className="absolute -left-[22px] md:-left-[26px] -top-3 font-display text-6xl md:text-7xl text-emerald/25 select-none" aria-hidden>
+              &ldquo;
+            </span>
+            <p className="font-display italic text-2xl md:text-[1.75rem] leading-snug text-ink/85">
+              We still pick up the phone ourselves. If you call ESCU, you are talking to
+              someone who knows the difference between PAC and alum without looking it up.
+            </p>
+            <footer className="eyebrow text-muted text-[0.6rem] mt-5">— The ESCU team, Banshidhar Marg</footer>
+          </blockquote>
+        </Reveal>
+
+        <Reveal>
           <div className="eyebrow text-emerald mb-3">01 / What you get</div>
           <h2 className="font-display text-3xl md:text-4xl text-ink mb-8">Why choose us</h2>
         </Reveal>
@@ -61,8 +80,10 @@ export default function AboutPage() {
           {site.whyChooseUs.map((item, i) => (
             <Reveal key={item} delay={Math.min(i * 0.04, 0.3)}>
               <div className="flex items-start gap-3.5 border-b border-r border-line px-6 py-5 h-full">
-                <span className="eyebrow text-emerald text-[0.62rem] mt-1 shrink-0">
-                  {String(i + 1).padStart(2, "0")}
+                <span className="w-5 h-5 rounded-full bg-emerald/12 text-emerald grid place-items-center mt-0.5 shrink-0">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-3 h-3">
+                    <path d="M4.5 12.5 9.5 17.5 19.5 6.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </span>
                 <span className="text-ink">{item}</span>
               </div>

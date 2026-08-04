@@ -3,6 +3,7 @@ import { categories, products } from "@/lib/products";
 import { whatsappLink } from "@/lib/site";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
+import CategoryIcon from "@/components/CategoryIcon";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -62,8 +63,8 @@ export default async function ProductsPage({
                   {/* Category header */}
                   <div className="flex items-end justify-between gap-6 mb-2 pb-5 border-b-2 border-ink">
                     <div className="flex items-baseline gap-5">
-                      <span className="eyebrow text-muted text-[0.58rem]">
-                        {String(categories.indexOf(cat) + 1).padStart(2, "0")}
+                      <span className="w-10 h-10 rounded-full bg-emerald/10 text-emerald grid place-items-center shrink-0 -mb-1">
+                        <CategoryIcon category={cat} className="w-[18px] h-[18px]" />
                       </span>
                       <h2 className="font-display text-2xl md:text-3xl text-ink">{cat}</h2>
                     </div>

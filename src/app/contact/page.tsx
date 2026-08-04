@@ -12,7 +12,7 @@ export const metadata = pageMetadata({
 
 const methods = [
   {
-    label: "Call the counter",
+    label: "Call us",
     value: site.phone,
     helper: "Most of our orders still start with a phone call. Ring us and ask.",
     href: `tel:${site.phone}`,
@@ -100,7 +100,7 @@ export default function ContactPage() {
           ))}
         </div>
 
-        {/* ── Find the counter ──────────────────────── */}
+        {/* ── Find the warehouse ────────────────────── */}
         <Reveal>
           <div className="flex items-baseline gap-3 mb-8">
             <span className="eyebrow text-emerald text-[0.62rem]">02 / Find us</span>
@@ -114,11 +114,18 @@ export default function ContactPage() {
             <div className="bg-ink text-cream rounded-2xl p-8 h-full flex flex-col justify-between relative overflow-hidden">
               <div className="absolute -right-16 -top-16 w-52 h-52 bg-emerald/20 rounded-full blur-[80px]" />
               <div className="relative">
-                <div className="eyebrow text-emerald-bright text-[0.58rem] mb-4">The shop</div>
+                <div className="eyebrow text-emerald-bright text-[0.58rem] mb-4">The warehouse</div>
                 <p className="font-display text-2xl leading-snug mb-4">{site.address}</p>
+                <p className="flex items-center gap-2.5 text-cream/70 text-sm mb-4">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4 shrink-0 text-emerald-bright">
+                    <circle cx="12" cy="12" r="8.5" />
+                    <path d="M12 7.5V12l3 1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {site.hours}
+                </p>
                 <p className="text-cream/55 text-sm leading-relaxed">
-                  Come by the counter and talk it through in person, or let us load
-                  it onto a truck. We deliver to every corner of Nepal.
+                  This is where the stock sits. Collect your order here, or let us
+                  load it onto a truck. We deliver to every corner of Nepal.
                 </p>
               </div>
               <div className="relative mt-8 pt-6 border-t border-[var(--ink-line)]">
@@ -137,7 +144,7 @@ export default function ContactPage() {
                 className="w-full h-full min-h-80 grayscale-[0.2] contrast-[1.05]"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                src={`https://maps.google.com/maps?q=${encodeURIComponent(site.address)}&output=embed`}
+                src={`https://maps.google.com/maps?q=${site.geo.lat},${site.geo.lng}&z=17&output=embed`}
               />
             </div>
           </Reveal>

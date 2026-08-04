@@ -76,21 +76,39 @@ export const viewport = { themeColor: "#0b1d19" };
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": ["Store", "LocalBusiness"],
   name: site.name,
   alternateName: site.shortName,
   url: site.url,
+  image: `${site.url}/logo-mark.png`,
   logo: `${site.url}/logo-mark.png`,
   description: site.tagline,
   telephone: site.phone,
   email: site.email,
+  priceRange: "$$",
   address: {
     "@type": "PostalAddress",
-    streetAddress: site.address,
+    streetAddress: "Banshidhar Marg",
     addressLocality: "Kathmandu",
+    addressRegion: "Bagmati",
+    postalCode: "44600",
     addressCountry: "NP",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: site.geo.lat,
+    longitude: site.geo.lng,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "10:00",
+      closes: "17:00",
+    },
+  ],
   areaServed: "NP",
+  foundingDate: "2001",
   sameAs: [] as string[],
 };
 
