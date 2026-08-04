@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ESCU — Letterhead A4</title>
+    <meta name="hz:slide-selector" content=".letterhead" />
+    <meta name="hz:canvas-width" content="794" />
+    <meta name="hz:canvas-height" content="1123" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap");
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      @page { size: A4; margin: 0; }
+
+      body { background: #d8d8d8; }
+
+      .letterhead {
+        position: relative;
+        width: 210mm;
+        height: 297mm;
+        background: #ffffff;
+        overflow: hidden;
+      }
+
+      /* ── masthead ─────────────────────────────── */
+      .masthead {
+        position: absolute;
+        top: 16mm;
+        left: 18mm;
+        right: 18mm;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+
+      .brand { display: flex; align-items: center; gap: 6mm; }
+
+      .brand img { width: 26mm; height: auto; display: block; }
+
+      .brand-text .name {
+        font-family: "Fraunces", Georgia, serif;
+        font-weight: 500;
+        font-size: 16pt;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: #0b1b28;
+      }
+
+      .brand-text .sub {
+        font-family: "Space Mono", monospace;
+        font-size: 6.4pt;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #2b7aa8;
+        margin-top: 1.6mm;
+      }
+
+      .est {
+        text-align: right;
+        font-family: "Space Mono", monospace;
+        font-size: 6.2pt;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #67736c;
+        line-height: 1.9;
+        padding-top: 1mm;
+      }
+
+      /* ── rules + discipline line ──────────────── */
+      .rule-main {
+        position: absolute;
+        top: 38mm;
+        left: 18mm;
+        right: 18mm;
+        height: 0.6mm;
+        background: #0b1b28;
+      }
+
+      .disciplines {
+        position: absolute;
+        top: 40.5mm;
+        left: 18mm;
+        right: 18mm;
+        font-family: "Inter", sans-serif;
+        font-size: 7.6pt;
+        color: #67736c;
+        letter-spacing: 0.01em;
+      }
+
+      .disciplines b { color: #0b1b28; font-weight: 600; }
+
+      /* ── subtle contour motif, bottom-right ───── */
+      .motif {
+        position: absolute;
+        right: -26mm;
+        bottom: 22mm;
+        width: 90mm;
+        height: 90mm;
+        opacity: 0.5;
+      }
+
+      /* ── footer ───────────────────────────────── */
+      .rule-foot {
+        position: absolute;
+        bottom: 24mm;
+        left: 18mm;
+        right: 18mm;
+        height: 0.35mm;
+        background: #aed8ee;
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 11mm;
+        left: 18mm;
+        right: 18mm;
+        display: flex;
+        justify-content: space-between;
+        gap: 8mm;
+        font-family: "Inter", sans-serif;
+        font-size: 7.2pt;
+        line-height: 1.55;
+        color: #4a5a53;
+      }
+
+      .footer .lbl {
+        font-family: "Space Mono", monospace;
+        font-size: 5.6pt;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #2b7aa8;
+        display: block;
+        margin-bottom: 0.8mm;
+      }
+
+      .footer a { color: inherit; text-decoration: none; }
+      .footer .col:last-child { text-align: right; }
+    </style>
+  </head>
+  <body>
+    <div class="letterhead" data-canvas-width="794" data-canvas-height="1123">
+      <!-- contour motif echoing the site hero -->
+      <svg class="motif" viewBox="0 0 300 300" fill="none">
+        <g stroke="#aed8ee" fill="none" transform="translate(150 150)">
+          <path d="M0,-72 C34,-72 66,-46 66,-8 C66,26 40,58 4,60 C-32,62 -66,40 -66,2 C-66,-34 -34,-72 0,-72 Z" stroke-opacity="0.85" stroke-width="0.7" transform="scale(0.5)" />
+          <path d="M0,-72 C34,-72 66,-46 66,-8 C66,26 40,58 4,60 C-32,62 -66,40 -66,2 C-66,-34 -34,-72 0,-72 Z" stroke-opacity="0.7" stroke-width="0.7" transform="scale(0.95)" />
+          <path d="M0,-72 C34,-72 66,-46 66,-8 C66,26 40,58 4,60 C-32,62 -66,40 -66,2 C-66,-34 -34,-72 0,-72 Z" stroke-opacity="0.55" stroke-width="0.7" transform="scale(1.45)" />
+          <path d="M0,-72 C34,-72 66,-46 66,-8 C66,26 40,58 4,60 C-32,62 -66,40 -66,2 C-66,-34 -34,-72 0,-72 Z" stroke-opacity="0.4" stroke-width="0.7" transform="scale(1.95)" />
+        </g>
+      </svg>
+
+      <header class="masthead">
+        <div class="brand">
+          <img src="__LOGO_B64__" alt="" />
+          <div class="brand-text">
+            <div class="name">Everest Super Chemical Udhyog</div>
+            <div class="sub">Manufacturer &amp; Supplier of Industrial Chemicals</div>
+          </div>
+        </div>
+        <div class="est">
+          Est. BS 2058<br />
+          Kathmandu, Nepal
+        </div>
+      </header>
+
+      <div class="rule-main"></div>
+      <div class="disciplines">
+        <b>Water Treatment</b> &nbsp;·&nbsp; <b>Swimming Pool</b> &nbsp;·&nbsp;
+        <b>Housekeeping &amp; Cleaning Chemicals</b> &nbsp;·&nbsp; Allied Supplies
+      </div>
+
+      <div class="rule-foot"></div>
+      <footer class="footer">
+        <div class="col">
+          <span class="lbl">Warehouse</span>
+          Banshidhar Marg, Kathmandu 44600, Nepal
+        </div>
+        <div class="col">
+          <span class="lbl">Telephone</span>
+          01-4543654 &nbsp;·&nbsp; WhatsApp +977 9768380800
+        </div>
+        <div class="col">
+          <span class="lbl">Online</span>
+          info@everestsuperchemical.com.np<br />
+          www.everestsuperchemical.com.np
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
