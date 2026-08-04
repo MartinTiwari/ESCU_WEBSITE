@@ -8,7 +8,9 @@ export const site = {
   phone: "01-4543654",
   whatsapp: "+9779768380800",
   whatsappDisplay: "+977 9768380800",
-  email: "everestchem.np@gmail.com",
+  // Routed by Cloudflare Email Routing to everestchem.np@gmail.com. Proven
+  // working — Google's Business Profile verification code arrived this way.
+  email: "info@everestsuperchemical.com.np",
   address: "Banshidhar Marg, Kathmandu 44600, Nepal",
   // Exact pin from the Google Maps listing — used for the embed and for
   // the LocalBusiness geo coordinates, so the map never mis-geocodes.
