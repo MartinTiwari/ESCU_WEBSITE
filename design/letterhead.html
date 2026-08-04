@@ -77,19 +77,6 @@
         background: #0b1b28;
       }
 
-      .disciplines {
-        position: absolute;
-        top: 40.5mm;
-        left: 18mm;
-        right: 18mm;
-        font-family: "Inter", sans-serif;
-        font-size: 7.6pt;
-        color: #67736c;
-        letter-spacing: 0.01em;
-      }
-
-      .disciplines b { color: #0b1b28; font-weight: 600; }
-
       /* ── subtle contour motif, bottom-right ───── */
       .motif {
         position: absolute;
@@ -130,12 +117,26 @@
         letter-spacing: 0.18em;
         text-transform: uppercase;
         color: #2b7aa8;
-        display: block;
-        margin-bottom: 0.8mm;
+        display: flex;
+        align-items: center;
+        gap: 1.4mm;
+        margin-bottom: 1mm;
+      }
+
+      .footer .lbl svg {
+        width: 2.9mm;
+        height: 2.9mm;
+        flex: none;
+        stroke: #2b7aa8;
+        fill: none;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       .footer a { color: inherit; text-decoration: none; }
       .footer .col:last-child { text-align: right; }
+      .footer .col:last-child .lbl { justify-content: flex-end; }
     </style>
   </head>
   <body>
@@ -165,23 +166,28 @@
       </header>
 
       <div class="rule-main"></div>
-      <div class="disciplines">
-        <b>Water Treatment</b> &nbsp;·&nbsp; <b>Swimming Pool</b> &nbsp;·&nbsp;
-        <b>Housekeeping &amp; Cleaning Chemicals</b> &nbsp;·&nbsp; Allied Supplies
-      </div>
 
       <div class="rule-foot"></div>
       <footer class="footer">
         <div class="col">
-          <span class="lbl">Warehouse</span>
+          <span class="lbl">
+            <svg viewBox="0 0 24 24"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z" /><circle cx="12" cy="10" r="2.6" /></svg>
+            Warehouse
+          </span>
           Banshidhar Marg, Kathmandu 44600, Nepal
         </div>
         <div class="col">
-          <span class="lbl">Telephone</span>
+          <span class="lbl">
+            <svg viewBox="0 0 24 24"><path d="M4.5 4h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5L14 13l4 1.5v3a1.5 1.5 0 0 1-1.7 1.5A15.5 15.5 0 0 1 3 6.2 1.5 1.5 0 0 1 4.5 4Z" /></svg>
+            Telephone
+          </span>
           01-4543654 &nbsp;·&nbsp; WhatsApp +977 9768380800
         </div>
         <div class="col">
-          <span class="lbl">Online</span>
+          <span class="lbl">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2" /><path d="m3.8 6.8 8.2 6 8.2-6" /></svg>
+            Online
+          </span>
           info@everestsuperchemical.com.np<br />
           www.everestsuperchemical.com.np
         </div>
