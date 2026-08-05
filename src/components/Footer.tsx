@@ -20,7 +20,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <div className="eyebrow text-emerald-bright mb-4">Explore</div>
+          <div className="eyebrow text-amber-bright mb-4">Explore</div>
           <ul className="space-y-2.5 text-sm">
             <li><Link href="/products" className="hover:text-cream transition-colors">Products</Link></li>
             <li><Link href="/industries" className="hover:text-cream transition-colors">Industries</Link></li>
@@ -30,7 +30,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <div className="eyebrow text-emerald-bright mb-4">Reach us</div>
+          <div className="eyebrow text-amber-bright mb-4">Reach us</div>
           <ul className="space-y-2.5 text-sm">
             <li><a href={`tel:${site.phone}`} className="hover:text-cream transition-colors">{site.phone}</a></li>
             <li><a href={whatsappLink()} className="hover:text-cream transition-colors">WhatsApp {site.whatsappDisplay}</a></li>
@@ -39,7 +39,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <div className="eyebrow text-emerald-bright mb-4">Where</div>
+          <div className="eyebrow text-amber-bright mb-4">Where</div>
           <p className="text-sm leading-relaxed">{site.address}</p>
           <p className="text-sm mt-3 text-cream/45">{site.hours}</p>
           <p className="text-sm mt-3 text-cream/45">Deliveries nationwide across Nepal.</p>

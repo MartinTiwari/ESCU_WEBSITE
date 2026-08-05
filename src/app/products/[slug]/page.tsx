@@ -60,14 +60,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       />
       {/* Header */}
       <div className="bg-ink text-cream relative overflow-hidden">
-        <div className="absolute -right-32 -top-24 w-[420px] h-[420px] bg-emerald/12 rounded-full blur-[110px]" />
+        <div className="absolute inset-0 grid-blueprint opacity-30" aria-hidden />
         <div className="max-w-4xl mx-auto px-5 pt-28 pb-14 md:pt-32 md:pb-18 relative">
-          <Link href="/products" className="eyebrow text-cream/40 hover:text-emerald-bright transition-colors text-[0.65rem]">
+          <Link href="/products" className="eyebrow text-cream/40 hover:text-amber-bright transition-colors text-[0.65rem]">
             ← Back to catalogue
           </Link>
           <Reveal>
             <div className="mt-8">
-              <div className="eyebrow text-amber mb-5 flex items-center gap-3">
+              <div className="eyebrow text-amber-bright mb-5 flex items-center gap-3">
                 <CategoryIcon category={product.category} className="w-4 h-4" />
                 {product.category}
               </div>
@@ -85,7 +85,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="grid md:grid-cols-[1fr_260px] gap-12 md:gap-16 items-start">
           <Reveal>
             <div>
-              <div className="eyebrow text-emerald mb-4">About this product</div>
+              <div className="eyebrow text-amber mb-4">About this product</div>
               <p className="text-ink/70 text-lg leading-relaxed mb-10">{product.description}</p>
 
               <div className="eyebrow text-muted mb-4">Suited for</div>
@@ -94,7 +94,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <Link
                     key={ind}
                     href={`/industries#${encodeURIComponent(ind)}`}
-                    className="bg-paper-2 text-ink/70 text-xs font-medium px-4 py-2 rounded-full border border-line hover:border-emerald hover:text-emerald transition-colors"
+                    className="bg-paper-2 text-ink/70 text-xs font-medium px-4 py-2 border border-line hover:border-amber hover:text-amber transition-colors"
                   >
                     {ind}
                   </Link>
@@ -102,10 +102,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <Link
-                  href={`/quote?product=${encodeURIComponent(product.name)}`}
-                  className="group inline-flex items-center gap-2 bg-emerald hover:bg-emerald-bright text-ink transition-all px-7 py-3.5 rounded-full font-semibold text-sm"
-                >
+                <Link href={`/quote?product=${encodeURIComponent(product.name)}`} className="group btn-primary">
                   Get a Quote
                   <span className="transition-transform group-hover:translate-x-1">→</span>
                 </Link>
@@ -113,7 +110,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   href={whatsappLink(`Hi ESCU, I'd like pricing for ${product.name}.`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 border border-line hover:border-emerald transition-all px-7 py-3.5 rounded-full font-semibold text-sm text-ink"
+                  className="btn-secondary"
                 >
                   Ask on WhatsApp
                 </a>
@@ -123,12 +120,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
           {/* Spec card */}
           <Reveal delay={0.1}>
-            <aside className="bg-cream border border-line rounded-2xl p-7 sticky top-28">
-              <div className="eyebrow text-emerald mb-5">Spec sheet</div>
+            <aside className="bg-cream border border-line rounded-md p-7 sticky top-28">
+              <div className="eyebrow text-amber mb-5">Spec sheet</div>
               <dl className="space-y-4">
                 <SpecRow k="Category" v={product.category} />
                 <SpecRow k="Use case" v={product.useCase} />
-                <SpecRow k="Pricing" v="Quote-based" />
+                <SpecRow k="Pricing" v="Ask us for a price" />
                 <SpecRow k="SDS" v={product.sdsAvailable ? "Available" : "On request"} />
               </dl>
               {!product.sdsAvailable && (
@@ -146,7 +143,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <Reveal>
               <div className="flex items-baseline justify-between gap-4 mb-10">
                 <div>
-                  <div className="eyebrow text-emerald mb-2">In the same category</div>
+                  <div className="eyebrow text-amber mb-2">In the same category</div>
                   <h2 className="font-display text-2xl md:text-3xl text-ink">Related products</h2>
                 </div>
                 <Link href={`/products?category=${encodeURIComponent(product.category)}`} className="text-muted text-sm hover:text-ink link-ul shrink-0">
@@ -162,12 +159,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     className="group grid grid-cols-[1fr_auto] gap-4 items-center py-5 border-b border-line hover:bg-cream/70 transition-colors -mx-2 px-2"
                   >
                     <div>
-                      <span className="font-display text-xl text-ink group-hover:text-emerald transition-colors block mb-0.5">
+                      <span className="font-display text-xl text-ink group-hover:text-amber transition-colors block mb-0.5">
                         {p.name}
                       </span>
                       <span className="text-muted text-sm">{p.useCase}</span>
                     </div>
-                    <span className="text-muted group-hover:text-emerald group-hover:translate-x-0.5 transition-all">→</span>
+                    <span className="text-muted group-hover:text-amber group-hover:translate-x-0.5 transition-all">→</span>
                   </Link>
                 </Reveal>
               ))}

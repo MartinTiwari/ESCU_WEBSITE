@@ -53,7 +53,7 @@ export default function Header() {
               >
                 {link.label}
                 {active && (
-                  <span className="absolute bottom-0.5 left-4 right-4 h-px bg-emerald rounded-full" />
+                  <span className="absolute bottom-0.5 left-4 right-4 h-[2px] bg-amber" />
                 )}
               </Link>
             );
@@ -64,7 +64,7 @@ export default function Header() {
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/quote"
-            className="hidden md:inline-flex items-center gap-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.13em] px-5 py-2.5 rounded-lg bg-ink text-cream hover:bg-ink-soft transition-colors"
+            className="hidden md:inline-flex items-center gap-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.13em] px-5 py-2.5 notch-sm bg-ink text-cream hover:bg-amber transition-colors"
           >
             Work with us
           </Link>
@@ -105,13 +105,13 @@ export default function Header() {
                   }`}
                 >
                   {link.label}
-                  {pathname === link.href && <span className="w-1.5 h-1.5 rounded-full bg-emerald" />}
+                  {pathname === link.href && <span className="w-1.5 h-1.5 bg-amber" />}
                 </Link>
               ))}
               <Link
                 href="/quote"
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center mt-3 mb-1 bg-ink text-cream text-[0.72rem] font-semibold uppercase tracking-[0.13em] py-3.5 rounded-lg hover:bg-ink-soft transition-colors"
+                className="flex items-center justify-center mt-3 mb-1 bg-ink text-cream text-[0.72rem] font-semibold uppercase tracking-[0.13em] py-3.5 notch-sm hover:bg-amber transition-colors"
               >
                 Work with us
               </Link>

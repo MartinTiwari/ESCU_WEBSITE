@@ -45,7 +45,7 @@ const methods = [
   {
     label: "Send an email",
     value: site.email,
-    helper: "Best for tender documents, spec sheets, and long product lists.",
+    helper: "Best for official documents, spec sheets, and long product lists.",
     href: `mailto:${site.email}`,
     action: "Write to us",
     icon: (
@@ -62,7 +62,7 @@ export default function ContactPage() {
     <div className="bg-paper">
       <PageHeader
         eyebrow="Contact"
-        title={<>Talk to a <span className="italic text-emerald-bright">real supplier.</span></>}
+        title={<>Talk to a <span className="italic text-amber-bright">real supplier.</span></>}
         sub="No call centre, no ticket number. You reach the same people who pack the order and load the truck."
         bgImage={photos.warehouse}
       />
@@ -71,7 +71,7 @@ export default function ContactPage() {
         {/* ── Pick a method ─────────────────────────── */}
         <Reveal>
           <div className="flex items-baseline gap-3 mb-8">
-            <span className="eyebrow text-emerald text-[0.62rem]">01 / Reach us</span>
+            <span className="eyebrow text-amber text-[0.62rem]">01 / Reach us</span>
             <span className="h-px flex-1 bg-line" />
             <span className="eyebrow text-muted text-[0.58rem]">Whichever is easiest</span>
           </div>
@@ -84,13 +84,13 @@ export default function ContactPage() {
                 href={m.href}
                 target={m.external ? "_blank" : undefined}
                 rel={m.external ? "noopener noreferrer" : undefined}
-                className="group flex flex-col h-full bg-cream border border-line rounded-2xl p-7 transition-all hover:border-emerald hover:-translate-y-1 hover:shadow-[0_18px_40px_-24px_rgba(11,29,25,0.45)]"
+                className="group flex flex-col h-full bg-cream border border-line frame-ticks text-amber p-7 transition-all hover:border-amber"
               >
-                <div className="w-11 h-11 rounded-xl bg-emerald/10 text-emerald grid place-items-center mb-6 transition-colors group-hover:bg-emerald group-hover:text-cream">
+                <div className="w-11 h-11 notch-sm bg-amber/10 text-amber grid place-items-center mb-6 transition-colors group-hover:bg-amber group-hover:text-cream">
                   {m.icon}
                 </div>
                 <div className="eyebrow text-muted text-[0.56rem] mb-2">{m.label}</div>
-                <div className="font-display text-xl text-ink leading-snug mb-3 break-words group-hover:text-emerald transition-colors">
+                <div className="font-display text-xl text-ink leading-snug mb-3 break-words group-hover:text-amber transition-colors">
                   {m.value}
                 </div>
                 <p className="text-muted text-sm leading-relaxed mb-6">{m.helper}</p>
@@ -106,7 +106,7 @@ export default function ContactPage() {
         {/* ── Find the warehouse ────────────────────── */}
         <Reveal>
           <div className="flex items-baseline gap-3 mb-8">
-            <span className="eyebrow text-emerald text-[0.62rem]">02 / Find us</span>
+            <span className="eyebrow text-amber text-[0.62rem]">02 / Find us</span>
             <span className="h-px flex-1 bg-line" />
             <span className="eyebrow text-muted text-[0.58rem]">Kathmandu</span>
           </div>
@@ -114,7 +114,7 @@ export default function ContactPage() {
 
         <div className="grid md:grid-cols-[1fr_1.4fr] gap-8 items-stretch">
           <Reveal>
-            <div className="bg-ink text-cream rounded-2xl h-full flex flex-col justify-between relative overflow-hidden">
+            <div className="bg-ink text-cream h-full flex flex-col justify-between relative overflow-hidden">
               <div className="relative h-40 shrink-0">
                 <Image
                   src={photos.warehouseDispatch}
@@ -125,12 +125,12 @@ export default function ContactPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-ink/0" />
               </div>
-              <div className="absolute -right-16 -top-16 w-52 h-52 bg-emerald/20 rounded-full blur-[80px]" />
+              <div className="absolute inset-0 grid-blueprint opacity-20 pointer-events-none" aria-hidden />
               <div className="relative px-8 pb-8 -mt-6">
-                <div className="eyebrow text-emerald-bright text-[0.58rem] mb-4">The warehouse</div>
+                <div className="eyebrow text-amber-bright text-[0.58rem] mb-4">The warehouse</div>
                 <p className="font-display text-2xl leading-snug mb-4">{site.address}</p>
                 <p className="flex items-center gap-2.5 text-cream/70 text-sm mb-4">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4 shrink-0 text-emerald-bright">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4 shrink-0 text-amber-bright">
                     <circle cx="12" cy="12" r="8.5" />
                     <path d="M12 7.5V12l3 1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -151,7 +151,7 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="rounded-2xl overflow-hidden border border-line h-80 md:h-full min-h-80 shadow-[0_18px_40px_-24px_rgba(11,29,25,0.5)]">
+            <div className="rounded-md overflow-hidden border-2 border-ink h-80 md:h-full min-h-80">
               <iframe
                 title="ESCU location map"
                 className="w-full h-full min-h-80 grayscale-[0.2] contrast-[1.05]"

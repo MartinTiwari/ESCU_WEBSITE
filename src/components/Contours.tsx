@@ -51,7 +51,7 @@ export default function Contours() {
   }));
 
   return (
-    <div className="absolute inset-0 overflow-hidden contour-breathe" aria-hidden>
+    <div className="absolute inset-0 overflow-hidden" aria-hidden>
       <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
         <g ref={back}>
           {rings
@@ -62,9 +62,9 @@ export default function Contours() {
                 d={BASE}
                 transform={`translate(${r.px} ${r.py}) scale(${r.s})`}
                 fill="none"
-                stroke="rgb(174,216,238)"
+                stroke="rgb(158,195,221)"
                 strokeOpacity={r.op}
-                strokeWidth={1.1}
+                strokeWidth={1}
                 vectorEffect="non-scaling-stroke"
               />
             ))}
@@ -78,15 +78,15 @@ export default function Contours() {
                 d={BASE}
                 transform={`translate(${r.px} ${r.py}) scale(${r.s})`}
                 fill="none"
-                stroke="rgb(205,234,252)"
-                strokeOpacity={r.op}
-                strokeWidth={1.3}
+                stroke="rgb(240,168,74)"
+                strokeOpacity={r.op * 0.7}
+                strokeWidth={1.1}
                 vectorEffect="non-scaling-stroke"
               />
             ))}
         </g>
         {/* summit marker */}
-        <circle cx="860" cy="300" r="3" fill="rgb(205,234,252)" />
+        <circle cx="860" cy="300" r="2.5" fill="rgb(240,168,74)" />
       </svg>
     </div>
   );

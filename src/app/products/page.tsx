@@ -35,8 +35,8 @@ export default async function ProductsPage({
     <div className="bg-paper">
       <PageHeader
         eyebrow="Catalogue"
-        title={<>Everything we supply, <span className="italic text-emerald-bright">in one place.</span></>}
-        sub={`${products.length} products across ${categories.length} categories. Pricing is quote-based — ask us for current rates and bulk discounts.`}
+        title={<>Everything we supply, <span className="italic text-amber-bright">in one place.</span></>}
+        sub={`${products.length} products in ${categories.length} categories. Ask us for current prices and bulk discounts.`}
         bgImage={photos.drums}
       />
 
@@ -66,7 +66,7 @@ export default async function ProductsPage({
                   {/* Category header */}
                   <div className="flex items-end justify-between gap-6 mb-2 pb-5 border-b-2 border-ink">
                     <div className="flex items-center gap-5">
-                      <span className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0">
+                      <span className="relative w-12 h-12 rounded-md overflow-hidden shrink-0">
                         <Image src={categoryPhoto[cat]} alt="" fill sizes="48px" className="object-cover" />
                         <span className="absolute inset-0 bg-ink/30 grid place-items-center text-cream">
                           <CategoryIcon category={cat} className="w-[16px] h-[16px]" />
@@ -91,14 +91,14 @@ export default async function ProductsPage({
                           {String(offset + i + 1).padStart(2, "0")}
                         </span>
                         <div className="min-w-0">
-                          <span className="font-display text-lg md:text-xl text-ink group-hover:text-emerald transition-colors leading-tight block">
+                          <span className="font-display text-lg md:text-xl text-ink group-hover:text-amber transition-colors leading-tight block">
                             {p.name}
                           </span>
                         </div>
                         <span className="text-muted text-sm leading-snug hidden md:block">
                           {p.useCase}
                         </span>
-                        <span className="text-muted group-hover:text-emerald group-hover:translate-x-0.5 transition-all text-right">
+                        <span className="text-muted group-hover:text-amber group-hover:translate-x-0.5 transition-all text-right">
                           →
                         </span>
                       </Link>
@@ -112,35 +112,32 @@ export default async function ProductsPage({
 
         {/* Callout */}
         <Reveal>
-          <div className="mt-20 rounded-2xl bg-ink text-cream p-10 md:p-14 relative overflow-hidden">
-            <div className="absolute -right-20 -top-20 w-64 h-64 bg-emerald/20 rounded-full blur-[90px]" />
+          <div className="mt-20 bg-ink text-cream p-10 md:p-14 relative overflow-hidden">
+            <div className="absolute inset-0 grid-blueprint opacity-25" aria-hidden />
             <div className="relative grid md:grid-cols-[1fr_auto] gap-8 items-center">
               <div>
-                <div className="eyebrow text-emerald-bright mb-4 flex items-center gap-3">
-                  <span className="w-6 h-px bg-emerald-bright" />
+                <div className="eyebrow text-amber-bright mb-4 flex items-center gap-3">
+                  <span className="w-6 h-px bg-amber-bright" />
                   Can&apos;t find it?
                 </div>
                 <h2 className="font-display text-2xl md:text-3xl mb-3">
                   We supply more than the catalogue.
                 </h2>
                 <p className="text-cream/55 leading-relaxed max-w-xl">
-                  Machine oils, test kits, lab acids, cleaning equipment, and more. If it is
-                  used in water treatment, hospitality, or industry, chances are we stock it
-                  or can source it.
+                  Machine oils, test kits, lab acids, cleaning equipment, and more. If it&apos;s
+                  used in water treatment, hotels, or industry, chances are we stock it or
+                  can get it for you.
                 </p>
               </div>
               <div className="flex flex-col gap-3 shrink-0">
-                <Link
-                  href="/quote"
-                  className="group inline-flex items-center justify-center gap-2 bg-emerald hover:bg-emerald-bright text-ink transition-all px-7 py-3.5 rounded-full font-semibold text-sm"
-                >
+                <Link href="/quote" className="group btn-primary justify-center">
                   Request a Quote →
                 </Link>
                 <a
                   href={whatsappLink("Hi ESCU, I'm looking for a product that may not be on your website.")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center border border-cream/25 hover:border-cream/60 transition-all px-7 py-3.5 rounded-full font-semibold text-sm"
+                  className="btn-secondary-dark justify-center"
                 >
                   Ask on WhatsApp
                 </a>
@@ -167,7 +164,7 @@ function FilterTab({
       href={href}
       className={`eyebrow text-[0.65rem] px-5 py-3.5 border-b-2 whitespace-nowrap transition-colors ${
         active
-          ? "border-emerald text-emerald"
+          ? "border-amber text-amber"
           : "border-transparent text-muted hover:text-ink hover:border-line"
       }`}
     >

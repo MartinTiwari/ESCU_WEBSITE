@@ -23,7 +23,7 @@ export default function AboutPage() {
     <div className="bg-paper">
       <PageHeader
         eyebrow="35+ Years · Kathmandu"
-        title={<>Three and a half decades of <span className="italic text-emerald-bright">keeping Nepal supplied.</span></>}
+        title={<>Over 35 years of <span className="italic text-amber-bright">keeping Nepal supplied.</span></>}
         bgImage={photos.aboutHeaderBg}
       />
 
@@ -33,27 +33,27 @@ export default function AboutPage() {
             <div className="space-y-5 text-fg text-lg leading-relaxed">
               <p>
                 <span className="font-display text-2xl text-ink">Everest Super Chemical Udhyog (ESCU)</span> is
-                a Kathmandu-based manufacturer and supplier of water treatment chemicals, swimming
-                pool solutions, housekeeping products, and catering fuel, serving hotels, resorts,
-                hospitals, and industries across Nepal.
+                based in Kathmandu. We make and supply water treatment chemicals, pool products,
+                cleaning products, and cooking fuel, for hotels, resorts, hospitals, and other
+                businesses across Nepal.
               </p>
               <p>
-                Part of what we sell we make ourselves. The rest we import directly. That means
-                we control the grade you receive rather than passing along whatever a middleman
-                had in stock, and it is why we can quote on bulk without the price drifting
-                between orders.
+                We make some of what we sell ourselves, and import the rest directly. This means
+                we control the quality you get, instead of just passing on whatever a middleman
+                happens to have. It&apos;s also why our bulk prices stay steady from order to order.
               </p>
               <p>
-                With {site.yearsInOperation}+ years in the trade, we&apos;ve built long-term supply
-                relationships with hotels, resorts, and engineering projects nationwide, backed by
-                wholesale pricing, technical support, and reliable delivery to every corner of the
-                country.
+                With {site.yearsInOperation}+ years in the business, we&apos;ve built long-term
+                relationships with hotels, resorts, and engineering projects across the country.
+                We back that up with wholesale prices, expert support, and reliable delivery
+                everywhere in Nepal.
               </p>
             </div>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="bg-ink text-cream rounded-xl p-8 grid grid-cols-2 gap-6">
+            <div className="bg-ink text-cream p-8 grid grid-cols-2 gap-6 relative overflow-hidden">
+              <div className="absolute inset-0 grid-blueprint opacity-20" aria-hidden />
               <PullStat value={`${site.yearsInOperation}+`} label="Years in the trade" />
               <PullStat value="Countless" label="Deliveries made" />
               <PullStat value="8" label="Industries served" />
@@ -63,20 +63,17 @@ export default function AboutPage() {
         </div>
 
         <Reveal>
-          <blockquote className="relative border-l-2 border-emerald pl-7 md:pl-9 py-1 mb-20 max-w-2xl">
-            <span className="absolute -left-[22px] md:-left-[26px] -top-3 font-display text-6xl md:text-7xl text-emerald/25 select-none" aria-hidden>
-              &ldquo;
-            </span>
-            <p className="font-display italic text-2xl md:text-[1.75rem] leading-snug text-ink/85">
-              We still pick up the phone ourselves. If you call ESCU, you are talking to
-              someone who knows the difference between PAC and alum without looking it up.
+          <div className="border-t-2 border-ink pt-6 mb-20 max-w-2xl">
+            <p className="font-display text-2xl md:text-[1.75rem] leading-snug text-ink">
+              Direct line to the warehouse. Whoever answers the phone packed
+              an order this morning, not a call centre reading from a script.
             </p>
-            <footer className="eyebrow text-muted text-[0.6rem] mt-5">— The ESCU team, Banshidhar Marg</footer>
-          </blockquote>
+            <div className="eyebrow text-muted text-[0.6rem] mt-5">The ESCU team &middot; Banshidhar Marg</div>
+          </div>
         </Reveal>
 
         <Reveal>
-          <div className="eyebrow text-emerald mb-3">01 / What you get</div>
+          <div className="eyebrow text-amber mb-3">01 / What you get</div>
           <h2 className="font-display text-3xl md:text-4xl text-ink mb-8">Why choose us</h2>
         </Reveal>
 
@@ -85,7 +82,7 @@ export default function AboutPage() {
             {site.whyChooseUs.map((item, i) => (
               <Reveal key={item} delay={Math.min(i * 0.04, 0.3)}>
                 <div className="flex items-start gap-3.5 border-b border-r border-line px-6 py-5 h-full">
-                  <span className="w-5 h-5 rounded-full bg-emerald/12 text-emerald grid place-items-center mt-0.5 shrink-0">
+                  <span className="w-5 h-5 notch-sm bg-amber/12 text-amber grid place-items-center mt-0.5 shrink-0">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-3 h-3">
                       <path d="M4.5 12.5 9.5 17.5 19.5 6.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -97,7 +94,7 @@ export default function AboutPage() {
           </div>
 
           <Reveal delay={0.15}>
-            <div className="relative rounded-2xl overflow-hidden h-full min-h-64">
+            <div className="relative rounded-md overflow-hidden h-full min-h-64 frame-ticks text-cream">
               <Image
                 src={photos.labQuality}
                 alt="Quality control on a batch before dispatch"
@@ -114,19 +111,17 @@ export default function AboutPage() {
         </div>
 
         <Reveal>
-          <div className="bg-ink text-cream rounded-2xl p-10 md:p-12 relative overflow-hidden">
-            <div className="absolute -right-16 -top-16 w-56 h-56 bg-emerald/20 rounded-full blur-[90px]" />
+          <div className="bg-ink text-cream p-10 md:p-12 relative overflow-hidden">
+            <div className="absolute inset-0 grid-blueprint opacity-25" aria-hidden />
             <div className="relative max-w-xl">
-              <div className="eyebrow text-emerald-bright mb-4">Get in touch</div>
+              <div className="eyebrow text-amber-bright mb-4">Get in touch</div>
               <h2 className="font-display text-3xl md:text-4xl mb-4">Let&apos;s set up your supply.</h2>
               <p className="text-cream/60 leading-relaxed mb-7">
-                Tell us what you&apos;re running and we&apos;ll recommend the right chemicals, quote a
-                fair price, and keep you stocked, with customised supply and long-term agreements welcome.
+                Tell us what your business needs and we&apos;ll recommend the right chemicals,
+                give you a fair price, and keep you stocked. Custom supply plans and long-term
+                deals welcome.
               </p>
-              <Link
-                href="/quote"
-                className="group inline-flex items-center gap-2 bg-emerald hover:bg-emerald-bright text-ink transition-all px-6 py-3.5 rounded-lg font-semibold text-sm"
-              >
+              <Link href="/quote" className="group btn-primary">
                 Get a Quote
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </Link>
@@ -140,8 +135,8 @@ export default function AboutPage() {
 
 function PullStat({ value, label }: { value: string; label: string }) {
   return (
-    <div>
-      <div className="font-display text-3xl text-emerald-bright mb-1">{value}</div>
+    <div className="relative">
+      <div className="font-display text-3xl text-amber-bright mb-1">{value}</div>
       <div className="eyebrow text-cream/40 text-[0.55rem]">{label}</div>
     </div>
   );

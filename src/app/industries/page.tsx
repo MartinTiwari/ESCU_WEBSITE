@@ -25,13 +25,13 @@ export default function IndustriesPage() {
     <div className="bg-paper">
       <PageHeader
         eyebrow="Applications"
-        title={<>Built for the operations <span className="italic text-emerald-bright">that depend on us.</span></>}
-        sub="From hospitality to industrial water treatment, ESCU supplies the chemicals your operation runs on. Jump to your industry to see relevant products."
+        title={<>Built for the businesses <span className="italic text-amber-bright">that depend on us.</span></>}
+        sub="From hotels to water treatment plants, ESCU supplies the chemicals your business needs. Jump to your industry to see the products."
         bgImage={photos.hero}
       >
         <div className="flex flex-wrap gap-x-6 gap-y-2 mt-8">
           {served.map((ind, i) => (
-            <a key={ind} href={`#${encodeURIComponent(ind)}`} className="eyebrow text-cream/45 hover:text-lime transition-colors text-[0.62rem]">
+            <a key={ind} href={`#${encodeURIComponent(ind)}`} className="eyebrow text-cream/45 hover:text-amber-bright transition-colors text-[0.62rem]">
               {String(i + 1).padStart(2, "0")} {ind}
             </a>
           ))}
@@ -46,7 +46,7 @@ export default function IndustriesPage() {
               <Reveal>
                 <div className="flex items-end justify-between gap-6 mb-8 pb-4 border-b border-line">
                   <div className="flex items-center gap-5">
-                    <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden shrink-0">
+                    <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-md overflow-hidden shrink-0">
                       <Image
                         src={industryPhoto[ind]}
                         alt=""
@@ -56,7 +56,7 @@ export default function IndustriesPage() {
                       />
                     </div>
                     <div>
-                      <div className="eyebrow text-emerald mb-2">{String(idx + 1).padStart(2, "0")} / Industry</div>
+                      <div className="eyebrow text-amber mb-2">{String(idx + 1).padStart(2, "0")} / Industry</div>
                       <h2 className="font-display text-3xl md:text-4xl text-ink">{ind}</h2>
                     </div>
                   </div>

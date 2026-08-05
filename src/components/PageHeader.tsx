@@ -27,12 +27,12 @@ export default function PageHeader({
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/60" />
-      <div className="absolute -right-32 -top-24 w-[420px] h-[420px] bg-emerald/12 rounded-full blur-[110px]" />
+      <div className="absolute inset-0 grid-blueprint opacity-40" />
       <div className="max-w-6xl mx-auto px-5 pt-28 pb-14 md:pt-32 md:pb-16 relative">
         <Reveal>
           <div className="flex items-center gap-3 mb-6">
-            <span className="w-8 h-px bg-emerald-bright" />
-            <span className="eyebrow text-emerald-bright">{eyebrow}</span>
+            <span className="w-8 h-px bg-amber-bright" />
+            <span className="eyebrow text-amber-bright">{eyebrow}</span>
           </div>
           <h1 className="font-display font-medium text-4xl md:text-6xl leading-[1.02] tracking-[-0.02em] max-w-3xl">
             {title}

@@ -23,13 +23,13 @@ const formulas = [
 
 const categoryMeta: Record<string, { blurb: string }> = {
   "Water Treatment Chemicals": {
-    blurb: "PAC, alum, chlorine, bleaching powder — everything a plant needs to clarify and disinfect at scale.",
+    blurb: "PAC, alum, chlorine, bleaching powder: everything a plant needs to clean and disinfect water.",
   },
   "Swimming Pool Chemicals": {
-    blurb: "TCCA, copper sulphate, soda ash, pH adjusters — pool chemistry sorted from one supplier.",
+    blurb: "TCCA, copper sulphate, soda ash, pH adjusters: everything you need to keep pool water balanced, from one supplier.",
   },
   "Housekeeping & Cleaning Chemicals": {
-    blurb: "Liquid soap, floor cleaner, phenyl, glass cleaner — the daily housekeeping range for hospitality and commercial operations.",
+    blurb: "Liquid soap, floor cleaner, phenyl, glass cleaner: the everyday cleaning products hotels and businesses need.",
   },
 };
 
@@ -51,8 +51,7 @@ export default function Home() {
             className="object-cover opacity-[0.22] mix-blend-luminosity"
           />
           <Contours />
-          {/* warm summit glow */}
-          <div className="absolute right-[6%] top-[14%] h-[52vh] w-[52vh] rounded-full bg-emerald/20 blur-[140px]" />
+          <div className="absolute inset-0 grid-blueprint opacity-[0.35]" />
           {/* keep the left column legible */}
           <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/72 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-b from-ink/30 via-transparent to-ink" />
@@ -62,8 +61,8 @@ export default function Home() {
           <Reveal>
             {/* eyebrow */}
             <div className="flex items-center gap-4 mb-9">
-              <span className="w-8 h-px bg-emerald-bright/50" />
-              <span className="eyebrow text-emerald-bright/85">
+              <span className="w-8 h-px bg-amber-bright/70" />
+              <span className="eyebrow text-amber-bright/90">
                 Est. BS 2058 &nbsp;·&nbsp; Banshidhar Marg, Kathmandu
               </span>
             </div>
@@ -79,7 +78,7 @@ export default function Home() {
             </h1>
 
             <div className="max-w-xl">
-              <p className="font-display italic text-emerald-bright text-xl md:text-2xl leading-snug mb-4">
+              <p className="font-display italic text-amber-bright text-xl md:text-2xl leading-snug mb-4">
                 Precision chemistry. Dependable supply.
               </p>
               <p className="text-cream/55 text-base md:text-lg leading-relaxed">
@@ -89,10 +88,7 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-8 flex-wrap mt-11">
-              <Link
-                href="/quote"
-                className="inline-flex items-center gap-2 bg-emerald hover:bg-emerald-bright text-ink text-sm font-semibold px-8 py-4 rounded-full transition-colors"
-              >
+              <Link href="/quote" className="btn-primary">
                 Work with us →
               </Link>
               <Link
@@ -110,9 +106,9 @@ export default function Home() {
           <div className="marquee-track">
             {[...formulas, ...formulas].map(([f, name], i) => (
               <span key={i} className="inline-flex items-center gap-3 px-7">
-                <span className="font-mono text-emerald-bright text-sm">{f}</span>
+                <span className="font-mono text-amber-bright text-sm">{f}</span>
                 <span className="eyebrow text-cream/40">{name}</span>
-                <span className="w-1 h-1 rounded-full bg-emerald-bright/50 ml-4" />
+                <span className="w-1 h-1 bg-amber-bright/50 ml-4" />
               </span>
             ))}
           </div>
@@ -137,11 +133,11 @@ export default function Home() {
         <div className="grid md:grid-cols-[220px_1fr] gap-12 md:gap-20 items-start">
           <Reveal>
             <div className="md:sticky md:top-28">
-              <div className="font-display text-[7rem] md:text-[9rem] leading-none text-emerald/20 select-none" aria-hidden>
+              <div className="font-display text-[7rem] md:text-[9rem] leading-none text-amber/20 select-none" aria-hidden>
                 <CountUp to={site.yearsInOperation} suffix="" />
               </div>
               <div className="eyebrow text-muted mt-2">years of supply</div>
-              <div className="w-10 h-px bg-emerald mt-6 mb-4" />
+              <div className="w-10 h-px bg-amber mt-6 mb-4" />
               <p className="text-sm text-muted leading-relaxed">
                 Founded BS 2058.<br />Kathmandu, Nepal.
               </p>
@@ -150,9 +146,9 @@ export default function Home() {
 
           <div>
             <Reveal>
-              <div className="eyebrow text-emerald mb-5 flex items-center gap-3">
+              <div className="eyebrow text-amber mb-5 flex items-center gap-3">
                 <span>01 / 03</span>
-                <span className="w-8 h-px bg-emerald" />
+                <span className="w-8 h-px bg-amber" />
                 <span>About ESCU</span>
               </div>
               <h2 className="font-display text-3xl md:text-[2.8rem] leading-[1.08] tracking-[-0.015em] mb-8 max-w-2xl">
@@ -161,28 +157,27 @@ export default function Home() {
               </h2>
               <div className="space-y-5 text-ink/60 text-lg leading-relaxed max-w-xl mb-14">
                 <p>
-                  Everest Super Chemical Udhyog has supplied water treatment plants, hotels,
-                  hospital washrooms, and swimming pools across Nepal for over three decades.
-                  The same families of chemicals, made in our own factory or imported
-                  direct, correctly graded, and delivered on schedule.
+                  For over 30 years, we&apos;ve supplied water treatment plants, hotels,
+                  hospitals, and swimming pools across Nepal. We make some chemicals
+                  ourselves and import the rest, always the right grade, delivered on time.
                 </p>
                 <p>
-                  We offer wholesale pricing, technical guidance on dosing and application,
-                  and long-term supply agreements for businesses that need more than a one-off
-                  purchase. If you run an operation that depends on chemicals, we are built for you.
+                  We offer wholesale prices, help with how much to use and how to use it,
+                  and long-term supply deals for businesses that need more than a one-time
+                  order. If your business runs on chemicals, we&apos;ve got you covered.
                 </p>
               </div>
             </Reveal>
 
             <div className="border-t border-line">
               {[
-                { tag: "01", label: "Water treatment", body: "PAC, alum, chlorine, and bleaching powder for clarification and disinfection at municipal scale or a single tank." },
-                { tag: "02", label: "Pool and hygiene", body: "TCCA, sanitizers, and a full housekeeping range that keeps hotels, resorts, and hospitals inspection-ready." },
-                { tag: "03", label: "Bulk supply and delivery", body: "Wholesale pricing, technical support, and delivery that reaches every corner of Nepal, on schedule." },
+                { tag: "01", label: "Water treatment", body: "PAC, alum, chlorine, and bleaching powder to clean and disinfect water, for a city plant or a single tank." },
+                { tag: "02", label: "Pool and hygiene", body: "TCCA, sanitizers, and a full range of cleaning products that keep hotels, resorts, and hospitals clean and ready for inspection." },
+                { tag: "03", label: "Bulk supply and delivery", body: "Wholesale prices, expert support, and delivery to every part of Nepal, on time." },
               ].map((p, i) => (
                 <Reveal key={p.tag} delay={i * 0.07}>
                   <div className="grid grid-cols-[40px_1fr] gap-6 py-7 border-b border-line hover:bg-paper/50 transition-colors -mx-4 px-4">
-                    <span className="eyebrow text-emerald pt-1">{p.tag}</span>
+                    <span className="eyebrow text-amber pt-1">{p.tag}</span>
                     <div>
                       <h3 className="font-display text-xl mb-2">{p.label}</h3>
                       <p className="text-ink/55 leading-relaxed">{p.body}</p>
@@ -199,17 +194,17 @@ export default function Home() {
       <section className="bg-ink text-cream">
         <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
           <Reveal>
-            <div className="eyebrow text-emerald-bright mb-5 flex items-center gap-3">
+            <div className="eyebrow text-amber-bright mb-5 flex items-center gap-3">
               <span>02 / 03</span>
-              <span className="w-8 h-px bg-emerald-bright" />
+              <span className="w-8 h-px bg-amber-bright" />
               <span>The catalogue</span>
             </div>
             <div className="grid md:grid-cols-[1fr_auto] gap-8 items-end mb-16">
               <h2 className="font-display font-medium text-4xl md:text-[3.25rem] leading-[1.06] tracking-[-0.02em] max-w-2xl">
                 Everything we stock,{" "}
-                <span className="italic text-emerald-bright">indexed.</span>
+                <span className="italic text-amber-bright">clearly listed.</span>
               </h2>
-              <Link href="/products" className="text-emerald-bright font-medium text-sm link-ul shrink-0 mb-2">
+              <Link href="/products" className="text-amber-bright font-medium text-sm link-ul shrink-0 mb-2">
                 Full catalogue →
               </Link>
             </div>
@@ -223,9 +218,9 @@ export default function Home() {
                 <Reveal key={cat} delay={i * 0.08}>
                   <Link
                     href={`/products?category=${encodeURIComponent(cat)}`}
-                    className="group grid grid-cols-[64px_1fr_auto] md:grid-cols-[64px_1fr_340px_80px] gap-6 md:gap-10 py-8 md:py-10 border-b border-[var(--ink-line)] items-center hover:border-emerald-bright/50 transition-colors"
+                    className="group grid grid-cols-[64px_1fr_auto] md:grid-cols-[64px_1fr_340px_80px] gap-6 md:gap-10 py-8 md:py-10 border-b border-[var(--ink-line)] items-center hover:border-amber-bright/50 transition-colors"
                   >
-                    <span className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0">
+                    <span className="relative w-16 h-16 rounded-md overflow-hidden shrink-0">
                       <Image
                         src={categoryPhoto[cat]}
                         alt=""
@@ -233,12 +228,12 @@ export default function Home() {
                         sizes="64px"
                         className="object-cover opacity-70 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500"
                       />
-                      <span className="absolute inset-0 bg-ink/35 grid place-items-center text-emerald-bright/80">
+                      <span className="absolute inset-0 bg-ink/35 grid place-items-center text-amber-bright/80">
                         <CategoryIcon category={cat} />
                       </span>
                     </span>
                     <div>
-                      <div className="font-display text-2xl md:text-3xl text-cream group-hover:text-emerald-bright transition-colors leading-tight mb-1">
+                      <div className="font-display text-2xl md:text-3xl text-cream group-hover:text-amber-bright transition-colors leading-tight mb-1">
                         {cat}
                       </div>
                       <p className="text-cream/40 text-sm leading-relaxed hidden md:block max-w-md">
@@ -248,7 +243,7 @@ export default function Home() {
                     <div className="hidden md:block text-right">
                       <span className="eyebrow text-cream/30">{count} products</span>
                     </div>
-                    <span className="text-cream/30 group-hover:text-emerald-bright group-hover:translate-x-1 transition-all text-lg text-right">→</span>
+                    <span className="text-cream/30 group-hover:text-amber-bright group-hover:translate-x-1 transition-all text-lg text-right">→</span>
                   </Link>
                 </Reveal>
               );
@@ -257,9 +252,9 @@ export default function Home() {
 
           <Reveal>
             <p className="text-cream/35 text-sm mt-10 max-w-2xl leading-relaxed">
-              Plus allied supplies beyond these families: machine oils, test kits, lab acids, and
-              cleaning equipment. If it is used in water treatment, hospitality, or industry,
-              we most likely stock it or can source it.
+              We also stock other supplies: machine oils, test kits, lab acids, and cleaning
+              equipment. If it&apos;s used in water treatment, hotels, or industry, we probably
+              have it, or can get it for you.
             </p>
           </Reveal>
         </div>
@@ -270,16 +265,16 @@ export default function Home() {
         <div className="grid md:grid-cols-[280px_1fr] gap-12 md:gap-20">
           <Reveal>
             <div className="md:sticky md:top-28">
-              <div className="eyebrow text-emerald mb-4 flex items-center gap-3">
+              <div className="eyebrow text-amber mb-4 flex items-center gap-3">
                 <span>03 / 03</span>
-                <span className="w-8 h-px bg-emerald" />
+                <span className="w-8 h-px bg-amber" />
               </div>
               <h2 className="font-display text-3xl md:text-4xl leading-[1.1] tracking-[-0.015em] mb-6">
                 Who runs<br />on ESCU supply.
               </h2>
               <p className="text-ink/50 leading-relaxed mb-8 text-[15px]">
-                Eight sectors, one supplier. We have operated long enough to understand
-                what each industry actually needs and when they need it.
+                Eight industries, one supplier. We&apos;ve been doing this long enough to
+                know what each one needs, and when they need it.
               </p>
               <Link href="/industries" className="inline-flex items-center gap-2 text-ink font-medium text-sm link-ul">
                 See by industry →
@@ -300,7 +295,7 @@ export default function Home() {
                       <span className="eyebrow text-muted text-[0.58rem] shrink-0">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="font-display text-xl md:text-2xl group-hover:text-emerald transition-colors">
+                      <span className="font-display text-xl md:text-2xl group-hover:text-amber transition-colors">
                         {ind}
                       </span>
                     </div>
@@ -308,7 +303,7 @@ export default function Home() {
                       <span className="eyebrow text-muted text-[0.58rem] hidden sm:block">
                         {count} {count === 1 ? "product" : "products"}
                       </span>
-                      <span className="text-muted group-hover:text-emerald group-hover:translate-x-0.5 transition-all">→</span>
+                      <span className="text-muted group-hover:text-amber group-hover:translate-x-0.5 transition-all">→</span>
                     </div>
                   </Link>
                 </Reveal>
@@ -319,17 +314,21 @@ export default function Home() {
       </section>
 
       {/* ── COMPANY STATS ────────────────────────────────── */}
-      <section className="border-t border-line bg-paper-2">
-        <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line rounded-2xl overflow-hidden">
+      <section className="border-t-2 border-ink bg-paper-2">
+        <div className="max-w-7xl mx-auto px-6 py-14 md:py-16">
+          <div className="grid grid-cols-2 md:grid-cols-4">
             {[
               { value: site.yearsInOperation, suffix: "+", label: "Years in business" },
               { value: products.length, suffix: "+", label: "Products stocked" },
               { value: industries.length, suffix: "", label: "Industries served" },
               { value: null, label: "Delivery reach" },
             ].map((s, i) => (
-              <div key={i} className="bg-paper-2 p-8 md:p-10">
-                <div className="font-display text-4xl md:text-5xl text-emerald mb-2">
+              <div
+                key={i}
+                className="py-8 md:py-2 md:px-8 border-t md:border-t-0 md:border-l border-line first:border-l-0 first:border-t-0"
+              >
+                <div className="eyebrow text-amber text-[0.56rem] mb-3">{String(i + 1).padStart(2, "0")}</div>
+                <div className="font-display text-4xl md:text-5xl text-ink mb-2">
                   {s.value !== null ? <CountUp to={s.value} suffix={s.suffix ?? ""} /> : "Nepal-wide"}
                 </div>
                 <div className="eyebrow text-ink/40 text-[0.58rem]">{s.label}</div>
@@ -341,52 +340,29 @@ export default function Home() {
 
       {/* ── CLOSING CTA ──────────────────────────────────── */}
       <section className="bg-ink text-cream relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          {[
-            { l: "8%", s: 22, d: "16s", delay: "0s", o: 0.35 },
-            { l: "22%", s: 12, d: "13s", delay: "3s", o: 0.3 },
-            { l: "38%", s: 30, d: "19s", delay: "6s", o: 0.25 },
-            { l: "55%", s: 10, d: "12s", delay: "1.5s", o: 0.35 },
-            { l: "70%", s: 18, d: "15s", delay: "8s", o: 0.3 },
-            { l: "84%", s: 26, d: "18s", delay: "4s", o: 0.28 },
-            { l: "93%", s: 14, d: "14s", delay: "10s", o: 0.32 },
-          ].map((b, i) => (
-            <span
-              key={i}
-              className="bubble"
-              style={{
-                left: b.l, width: b.s, height: b.s,
-                ["--bd" as string]: b.d,
-                ["--bdelay" as string]: b.delay,
-                ["--bo" as string]: b.o,
-              }}
-            />
-          ))}
-        </div>
+        <div className="absolute inset-0 grid-blueprint opacity-[0.3]" aria-hidden />
+        <div className="scan-line" aria-hidden />
 
         <div className="max-w-7xl mx-auto px-6 py-28 md:py-40 relative">
           <Reveal>
             <div className="grid md:grid-cols-[1fr_auto] gap-12 items-end">
               <div>
-                <div className="eyebrow text-emerald-bright mb-6 flex items-center gap-3">
-                  <span className="w-8 h-px bg-emerald-bright" />
+                <div className="eyebrow text-amber-bright mb-6 flex items-center gap-3">
+                  <span className="w-8 h-px bg-amber-bright" />
                   <span>Get in touch</span>
                 </div>
                 <h2 className="font-display font-medium text-4xl md:text-[3.5rem] lg:text-[4rem] leading-[1.04] tracking-[-0.02em] max-w-2xl">
                   Not sure what you need?
                   <br />
-                  <span className="italic text-emerald-bright">Let&apos;s figure it out.</span>
+                  <span className="italic text-amber-bright">Let&apos;s figure it out.</span>
                 </h2>
                 <p className="text-cream/50 text-lg leading-relaxed mt-8 max-w-lg">
-                  Tell us what you are running and we will recommend the right chemicals,
-                  quote a fair price, and arrange delivery. No hard sell.
+                  Tell us what your business needs and we&apos;ll suggest the right chemicals,
+                  give you a fair price, and arrange delivery. No pushy sales.
                 </p>
               </div>
               <div className="flex flex-col gap-4 shrink-0 md:items-end">
-                <Link
-                  href="/quote"
-                  className="inline-flex items-center justify-center gap-2 bg-emerald hover:bg-emerald-bright text-ink text-sm font-semibold px-8 py-4 rounded-full transition-colors"
-                >
+                <Link href="/quote" className="btn-primary justify-center">
                   Work with us →
                 </Link>
                 <Link href="/contact" className="text-cream/60 hover:text-cream text-sm font-medium text-center link-ul">

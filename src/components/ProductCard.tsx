@@ -14,13 +14,13 @@ export default function ProductCard({ product, index }: { product: Product; inde
           </span>
         )}
         <div className="min-w-0">
-          <h3 className="font-display text-xl leading-tight text-ink group-hover:text-emerald transition-colors mb-1">
+          <h3 className="font-display text-xl leading-tight text-ink group-hover:text-amber transition-colors mb-1">
             {product.name}
           </h3>
           <p className="text-muted text-sm">{product.useCase}</p>
         </div>
       </div>
-      <span className="text-muted group-hover:text-emerald group-hover:translate-x-0.5 transition-all shrink-0 mt-1">→</span>
+      <span className="text-muted group-hover:text-amber group-hover:translate-x-0.5 transition-all shrink-0 mt-1">→</span>
     </Link>
   );
 }

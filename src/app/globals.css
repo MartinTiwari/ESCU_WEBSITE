@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 /* ============================================================
-   ESCU design tokens
-   Palette: deep spruce ink · warm bone paper · emerald ·
-   acid-lime pop (sparing) · amber. Evolved from the old
-   navy/teal/gold so it stays recognizable but feels crafted.
+   ESCU brand palette — one accent, not three.
+   Two neutrals (ink / paper) + a single works-order amber used
+   for every signal: tags, links, CTAs, active states. Nothing
+   else carries color. This is the palette to reuse on drum
+   labels, letterheads, and print — see docs/BRAND-PALETTE.md.
    ============================================================ */
 :root {
   --ink: #0b1b28;
@@ -15,18 +16,28 @@
   --paper-2: #ebe5d9;
   --cream: #fbf9f4;
 
-  /* brand blue (#AED8EE) family — replaces the old green accents.
-     --emerald: contrast-safe blue for light backgrounds (buttons, links)
-     --emerald-bright: the brand pale blue, for highlights on dark
-     --lime: icy pop for key nodes / accents */
-  --emerald: #2b7aa8;
-  --emerald-bright: #aed8ee;
-  --lime: #cdeafc;
-  --amber: #d98a3d;
+  /* the one accent — works-order amber. Every "colored" element on
+     the site is one of these two steps, nothing else. */
+  --amber: #c8721a;
+  --amber-bright: #f0a84a;
+
+  /* structural neutral — NOT a second brand color. Used only for
+     hairline/backbone marks that need to sit quietly below the
+     amber accent (scroll-progress track, footer top hairline). */
+  --emerald: #5b6169;
+  --emerald-bright: #8a919b;
+
+  /* reserved strictly for destructive/urgent UI, never decorative */
+  --hazard: #b3401e;
 
   --fg: #17211d;
   --muted: #67736c;
   --line: #ddd6c7;
+
+  /* radius scale — small and consistent; nothing pill-shaped. */
+  --r-sm: 3px;
+  --r-md: 6px;
+  --r-lg: 10px;
 
   /* legacy aliases, kept so nothing renders off-brand if missed */
   --navy: var(--ink);
@@ -49,10 +60,14 @@
   --color-cream: var(--cream);
   --color-emerald: var(--emerald);
   --color-emerald-bright: var(--emerald-bright);
-  --color-lime: var(--lime);
   --color-amber: var(--amber);
+  --color-amber-bright: var(--amber-bright);
+  --color-hazard: var(--hazard);
   --color-muted: var(--muted);
   --color-line: var(--line);
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
 
   /* legacy token → new value */
   --color-navy: var(--ink);
@@ -95,7 +110,7 @@ body::before {
 }
 
 ::selection {
-  background: var(--lime);
+  background: var(--amber-bright);
   color: var(--ink);
 }
 
@@ -122,7 +137,7 @@ body::before {
 
 /* animated hover underline for editorial links */
 .link-ul {
-  background-image: linear-gradient(var(--emerald), var(--emerald));
+  background-image: linear-gradient(var(--amber), var(--amber));
   background-size: 0% 1.5px;
   background-position: 0 100%;
   background-repeat: no-repeat;
@@ -131,6 +146,52 @@ body::before {
 .link-ul:hover {
   background-size: 100% 1.5px;
 }
+
+/* ---- buttons ----------------------------------------------
+   One clipped corner (the tag-punch notch), sharp otherwise.
+   Primary = stamped amber tag. Secondary = ruled outline. */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--amber);
+  color: var(--cream);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.95rem 1.6rem;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.btn-primary:hover { background: var(--amber-bright); }
+.btn-primary:active { transform: translateY(1px); }
+.btn-primary:disabled { opacity: 0.55; pointer-events: none; }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--line);
+  color: var(--fg);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.9rem 1.55rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.btn-secondary:hover { border-color: var(--amber); color: var(--amber); }
+
+/* on dark panels */
+.btn-secondary-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--ink-line);
+  color: var(--cream);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.9rem 1.55rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.btn-secondary-dark:hover { border-color: var(--amber-bright); color: var(--amber-bright); }
 
 /* marquee */
 @keyframes marquee {
@@ -146,67 +207,60 @@ body::before {
   animation-play-state: paused;
 }
 
-/* dotted engineering grid for dark panels */
-.grid-dots {
-  background-image: radial-gradient(rgba(200, 242, 74, 0.14) 1px, transparent 1px);
-  background-size: 26px 26px;
+/* fine ruled blueprint grid for dark panels — a drafting sheet, not a
+   decorative dot-field. Two layers: a tight 1px grid and a heavier
+   4th line, like graph paper. */
+.grid-blueprint {
+  background-image:
+    linear-gradient(rgba(174, 216, 238, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(174, 216, 238, 0.16) 1px, transparent 1px),
+    linear-gradient(rgba(174, 216, 238, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(174, 216, 238, 0.07) 1px, transparent 1px);
+  background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
 }
 
-/* drifting aurora blobs behind the hero (mimics a living gradient) */
-@keyframes drift-a {
-  0%   { transform: translate(-6%, -4%) scale(1); }
-  50%  { transform: translate(10%, 8%) scale(1.25); }
-  100% { transform: translate(-6%, -4%) scale(1); }
+/* one clipped corner — the tag-punch notch used on stamped works-order
+   tags. Applied to primary CTAs and category chips instead of pill radii. */
+.notch {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
 }
-@keyframes drift-b {
-  0%   { transform: translate(6%, 6%) scale(1.1); }
-  50%  { transform: translate(-8%, -6%) scale(0.9); }
-  100% { transform: translate(6%, 6%) scale(1.1); }
-}
-@keyframes drift-c {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(-10%, 6%) scale(1.2); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-.aurora-a { animation: drift-a 22s ease-in-out infinite; }
-.aurora-b { animation: drift-b 26s ease-in-out infinite; }
-.aurora-c { animation: drift-c 30s ease-in-out infinite; }
-
-/* floating chemical-formula chips in the hero */
-@keyframes chip-float {
-  0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
-  50% { transform: translateY(-14px) rotate(var(--tilt, 0deg)); }
-}
-.chip-float { animation: chip-float 7s ease-in-out infinite; }
-
-/* bubbles rising through the closing CTA, like an active reaction */
-@keyframes bubble-rise {
-  0% { transform: translateY(0) scale(1); opacity: 0; }
-  12% { opacity: var(--bo, 0.35); }
-  100% { transform: translateY(-115vh) scale(1.35); opacity: 0; }
-}
-.bubble {
-  position: absolute;
-  bottom: -60px;
-  border-radius: 9999px;
-  border: 1px solid rgba(174, 216, 238, 0.5);
-  background: radial-gradient(circle at 32% 30%, rgba(174, 216, 238, 0.28), rgba(174, 216, 238, 0.05));
-  animation: bubble-rise var(--bd, 14s) linear infinite;
-  animation-delay: var(--bdelay, 0s);
+.notch-sm {
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
 }
 
-/* liquid tint that rises inside a card on hover */
-.liquid-card { position: relative; overflow: hidden; }
-.liquid-card::after {
+/* corner registration ticks — the four short marks a print shop or spec
+   sheet uses to mark a bleed/crop box. Sits on a relatively-positioned
+   ancestor with data-frame. */
+.frame-ticks {
+  position: relative;
+}
+.frame-ticks::before,
+.frame-ticks::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(174, 216, 238, 0.22), rgba(174, 216, 238, 0.04));
-  transform: translateY(101%);
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 14px;
+  height: 14px;
   pointer-events: none;
 }
-.liquid-card:hover::after { transform: translateY(0); }
+.frame-ticks::before {
+  top: 0;
+  left: 0;
+  border-top: 1.5px solid currentColor;
+  border-left: 1.5px solid currentColor;
+  opacity: 0.5;
+}
+.frame-ticks::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  opacity: 0.5;
+}
+
+/* a stamped rotation, as if a QC mark was pressed onto the page */
+.stamp {
+  transform: rotate(-3deg);
+}
 
 /* gentle bounce for the scroll hint */
 @keyframes scroll-hint {
@@ -215,14 +269,22 @@ body::before {
 }
 .scroll-hint { animation: scroll-hint 2.2s ease-in-out infinite; }
 
-/* slow "breathing" of the topographic contour field in the hero */
-@keyframes contour-breathe {
-  0%, 100% { transform: scale(1) translateY(0); }
-  50% { transform: scale(1.025) translateY(-0.6%); }
+/* a single slow scan line sweeping down a dark panel — the one
+   "living" background effect kept, because it reads as instrumentation
+   rather than decoration. */
+@keyframes scan-sweep {
+  0% { transform: translateY(-10%); opacity: 0; }
+  8% { opacity: 0.5; }
+  92% { opacity: 0.5; }
+  100% { transform: translateY(110%); opacity: 0; }
 }
-.contour-breathe {
-  animation: contour-breathe 16s ease-in-out infinite;
-  transform-origin: 72% 32%;
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(240, 168, 74, 0.55) 20%, rgba(240, 168, 74, 0.55) 80%, transparent);
+  animation: scan-sweep 9s linear infinite;
 }
 
 /* outlined display type — the layered wordmark treatment in the hero */
@@ -236,7 +298,6 @@ body::before {
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
-  .aurora-a, .aurora-b, .aurora-c { animation: none; }
-  .chip-float, .bubble, .scroll-hint, .contour-breathe { animation: none; }
-  .bubble { display: none; }
+  .scroll-hint, .scan-line { animation: none; }
+  .scan-line { display: none; }
 }

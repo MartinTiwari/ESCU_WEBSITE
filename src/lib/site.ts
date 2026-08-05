@@ -2,7 +2,7 @@ export const site = {
   name: "Everest Super Chemical Udhyog",
   shortName: "ESCU",
   tagline:
-    "Manufacturer and supplier of water treatment chemicals, pool and housekeeping products, catering fuel, and allied supplies from machine oils to test kits, serving hotels, resorts, hospitals, and industries across Nepal.",
+    "We make and supply water treatment chemicals, pool and cleaning products, cooking fuel, and other supplies like machine oils and test kits, for hotels, resorts, hospitals, and businesses across Nepal.",
   url: "https://www.everestsuperchemical.com.np",
   yearsInOperation: 35,
   phone: "01-4543654",
@@ -30,8 +30,8 @@ export const site = {
     "Reliable delivery across Nepal",
     "Technical support available",
     "Trusted by hotels, resorts & engineering projects",
-    "Customized supply solutions",
-    "Long-term supply agreements available",
+    "Custom supply plans",
+    "Long-term supply deals available",
   ],
 };
 

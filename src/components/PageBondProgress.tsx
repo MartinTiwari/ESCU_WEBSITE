@@ -94,7 +94,7 @@ export default function PageBondProgress() {
               cx={p.x}
               cy={p.y}
               r={big ? 3.6 : 2.3}
-              fill={lit ? (big ? "var(--lime)" : "var(--emerald)") : "var(--emerald)"}
+              fill={lit ? (big ? "var(--amber-bright)" : "var(--emerald)") : "var(--emerald)"}
               fillOpacity={lit ? 1 : 0.22}
               style={{ transition: "fill-opacity 300ms ease" }}
             />
@@ -102,8 +102,8 @@ export default function PageBondProgress() {
         })}
         {progress > 0.002 && progress < 0.998 && (
           <>
-            <circle cx={lx} cy={ly} r={8} fill="var(--lime)" fillOpacity="0.18" />
-            <circle cx={lx} cy={ly} r={3.4} fill="var(--lime)" />
+            <circle cx={lx} cy={ly} r={8} fill="var(--amber-bright)" fillOpacity="0.18" />
+            <circle cx={lx} cy={ly} r={3.4} fill="var(--amber-bright)" />
           </>
         )}
       </svg>
