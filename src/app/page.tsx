@@ -9,17 +9,14 @@ import Contours from "@/components/Contours";
 import IntroReveal from "@/components/IntroReveal";
 import CategoryIcon from "@/components/CategoryIcon";
 
-const formulas = [
-  ["NaOCl", "Liquid Chlorine"],
-  ["TCCA 90%", "Pool Sanitizer"],
-  ["Al₂(SO₄)₃", "Alum"],
-  ["PAC", "Poly Aluminium Chloride"],
-  ["CuSO₄·5H₂O", "Copper Sulphate"],
-  ["Ca(OCl)₂", "Bleaching Powder"],
-  ["NaOH", "Caustic Soda"],
-  ["Na₂CO₃", "Soda Ash"],
-  ["NaHCO₃", "Sodium Bicarbonate"],
-] as const;
+// The homepage catalogue cards want the single most recognizably "this is
+// chemicals" shot per category — drums for water treatment reads clearer
+// than a generic treatment-plant photo, so it overrides the standard
+// categoryPhoto used everywhere else (product listings, page headers).
+const categoryHeroPhoto: Record<string, string> = {
+  ...categoryPhoto,
+  "Water Treatment Chemicals": photos.drums,
+};
 
 const categoryMeta: Record<string, { blurb: string }> = {
   "Water Treatment Chemicals": {
@@ -100,19 +97,6 @@ export default function Home() {
             </div>
           </Reveal>
         </div>
-
-        {/* formula ticker */}
-        <div className="marquee relative z-10 border-t border-[var(--ink-line)] py-4 overflow-hidden whitespace-nowrap">
-          <div className="marquee-track">
-            {[...formulas, ...formulas].map(([f, name], i) => (
-              <span key={i} className="inline-flex items-center gap-3 px-7">
-                <span className="font-mono text-amber-bright text-sm">{f}</span>
-                <span className="eyebrow text-cream/40">{name}</span>
-                <span className="w-1 h-1 bg-amber-bright/50 ml-4" />
-              </span>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* ── TRUST STRIP ──────────────────────────────────── */}
@@ -191,26 +175,26 @@ export default function Home() {
       </section>
 
       {/* ── THE CATALOGUE ────────────────────────────────── */}
-      <section className="bg-ink text-cream">
+      <section className="bg-paper-2 border-y border-line">
         <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
           <Reveal>
-            <div className="eyebrow text-amber-bright mb-5 flex items-center gap-3">
+            <div className="eyebrow text-amber-deep mb-5 flex items-center gap-3">
               <span>02 / 03</span>
-              <span className="w-8 h-px bg-amber-bright" />
+              <span className="w-8 h-px bg-amber" />
               <span>The catalogue</span>
             </div>
             <div className="grid md:grid-cols-[1fr_auto] gap-8 items-end mb-16">
-              <h2 className="font-display font-medium text-4xl md:text-[3.25rem] leading-[1.06] tracking-[-0.02em] max-w-2xl">
+              <h2 className="font-display font-medium text-4xl md:text-[3.25rem] leading-[1.06] tracking-[-0.02em] max-w-2xl text-ink">
                 Everything we stock,{" "}
-                <span className="italic text-amber-bright">clearly listed.</span>
+                <span className="italic text-amber-deep">clearly listed.</span>
               </h2>
-              <Link href="/products" className="text-amber-bright font-medium text-sm link-ul shrink-0 mb-2">
+              <Link href="/products" className="text-amber-deep font-medium text-sm link-ul shrink-0 mb-2">
                 Full catalogue →
               </Link>
             </div>
           </Reveal>
 
-          <div className="border-t border-[var(--ink-line)]">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 pb-6 md:pb-10">
             {categories.map((cat, i) => {
               const count = products.filter((p) => p.category === cat).length;
               const meta = categoryMeta[cat];
@@ -218,36 +202,41 @@ export default function Home() {
                 <Reveal key={cat} delay={i * 0.08}>
                   <Link
                     href={`/products?category=${encodeURIComponent(cat)}`}
-                    className="group grid grid-cols-[96px_1fr_auto] md:grid-cols-[96px_1fr_340px_80px] gap-6 md:gap-10 py-8 md:py-10 border-b border-[var(--ink-line)] items-center hover:border-amber-bright/50 transition-colors"
+                    className="group flex flex-col h-full bg-cream border border-line hover:border-amber transition-colors overflow-hidden"
                   >
-                    <span className="relative w-24 h-24 rounded-md overflow-hidden shrink-0 frame-ticks text-amber-bright/60">
+                    {/* full-width photo, masked into the card below rather than
+                        floating on top of it */}
+                    <div className="relative h-52 md:h-56 shrink-0 overflow-hidden">
                       <Image
-                        src={categoryPhoto[cat]}
+                        src={categoryHeroPhoto[cat]}
                         alt=""
                         fill
-                        sizes="96px"
-                        className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                        sizes="(min-width: 768px) 33vw, 100vw"
+                        className="object-cover grayscale-[0.15] group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
                       />
-                      <span className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
-                      <span className="absolute top-2 left-2 eyebrow text-[0.6rem] text-amber-bright bg-ink/70 px-1.5 py-0.5">
+                      <div className="absolute inset-0 bg-gradient-to-t from-cream via-cream/0 to-ink/10" />
+                      <div className="absolute inset-0 bg-gradient-to-b from-ink/45 via-transparent to-transparent" />
+                      <div className="absolute top-4 left-4 flex items-center gap-2 eyebrow text-cream bg-ink/60 px-2 py-1">
+                        <CategoryIcon category={cat} className="w-3.5 h-3.5" />
                         {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="absolute bottom-2 right-2 text-amber-bright">
-                        <CategoryIcon category={cat} className="w-5 h-5" />
-                      </span>
-                    </span>
-                    <div>
-                      <div className="font-display text-2xl md:text-3xl text-cream group-hover:text-amber-bright transition-colors leading-tight mb-1">
-                        {cat}
                       </div>
-                      <p className="text-cream/40 text-sm leading-relaxed hidden md:block max-w-md">
+                      <span className="absolute top-4 right-4 eyebrow text-cream/90 bg-ink/60 px-2 py-1">
+                        {count} products
+                      </span>
+                    </div>
+
+                    <div className="p-7 pt-6 flex flex-col flex-1">
+                      <h3 className="font-display text-2xl text-ink leading-tight mb-3">
+                        {cat.replace(" Chemicals", "")}
+                      </h3>
+                      <p className="text-muted text-sm leading-relaxed mb-6">
                         {meta.blurb}
                       </p>
+                      <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-medium text-ink link-ul">
+                        Explore category
+                        <span className="transition-transform group-hover:translate-x-1">→</span>
+                      </span>
                     </div>
-                    <div className="hidden md:block text-right">
-                      <span className="eyebrow text-cream/30">{count} products</span>
-                    </div>
-                    <span className="text-cream/30 group-hover:text-amber-bright group-hover:translate-x-1 transition-all text-lg text-right">→</span>
                   </Link>
                 </Reveal>
               );
@@ -255,7 +244,7 @@ export default function Home() {
           </div>
 
           <Reveal>
-            <p className="text-cream/35 text-sm mt-10 max-w-xl leading-relaxed">
+            <p className="text-muted text-sm mt-4 max-w-xl leading-relaxed">
               We also stock other supplies: machine oils, test kits, lab acids, and cleaning
               equipment. If it&apos;s used in water treatment, hotels, or industry, we probably
               have it, or can get it for you.
