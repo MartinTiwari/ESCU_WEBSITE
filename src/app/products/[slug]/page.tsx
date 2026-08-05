@@ -37,6 +37,20 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     .filter((p) => p.category === product.category && p.slug !== product.slug)
     .slice(0, 4);
 
+  // cross-category: other products that serve at least one of the same
+  // industries but come from a different category — this is where the
+  // "one supplier, three categories" pitch actually gets to prove itself
+  const relatedSlugs = new Set(related.map((p) => p.slug));
+  const crossCategory = products
+    .filter(
+      (p) =>
+        p.slug !== product.slug &&
+        p.category !== product.category &&
+        !relatedSlugs.has(p.slug) &&
+        p.industries.some((ind) => product.industries.includes(ind))
+    )
+    .slice(0, 4);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -62,7 +76,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <div className="bg-ink text-cream relative overflow-hidden">
         <div className="absolute inset-0 grid-blueprint opacity-30" aria-hidden />
         <div className="max-w-4xl mx-auto px-5 pt-28 pb-14 md:pt-32 md:pb-18 relative">
-          <Link href="/products" className="eyebrow text-cream/40 hover:text-amber-bright transition-colors text-[0.65rem]">
+          <Link href="/products" className="eyebrow text-cream/40 hover:text-amber-bright transition-colors">
             ← Back to catalogue
           </Link>
           <Reveal>
@@ -85,7 +99,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="grid md:grid-cols-[1fr_260px] gap-12 md:gap-16 items-start">
           <Reveal>
             <div>
-              <div className="eyebrow text-amber mb-4">About this product</div>
+              <div className="eyebrow text-amber-deep mb-4">About this product</div>
               <p className="text-ink/70 text-lg leading-relaxed mb-10">{product.description}</p>
 
               <div className="eyebrow text-muted mb-4">Suited for</div>
@@ -94,7 +108,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <Link
                     key={ind}
                     href={`/industries#${encodeURIComponent(ind)}`}
-                    className="bg-paper-2 text-ink/70 text-xs font-medium px-4 py-2 border border-line hover:border-amber hover:text-amber transition-colors"
+                    className="bg-paper-2 text-ink/70 text-xs font-medium px-4 py-2 border border-line hover:border-amber hover:text-amber-deep transition-colors"
                   >
                     {ind}
                   </Link>
@@ -118,17 +132,31 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
           </Reveal>
 
-          {/* Spec card */}
+          {/* Ordering info — deliberately not called "Spec sheet": we don't
+              have per-product technical specs (purity, dosage, packaging)
+              digitized yet, and a card promising specs with none would
+              undercut trust right where it matters most. This only states
+              what's actually true today. */}
           <Reveal delay={0.1}>
             <aside className="bg-cream border border-line rounded-md p-7 sticky top-28">
-              <div className="eyebrow text-amber mb-5">Spec sheet</div>
+              <div className="eyebrow text-amber-deep mb-5">Ordering info</div>
               <dl className="space-y-4">
-                <SpecRow k="Category" v={product.category} />
-                <SpecRow k="Use case" v={product.useCase} />
                 <SpecRow k="Pricing" v="Ask us for a price" />
-                <SpecRow k="SDS" v={product.sdsAvailable ? "Available" : "On request"} />
+                <SpecRow k="Delivery" v="Nepal-wide" />
+                {product.sdsAvailable && product.sdsUrl ? (
+                  <div className="flex justify-between gap-4 border-b border-line pb-4 last:border-0 last:pb-0">
+                    <dt className="text-muted text-sm shrink-0">SDS</dt>
+                    <dd className="text-sm text-right">
+                      <a href={product.sdsUrl} target="_blank" rel="noopener noreferrer" className="text-amber-deep font-medium link-ul">
+                        Download →
+                      </a>
+                    </dd>
+                  </div>
+                ) : (
+                  <SpecRow k="SDS" v="On request" />
+                )}
               </dl>
-              {!product.sdsAvailable && (
+              {!(product.sdsAvailable && product.sdsUrl) && (
                 <p className="text-muted text-xs leading-relaxed mt-6 pt-5 border-t border-line">
                   SDS / spec sheet not yet online. Request one via the quote form or WhatsApp and we will send it over.
                 </p>
@@ -137,13 +165,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </Reveal>
         </div>
 
-        {/* Related products */}
+        {/* Related products, same category */}
         {related.length > 0 && (
           <div className="mt-20 pt-14 border-t border-line">
             <Reveal>
               <div className="flex items-baseline justify-between gap-4 mb-10">
                 <div>
-                  <div className="eyebrow text-amber mb-2">In the same category</div>
+                  <div className="eyebrow text-amber-deep mb-2">In the same category</div>
                   <h2 className="font-display text-2xl md:text-3xl text-ink">Related products</h2>
                 </div>
                 <Link href={`/products?category=${encodeURIComponent(product.category)}`} className="text-muted text-sm hover:text-ink link-ul shrink-0">
@@ -159,12 +187,45 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     className="group grid grid-cols-[1fr_auto] gap-4 items-center py-5 border-b border-line hover:bg-cream/70 transition-colors -mx-2 px-2"
                   >
                     <div>
-                      <span className="font-display text-xl text-ink group-hover:text-amber transition-colors block mb-0.5">
+                      <span className="font-display text-xl text-ink group-hover:text-amber-deep transition-colors block mb-0.5">
                         {p.name}
                       </span>
                       <span className="text-muted text-sm">{p.useCase}</span>
                     </div>
-                    <span className="text-muted group-hover:text-amber group-hover:translate-x-0.5 transition-all">→</span>
+                    <span className="text-muted group-hover:text-amber-deep group-hover:translate-x-0.5 transition-all">→</span>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Cross-category — the "one supplier, three categories" pitch,
+            proved at the exact moment someone's already decided to buy */}
+        {crossCategory.length > 0 && (
+          <div className="mt-16 pt-14 border-t border-line">
+            <Reveal>
+              <div className="eyebrow text-amber-deep mb-2">Also for your operation</div>
+              <h2 className="font-display text-2xl md:text-3xl text-ink mb-2">From our other categories</h2>
+              <p className="text-muted text-sm mb-10 max-w-xl">
+                Since you&apos;re stocking up, here&apos;s what else we supply for the same kind of operation.
+              </p>
+            </Reveal>
+            <div className="border-t border-line">
+              {crossCategory.map((p, i) => (
+                <Reveal key={p.slug} delay={i * 0.05}>
+                  <Link
+                    href={`/products/${p.slug}`}
+                    className="group grid grid-cols-[auto_1fr_auto] gap-4 items-center py-5 border-b border-line hover:bg-cream/70 transition-colors -mx-2 px-2"
+                  >
+                    <span className="eyebrow text-muted text-[0.6rem] shrink-0">{p.category.replace(" Chemicals", "").replace(" & Cleaning", "")}</span>
+                    <div className="min-w-0">
+                      <span className="font-display text-xl text-ink group-hover:text-amber-deep transition-colors block mb-0.5">
+                        {p.name}
+                      </span>
+                      <span className="text-muted text-sm">{p.useCase}</span>
+                    </div>
+                    <span className="text-muted group-hover:text-amber-deep group-hover:translate-x-0.5 transition-all">→</span>
                   </Link>
                 </Reveal>
               ))}

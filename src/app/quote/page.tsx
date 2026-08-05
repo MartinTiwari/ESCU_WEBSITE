@@ -31,7 +31,7 @@ export default function QuotePage() {
                 ["Bulk & business rates", "Lower prices for bulk orders, with long-term supply deals available."],
               ].map(([t, d], i) => (
                 <div key={t} className="flex gap-4">
-                  <span className="eyebrow text-amber text-[0.62rem] mt-1">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="eyebrow text-amber-deep mt-1">{String(i + 1).padStart(2, "0")}</span>
                   <div>
                     <div className="font-display text-lg text-ink">{t}</div>
                     <p className="text-muted text-sm leading-relaxed mt-0.5">{d}</p>

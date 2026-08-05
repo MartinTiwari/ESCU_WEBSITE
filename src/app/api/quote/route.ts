@@ -72,11 +72,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  // Time trap: the form records when it rendered; a submit that arrives
-  // faster than a human could plausibly fill the form out is almost
-  // certainly scripted.
+  // Time trap: the form records when it rendered. Kept deliberately low
+  // (400ms, not the ~1200ms a first draft used) — browser autofill can
+  // legitimately fill and submit a multi-field form in under a second,
+  // and silently discarding a real customer's lead is worse than letting
+  // a slightly-faster bot through; the honeypot above and Turnstile below
+  // still catch those. Missing timestamp is still a hard reject (no
+  // legitimate client omits it).
   const renderedAt = Number(body.formRenderedAt);
-  if (!Number.isFinite(renderedAt) || Date.now() - renderedAt < 1200) {
+  if (!Number.isFinite(renderedAt)) {
+    return NextResponse.json({ ok: true });
+  }
+  if (Date.now() - renderedAt < 400) {
     return NextResponse.json({ ok: true });
   }
 

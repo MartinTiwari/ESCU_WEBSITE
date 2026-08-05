@@ -21,6 +21,11 @@ export interface Product {
   industries: Industry[];
   description: string;
   sdsAvailable: boolean;
+  // Only set this alongside sdsAvailable: true. The product page checks
+  // both before rendering a real download link — sdsAvailable with no
+  // sdsUrl falls back to "on request" instead of claiming a file exists
+  // that nothing actually links to.
+  sdsUrl?: string;
 }
 
 const hospitality: Industry[] = ["Hotels & Resorts", "Restaurants & Cafes", "Commercial Buildings"];
@@ -42,7 +47,7 @@ export const products: Product[] = [
 
   // Swimming Pool Chemicals
   { slug: "tcca-90", name: "TCCA 90%", useCase: "Pool Sanitizer", category: "Swimming Pool Chemicals", industries: pool, description: "High-strength chlorine sanitizer (90% TCCA) for swimming pool disinfection.", sdsAvailable: false },
-  { slug: "liquid-chlorine-pool", name: "Liquid Chlorine", useCase: "Pool Water Disinfection (Sodium Hypochlorite)", category: "Swimming Pool Chemicals", industries: pool, description: "Sodium hypochlorite solution for fast-acting pool water disinfection.", sdsAvailable: false },
+  { slug: "liquid-chlorine-pool", name: "Liquid Chlorine (Pool)", useCase: "Pool Water Disinfection (Sodium Hypochlorite)", category: "Swimming Pool Chemicals", industries: pool, description: "Sodium hypochlorite solution for fast-acting pool water disinfection.", sdsAvailable: false },
   { slug: "copper-sulphate", name: "Copper Sulphate", useCase: "Algae Prevention & Control", category: "Swimming Pool Chemicals", industries: pool, description: "Controls and prevents algae growth in pool and reservoir water.", sdsAvailable: false },
   { slug: "soda-ash-powder", name: "Soda Ash Powder", useCase: "pH Increaser", category: "Swimming Pool Chemicals", industries: pool, description: "Raises pH levels to maintain balanced, comfortable pool water.", sdsAvailable: false },
   { slug: "sodium-bicarbonate", name: "Sodium Bicarbonate", useCase: "Total Alkalinity Booster", category: "Swimming Pool Chemicals", industries: pool, description: "Boosts total alkalinity to stabilize pool water chemistry.", sdsAvailable: false },
@@ -57,7 +62,7 @@ export const products: Product[] = [
   { slug: "caustic-soda-flakes", name: "Caustic Soda Flakes", useCase: "pH Adjustment Chemical", category: "Water Treatment Chemicals", industries: waterTreatment, description: "Sodium hydroxide flakes used for pH adjustment in industrial processes.", sdsAvailable: false },
   { slug: "sodium-hydroxide", name: "Sodium Hydroxide", useCase: "Alkalinity & pH Control", category: "Water Treatment Chemicals", industries: waterTreatment, description: "Strong alkali used for alkalinity and pH control in treatment systems.", sdsAvailable: false },
   { slug: "hcl-acid", name: "HCL Acid", useCase: "Descaling & pH Reduction", category: "Water Treatment Chemicals", industries: waterTreatment, description: "Hydrochloric acid for descaling equipment and lowering water pH.", sdsAvailable: false },
-  { slug: "liquid-chlorine-water", name: "Liquid Chlorine", useCase: "Water & Tank Disinfection (Sodium Hypochlorite)", category: "Water Treatment Chemicals", industries: waterTreatment, description: "Sodium hypochlorite solution for disinfecting water supplies and storage tanks.", sdsAvailable: false },
+  { slug: "liquid-chlorine-water", name: "Liquid Chlorine (Water Treatment)", useCase: "Water & Tank Disinfection (Sodium Hypochlorite)", category: "Water Treatment Chemicals", industries: waterTreatment, description: "Sodium hypochlorite solution for disinfecting water supplies and storage tanks.", sdsAvailable: false },
   { slug: "antiscalant", name: "Antiscalant", useCase: "RO Membrane Protection", category: "Water Treatment Chemicals", industries: waterTreatment, description: "Prevents scale formation to protect RO membranes and extend system life.", sdsAvailable: false },
   { slug: "polyelectrolyte", name: "Polyelectrolyte", useCase: "Flocculation Agent", category: "Water Treatment Chemicals", industries: waterTreatment, description: "Flocculation aid that improves settling of suspended solids in water treatment.", sdsAvailable: false },
 ];

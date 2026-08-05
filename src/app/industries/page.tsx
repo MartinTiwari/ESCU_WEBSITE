@@ -31,7 +31,7 @@ export default function IndustriesPage() {
       >
         <div className="flex flex-wrap gap-x-6 gap-y-2 mt-8">
           {served.map((ind, i) => (
-            <a key={ind} href={`#${encodeURIComponent(ind)}`} className="eyebrow text-cream/45 hover:text-amber-bright transition-colors text-[0.62rem]">
+            <a key={ind} href={`#${encodeURIComponent(ind)}`} className="eyebrow text-cream/45 hover:text-amber-bright transition-colors">
               {String(i + 1).padStart(2, "0")} {ind}
             </a>
           ))}
@@ -56,7 +56,7 @@ export default function IndustriesPage() {
                       />
                     </div>
                     <div>
-                      <div className="eyebrow text-amber mb-2">{String(idx + 1).padStart(2, "0")} / Industry</div>
+                      <div className="eyebrow text-amber-deep mb-2">{String(idx + 1).padStart(2, "0")} / Industry</div>
                       <h2 className="font-display text-3xl md:text-4xl text-ink">{ind}</h2>
                     </div>
                   </div>

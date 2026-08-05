@@ -71,9 +71,9 @@ export default function ContactPage() {
         {/* ── Pick a method ─────────────────────────── */}
         <Reveal>
           <div className="flex items-baseline gap-3 mb-8">
-            <span className="eyebrow text-amber text-[0.62rem]">01 / Reach us</span>
+            <span className="eyebrow text-amber-deep">01 / Reach us</span>
             <span className="h-px flex-1 bg-line" />
-            <span className="eyebrow text-muted text-[0.58rem]">Whichever is easiest</span>
+            <span className="eyebrow text-muted">Whichever is easiest</span>
           </div>
         </Reveal>
 
@@ -84,13 +84,13 @@ export default function ContactPage() {
                 href={m.href}
                 target={m.external ? "_blank" : undefined}
                 rel={m.external ? "noopener noreferrer" : undefined}
-                className="group flex flex-col h-full bg-cream border border-line frame-ticks text-amber p-7 transition-all hover:border-amber"
+                className="group flex flex-col h-full bg-cream border border-line frame-ticks text-amber-deep p-7 transition-all hover:border-amber"
               >
-                <div className="w-11 h-11 notch-sm bg-amber/10 text-amber grid place-items-center mb-6 transition-colors group-hover:bg-amber group-hover:text-cream">
+                <div className="w-11 h-11 notch-sm bg-amber/10 text-amber-deep grid place-items-center mb-6 transition-colors group-hover:bg-amber group-hover:text-cream">
                   {m.icon}
                 </div>
-                <div className="eyebrow text-muted text-[0.56rem] mb-2">{m.label}</div>
-                <div className="font-display text-xl text-ink leading-snug mb-3 break-words group-hover:text-amber transition-colors">
+                <div className="eyebrow text-muted mb-2">{m.label}</div>
+                <div className="font-display text-xl text-ink leading-snug mb-3 break-words group-hover:text-amber-deep transition-colors">
                   {m.value}
                 </div>
                 <p className="text-muted text-sm leading-relaxed mb-6">{m.helper}</p>
@@ -106,9 +106,9 @@ export default function ContactPage() {
         {/* ── Find the warehouse ────────────────────── */}
         <Reveal>
           <div className="flex items-baseline gap-3 mb-8">
-            <span className="eyebrow text-amber text-[0.62rem]">02 / Find us</span>
+            <span className="eyebrow text-amber-deep">02 / Find us</span>
             <span className="h-px flex-1 bg-line" />
-            <span className="eyebrow text-muted text-[0.58rem]">Kathmandu</span>
+            <span className="eyebrow text-muted">Kathmandu</span>
           </div>
         </Reveal>
 
@@ -127,7 +127,7 @@ export default function ContactPage() {
               </div>
               <div className="absolute inset-0 grid-blueprint opacity-20 pointer-events-none" aria-hidden />
               <div className="relative px-8 pb-8 -mt-6">
-                <div className="eyebrow text-amber-bright text-[0.58rem] mb-4">The warehouse</div>
+                <div className="eyebrow text-amber-bright mb-4">The warehouse</div>
                 <p className="font-display text-2xl leading-snug mb-4">{site.address}</p>
                 <p className="flex items-center gap-2.5 text-cream/70 text-sm mb-4">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4 shrink-0 text-amber-bright">

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { site } from "@/lib/site";
+import { site, whatsappLink } from "@/lib/site";
 import { categories, industries, products } from "@/lib/products";
 import { photos, categoryPhoto } from "@/lib/photos";
 import Reveal from "@/components/Reveal";
@@ -133,7 +133,7 @@ export default function Home() {
         <div className="grid md:grid-cols-[220px_1fr] gap-12 md:gap-20 items-start">
           <Reveal>
             <div className="md:sticky md:top-28">
-              <div className="font-display text-[7rem] md:text-[9rem] leading-none text-amber/20 select-none" aria-hidden>
+              <div className="font-display text-[7rem] md:text-[9rem] leading-none text-amber-deep/20 select-none" aria-hidden>
                 <CountUp to={site.yearsInOperation} suffix="" />
               </div>
               <div className="eyebrow text-muted mt-2">years of supply</div>
@@ -146,7 +146,7 @@ export default function Home() {
 
           <div>
             <Reveal>
-              <div className="eyebrow text-amber mb-5 flex items-center gap-3">
+              <div className="eyebrow text-amber-deep mb-5 flex items-center gap-3">
                 <span>01 / 03</span>
                 <span className="w-8 h-px bg-amber" />
                 <span>About ESCU</span>
@@ -177,10 +177,10 @@ export default function Home() {
               ].map((p, i) => (
                 <Reveal key={p.tag} delay={i * 0.07}>
                   <div className="grid grid-cols-[40px_1fr] gap-6 py-7 border-b border-line hover:bg-paper/50 transition-colors -mx-4 px-4">
-                    <span className="eyebrow text-amber pt-1">{p.tag}</span>
+                    <span className="eyebrow text-amber-deep pt-1">{p.tag}</span>
                     <div>
                       <h3 className="font-display text-xl mb-2">{p.label}</h3>
-                      <p className="text-ink/55 leading-relaxed">{p.body}</p>
+                      <p className="text-ink/55 leading-relaxed max-w-xl">{p.body}</p>
                     </div>
                   </div>
                 </Reveal>
@@ -218,18 +218,22 @@ export default function Home() {
                 <Reveal key={cat} delay={i * 0.08}>
                   <Link
                     href={`/products?category=${encodeURIComponent(cat)}`}
-                    className="group grid grid-cols-[64px_1fr_auto] md:grid-cols-[64px_1fr_340px_80px] gap-6 md:gap-10 py-8 md:py-10 border-b border-[var(--ink-line)] items-center hover:border-amber-bright/50 transition-colors"
+                    className="group grid grid-cols-[96px_1fr_auto] md:grid-cols-[96px_1fr_340px_80px] gap-6 md:gap-10 py-8 md:py-10 border-b border-[var(--ink-line)] items-center hover:border-amber-bright/50 transition-colors"
                   >
-                    <span className="relative w-16 h-16 rounded-md overflow-hidden shrink-0">
+                    <span className="relative w-24 h-24 rounded-md overflow-hidden shrink-0 frame-ticks text-amber-bright/60">
                       <Image
                         src={categoryPhoto[cat]}
                         alt=""
                         fill
-                        sizes="64px"
-                        className="object-cover opacity-70 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500"
+                        sizes="96px"
+                        className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                       />
-                      <span className="absolute inset-0 bg-ink/35 grid place-items-center text-amber-bright/80">
-                        <CategoryIcon category={cat} />
+                      <span className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
+                      <span className="absolute top-2 left-2 eyebrow text-[0.6rem] text-amber-bright bg-ink/70 px-1.5 py-0.5">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="absolute bottom-2 right-2 text-amber-bright">
+                        <CategoryIcon category={cat} className="w-5 h-5" />
                       </span>
                     </span>
                     <div>
@@ -251,7 +255,7 @@ export default function Home() {
           </div>
 
           <Reveal>
-            <p className="text-cream/35 text-sm mt-10 max-w-2xl leading-relaxed">
+            <p className="text-cream/35 text-sm mt-10 max-w-xl leading-relaxed">
               We also stock other supplies: machine oils, test kits, lab acids, and cleaning
               equipment. If it&apos;s used in water treatment, hotels, or industry, we probably
               have it, or can get it for you.
@@ -265,7 +269,7 @@ export default function Home() {
         <div className="grid md:grid-cols-[280px_1fr] gap-12 md:gap-20">
           <Reveal>
             <div className="md:sticky md:top-28">
-              <div className="eyebrow text-amber mb-4 flex items-center gap-3">
+              <div className="eyebrow text-amber-deep mb-4 flex items-center gap-3">
                 <span>03 / 03</span>
                 <span className="w-8 h-px bg-amber" />
               </div>
@@ -292,18 +296,18 @@ export default function Home() {
                     className="group flex items-center justify-between gap-6 py-5 md:py-6 border-b border-line hover:bg-paper/60 transition-colors -mx-4 px-4"
                   >
                     <div className="flex items-baseline gap-5">
-                      <span className="eyebrow text-muted text-[0.58rem] shrink-0">
+                      <span className="eyebrow text-muted shrink-0">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="font-display text-xl md:text-2xl group-hover:text-amber transition-colors">
+                      <span className="font-display text-xl md:text-2xl group-hover:text-amber-deep transition-colors">
                         {ind}
                       </span>
                     </div>
                     <div className="flex items-center gap-4 shrink-0">
-                      <span className="eyebrow text-muted text-[0.58rem] hidden sm:block">
+                      <span className="eyebrow text-muted hidden sm:block">
                         {count} {count === 1 ? "product" : "products"}
                       </span>
-                      <span className="text-muted group-hover:text-amber group-hover:translate-x-0.5 transition-all">→</span>
+                      <span className="text-muted group-hover:text-amber-deep group-hover:translate-x-0.5 transition-all">→</span>
                     </div>
                   </Link>
                 </Reveal>
@@ -327,11 +331,11 @@ export default function Home() {
                 key={i}
                 className="py-8 md:py-2 md:px-8 border-t md:border-t-0 md:border-l border-line first:border-l-0 first:border-t-0"
               >
-                <div className="eyebrow text-amber text-[0.56rem] mb-3">{String(i + 1).padStart(2, "0")}</div>
+                <div className="eyebrow text-amber-deep mb-3">{String(i + 1).padStart(2, "0")}</div>
                 <div className="font-display text-4xl md:text-5xl text-ink mb-2">
                   {s.value !== null ? <CountUp to={s.value} suffix={s.suffix ?? ""} /> : "Nepal-wide"}
                 </div>
-                <div className="eyebrow text-ink/40 text-[0.58rem]">{s.label}</div>
+                <div className="eyebrow text-ink/40">{s.label}</div>
               </div>
             ))}
           </div>
@@ -365,9 +369,14 @@ export default function Home() {
                 <Link href="/quote" className="btn-primary justify-center">
                   Work with us →
                 </Link>
-                <Link href="/contact" className="text-cream/60 hover:text-cream text-sm font-medium text-center link-ul">
-                  Or just give us a call
-                </Link>
+                <a
+                  href={whatsappLink("Hi ESCU, I'd like to ask about your products.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary-dark justify-center"
+                >
+                  Message on WhatsApp
+                </a>
                 <a href={`tel:${site.phone}`} className="font-display text-2xl text-cream/80 hover:text-cream transition-colors text-center">
                   {site.phone}
                 </a>

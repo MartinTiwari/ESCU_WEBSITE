@@ -68,12 +68,12 @@ export default function AboutPage() {
               Direct line to the warehouse. Whoever answers the phone packed
               an order this morning, not a call centre reading from a script.
             </p>
-            <div className="eyebrow text-muted text-[0.6rem] mt-5">The ESCU team &middot; Banshidhar Marg</div>
+            <div className="eyebrow text-muted mt-5">The ESCU team &middot; Banshidhar Marg</div>
           </div>
         </Reveal>
 
         <Reveal>
-          <div className="eyebrow text-amber mb-3">01 / What you get</div>
+          <div className="eyebrow text-amber-deep mb-3">01 / What you get</div>
           <h2 className="font-display text-3xl md:text-4xl text-ink mb-8">Why choose us</h2>
         </Reveal>
 
@@ -82,7 +82,7 @@ export default function AboutPage() {
             {site.whyChooseUs.map((item, i) => (
               <Reveal key={item} delay={Math.min(i * 0.04, 0.3)}>
                 <div className="flex items-start gap-3.5 border-b border-r border-line px-6 py-5 h-full">
-                  <span className="w-5 h-5 notch-sm bg-amber/12 text-amber grid place-items-center mt-0.5 shrink-0">
+                  <span className="w-5 h-5 notch-sm bg-amber/12 text-amber-deep grid place-items-center mt-0.5 shrink-0">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-3 h-3">
                       <path d="M4.5 12.5 9.5 17.5 19.5 6.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -137,7 +137,7 @@ function PullStat({ value, label }: { value: string; label: string }) {
   return (
     <div className="relative">
       <div className="font-display text-3xl text-amber-bright mb-1">{value}</div>
-      <div className="eyebrow text-cream/40 text-[0.55rem]">{label}</div>
+      <div className="eyebrow text-cream/40">{label}</div>
     </div>
   );
 }

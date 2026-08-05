@@ -13,6 +13,7 @@ delivery slips, signage) — is one of these swatches. Nothing else.
 | Light base, near-white | Cream | `#FBF9F4` | 251, 249, 244 | 0, 1, 3, 2 |
 | **Accent (primary)** | **Amber** | **`#C8721A`** | 200, 114, 26 | 0, 43, 87, 22 |
 | Accent, on dark backgrounds | Amber Bright | `#F0A84A` | 240, 168, 74 | 0, 30, 69, 6 |
+| Accent, small text on light backgrounds | Amber Deep | `#8A4A10` | 138, 74, 16 | — |
 | Body text | Ink Text | `#17211D` | 23, 33, 29 | — |
 | Secondary text | Muted | `#67736C` | 103, 115, 108 | 10, 0, 6, 55 |
 | Hairlines / borders | Line | `#DDD6C7` | 221, 214, 199 | 0, 3, 10, 13 |
@@ -38,16 +39,20 @@ updating this file and re-deriving every page that currently assumes
 
 ## Usage
 
-- **CTAs / primary buttons** — solid Amber (`#C8721A`) fill, Cream text,
-  the tag-punch notch corner. Hover to Amber Bright.
-- **Tags, eyebrows, index numbers, active nav** — Amber on paper
-  backgrounds, Amber Bright on ink backgrounds (it needs the lift for
-  contrast on dark).
+- **CTAs / primary buttons** — solid Amber (`#C8721A`) fill, Ink text
+  (not Cream — cream-on-amber is 3.4:1 and fails WCAG AA; ink-on-amber is
+  4.9:1 and reads more like a stamped hazard tag anyway), the tag-punch
+  notch corner. Hover to Amber Bright.
+- **Tags, eyebrows, index numbers, active nav** — Amber Deep on paper/
+  cream/paper-2 backgrounds (plain Amber is only 3.4:1 there and fails AA
+  at label/tag sizes), Amber Bright on ink backgrounds (it needs the lift
+  for contrast on dark).
 - **Body copy, structure, borders** — Ink / Muted / Line. Never colored.
 - **Hazard Red** — reserved for genuine warnings or destructive actions
-  only (e.g. a form error). Do not use it decoratively; it must stay
-  rare enough to mean something when it appears, matching real hazard
-  labeling conventions.
+  only (currently: quote-form validation errors — `text-hazard`,
+  `border-hazard`). Do not use it decoratively; it must stay rare enough
+  to mean something when it appears, matching real hazard labeling
+  conventions.
 - **Print (drum labels, letterhead, delivery slips)** — Ink on Paper/
   Cream stock, Amber for the ESCU mark, product-family tag, or a
   hazard/handling icon. Keep the same one-accent rule: if the label

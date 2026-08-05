@@ -57,7 +57,7 @@ export default async function ProductsPage({
       {/* Product index — grouped by category */}
       <div className="max-w-6xl mx-auto px-5 py-14">
         <div className="space-y-20">
-          {activeCategories.map((cat, ci) => {
+          {activeCategories.map((cat) => {
             const items = products.filter((p) => p.category === cat);
             const offset = products.indexOf(items[0]);
             return (
@@ -74,7 +74,7 @@ export default async function ProductsPage({
                       </span>
                       <h2 className="font-display text-2xl md:text-3xl text-ink">{cat}</h2>
                     </div>
-                    <span className="eyebrow text-muted text-[0.58rem] mb-1 shrink-0">
+                    <span className="eyebrow text-muted mb-1 shrink-0">
                       {items.length} {items.length === 1 ? "product" : "products"}
                     </span>
                   </div>
@@ -87,18 +87,18 @@ export default async function ProductsPage({
                         href={`/products/${p.slug}`}
                         className="group grid grid-cols-[40px_1fr_auto] md:grid-cols-[40px_1fr_280px_40px] items-center gap-4 md:gap-8 py-4 border-b border-line hover:bg-cream/70 transition-colors -mx-2 px-2"
                       >
-                        <span className="eyebrow text-muted text-[0.58rem]">
+                        <span className="eyebrow text-muted">
                           {String(offset + i + 1).padStart(2, "0")}
                         </span>
                         <div className="min-w-0">
-                          <span className="font-display text-lg md:text-xl text-ink group-hover:text-amber transition-colors leading-tight block">
+                          <span className="font-display text-lg md:text-xl text-ink group-hover:text-amber-deep transition-colors leading-tight block">
                             {p.name}
                           </span>
                         </div>
                         <span className="text-muted text-sm leading-snug hidden md:block">
                           {p.useCase}
                         </span>
-                        <span className="text-muted group-hover:text-amber group-hover:translate-x-0.5 transition-all text-right">
+                        <span className="text-muted group-hover:text-amber-deep group-hover:translate-x-0.5 transition-all text-right">
                           →
                         </span>
                       </Link>
@@ -162,9 +162,9 @@ function FilterTab({
   return (
     <Link
       href={href}
-      className={`eyebrow text-[0.65rem] px-5 py-3.5 border-b-2 whitespace-nowrap transition-colors ${
+      className={`eyebrow px-5 py-3.5 border-b-2 whitespace-nowrap transition-colors ${
         active
-          ? "border-amber text-amber"
+          ? "border-amber text-amber-deep"
           : "border-transparent text-muted hover:text-ink hover:border-line"
       }`}
     >

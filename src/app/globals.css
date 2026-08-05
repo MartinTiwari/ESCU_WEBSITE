@@ -17,9 +17,14 @@
   --cream: #fbf9f4;
 
   /* the one accent — works-order amber. Every "colored" element on
-     the site is one of these two steps, nothing else. */
+     the site is one of these steps, nothing else. */
   --amber: #c8721a;
   --amber-bright: #f0a84a;
+  /* same hue, darkened for small text on light backgrounds — --amber
+     itself is 3.4:1 on paper/cream (fails WCAG AA at body/label sizes).
+     Use this, not --amber, for any text sitting on paper/paper-2/cream.
+     --amber-bright already passes on ink and needs no equivalent. */
+  --amber-deep: #8a4a10;
 
   /* structural neutral — NOT a second brand color. Used only for
      hairline/backbone marks that need to sit quietly below the
@@ -39,16 +44,6 @@
   --r-md: 6px;
   --r-lg: 10px;
 
-  /* legacy aliases, kept so nothing renders off-brand if missed */
-  --navy: var(--ink);
-  --teal: var(--emerald);
-  --teal-light: var(--emerald-bright);
-  --gold: var(--amber);
-  --background: var(--paper);
-  --foreground: var(--fg);
-  --grey-50: #efeadf;
-  --grey-100: var(--line);
-  --grey-400: #8a938c;
   --grey-700: #3a443e;
 }
 
@@ -62,23 +57,13 @@
   --color-emerald-bright: var(--emerald-bright);
   --color-amber: var(--amber);
   --color-amber-bright: var(--amber-bright);
+  --color-amber-deep: var(--amber-deep);
   --color-hazard: var(--hazard);
   --color-muted: var(--muted);
   --color-line: var(--line);
   --radius-sm: var(--r-sm);
   --radius-md: var(--r-md);
   --radius-lg: var(--r-lg);
-
-  /* legacy token → new value */
-  --color-navy: var(--ink);
-  --color-teal: var(--emerald);
-  --color-teal-light: var(--emerald-bright);
-  --color-gold: var(--amber);
-  --color-background: var(--paper);
-  --color-foreground: var(--fg);
-  --color-grey-50: var(--grey-50);
-  --color-grey-100: var(--grey-100);
-  --color-grey-400: var(--grey-400);
   --color-grey-700: var(--grey-700);
 
   --font-sans: var(--font-inter);
@@ -116,11 +101,14 @@ body::before {
 
 /* ---- editorial helpers ---------------------------------- */
 
-/* monospaced technical eyebrow: the spec-sheet signal */
+/* monospaced technical eyebrow: the spec-sheet signal.
+   0.75rem (12px) is the floor for functional text; anything smaller
+   fails legibility regardless of contrast. Don't override this
+   downward with an arbitrary text-[...] class. */
 .eyebrow {
   font-family: var(--font-mono), monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 500;
 }
@@ -128,11 +116,6 @@ body::before {
 .font-display {
   font-family: var(--font-fraunces), Georgia, serif;
   font-optical-sizing: auto;
-}
-
-/* thin ruled divider with a tick, like a drafting sheet */
-.hairline {
-  border-top: 1px solid var(--line);
 }
 
 /* animated hover underline for editorial links */
@@ -155,7 +138,10 @@ body::before {
   align-items: center;
   gap: 0.5rem;
   background: var(--amber);
-  color: var(--cream);
+  /* ink, not cream: cream-on-amber is 3.4:1, fails WCAG AA (needs 4.5:1).
+     ink-on-amber is 4.9:1 — and reads more like a stamped hazard tag
+     anyway, which fits the brand better than white-on-amber did. */
+  color: var(--ink);
   font-weight: 600;
   font-size: 0.875rem;
   padding: 0.95rem 1.6rem;
@@ -177,7 +163,7 @@ body::before {
   padding: 0.9rem 1.55rem;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
-.btn-secondary:hover { border-color: var(--amber); color: var(--amber); }
+.btn-secondary:hover { border-color: var(--amber); color: var(--amber-deep); }
 
 /* on dark panels */
 .btn-secondary-dark {
@@ -220,10 +206,7 @@ body::before {
 }
 
 /* one clipped corner — the tag-punch notch used on stamped works-order
-   tags. Applied to primary CTAs and category chips instead of pill radii. */
-.notch {
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
-}
+   tags and badges (buttons inline their own copy of this clip-path). */
 .notch-sm {
   clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
 }
@@ -257,18 +240,6 @@ body::before {
   opacity: 0.5;
 }
 
-/* a stamped rotation, as if a QC mark was pressed onto the page */
-.stamp {
-  transform: rotate(-3deg);
-}
-
-/* gentle bounce for the scroll hint */
-@keyframes scroll-hint {
-  0%, 100% { transform: translateY(0); opacity: 0.7; }
-  50% { transform: translateY(8px); opacity: 1; }
-}
-.scroll-hint { animation: scroll-hint 2.2s ease-in-out infinite; }
-
 /* a single slow scan line sweeping down a dark panel — the one
    "living" background effect kept, because it reads as instrumentation
    rather than decoration. */
@@ -298,6 +269,5 @@ body::before {
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
-  .scroll-hint, .scan-line { animation: none; }
-  .scan-line { display: none; }
+  .scan-line { animation: none; display: none; }
 }
