@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces, Space_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -72,7 +72,11 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport = { themeColor: "#0b1d19" };
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0b1d19",
+};
 
 const jsonLd = {
   "@context": "https://schema.org",
