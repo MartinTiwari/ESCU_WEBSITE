@@ -66,7 +66,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     sku: product.slug,
     url,
     image: `${site.url}/logo-mark.png`,
-    brand: { "@type": "Organization", name: site.name },
+    // Brand, not Organization. Google's merchant listing spec types `brand`
+    // as Brand specifically, and rejected the Organization we had here as
+    // "Invalid object type for field brand" across every product. The
+    // manufacturer below is a different field and does take an Organization.
+    brand: { "@type": "Brand", name: site.name },
     // Industries served are not a demographic audience. Google's merchant
     // listing spec only accepts PeopleAudience under `audience` and flagged
     // these Audience objects as "Invalid object type for field audience".
