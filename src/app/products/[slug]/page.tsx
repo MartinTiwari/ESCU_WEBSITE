@@ -68,13 +68,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     image: `${site.url}/logo-mark.png`,
     brand: { "@type": "Organization", name: site.name },
     audience: product.industries.map((ind) => ({ "@type": "Audience", audienceType: ind })),
-    offers: {
-      "@type": "Offer",
-      url,
-      priceCurrency: "NPR",
-      availability: "https://schema.org/InStock",
-      seller: { "@type": "Organization", name: site.name },
-    },
+    // No `offers` block on purpose. We quote on request rather than publish
+    // prices, and Search Console flagged the priceless Offer as a critical
+    // error ("Either 'price' or 'priceSpecification.price' should be
+    // specified") on every product page. Nothing is lost by dropping it:
+    // product rich results need a price or a review to appear at all, so an
+    // invalid Offer bought an error and no eligibility. Restore this — with a
+    // real price — if list pricing is ever published.
+    manufacturer: { "@type": "Organization", name: site.name },
   };
 
   // Gives Google the catalogue → category → product hierarchy explicitly,
