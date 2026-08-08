@@ -67,14 +67,39 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     url,
     image: `${site.url}/logo-mark.png`,
     brand: { "@type": "Organization", name: site.name },
-    audience: product.industries.map((ind) => ({ "@type": "Audience", audienceType: ind })),
-    // No `offers` block on purpose. We quote on request rather than publish
-    // prices, and Search Console flagged the priceless Offer as a critical
-    // error ("Either 'price' or 'priceSpecification.price' should be
-    // specified") on every product page. Nothing is lost by dropping it:
-    // product rich results need a price or a review to appear at all, so an
-    // invalid Offer bought an error and no eligibility. Restore this — with a
-    // real price — if list pricing is ever published.
+    // Industries served are not a demographic audience. Google's merchant
+    // listing spec only accepts PeopleAudience under `audience` and flagged
+    // these Audience objects as "Invalid object type for field audience".
+    // additionalProperty carries the same facts with no type constraint.
+    additionalProperty: product.industries.map((ind) => ({
+      "@type": "PropertyValue",
+      name: "Industry served",
+      value: ind,
+    })),
+    // No `offers` block on purpose, and no aggregateRating either. We quote on
+    // request rather than publish wholesale prices.
+    //
+    // Search Console reports "Either 'offers', 'review', or 'aggregateRating'
+    // should be specified" as a critical Product snippets issue. That is
+    // expected and accepted, not an oversight. Two things make it inert:
+    //
+    //   1. `name` is the only property Google strictly requires on Product,
+    //      so this markup is valid. "Critical" here means the page is not
+    //      eligible for the *rich result* (price/stock/stars in the SERP).
+    //      Indexing and ranking are unaffected.
+    //   2. The alternatives are worse. A price-less Offer was the previous
+    //      state and threw its own critical error, so re-adding one just
+    //      trades one error for another. Inventing an aggregateRating from
+    //      reviews we did not collect on this site breaks Google's guidelines
+    //      outright.
+    //
+    // The Product node stays because brand, sku, category and alternateName
+    // still feed entity understanding even with no snippet eligibility. This
+    // is the same position every quote-on-request catalogue sits in.
+    //
+    // Revisit only if real list pricing is published (add a proper Offer with
+    // priceCurrency "NPR") or if first-party reviews are genuinely collected
+    // and displayed on the page.
     manufacturer: { "@type": "Organization", name: site.name },
   };
 
