@@ -112,7 +112,8 @@ const jsonLd = {
     },
   ],
   areaServed: "NP",
-  foundingDate: "2001",
+  // Gregorian, per schema.org. See site.founded for the BS original.
+  foundingDate: String(site.founded.ad),
   sameAs: [] as string[],
 };
 

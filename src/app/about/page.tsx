@@ -22,8 +22,8 @@ export default function AboutPage() {
   return (
     <div className="bg-paper">
       <PageHeader
-        eyebrow="35+ Years · Kathmandu"
-        title={<>Over 35 years of <span className="italic text-amber-bright">keeping Nepal supplied.</span></>}
+        eyebrow={`${site.yearsInOperation}+ Years · Kathmandu`}
+        title={<>Over {site.yearsInOperation} years of <span className="italic text-amber-bright">keeping Nepal supplied.</span></>}
         bgImage={photos.aboutHeaderBg}
       />
 

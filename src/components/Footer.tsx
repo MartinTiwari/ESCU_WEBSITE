@@ -51,7 +51,7 @@ export default function Footer() {
           <span className="eyebrow text-cream/40">
             © {new Date().getFullYear()} Everest Super Chemical Udhyog
           </span>
-          <span className="eyebrow text-cream/40">35+ Years · Kathmandu, Nepal</span>
+          <span className="eyebrow text-cream/40">{site.yearsInOperation}+ Years · Kathmandu, Nepal</span>
         </div>
       </div>
     </footer>
