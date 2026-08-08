@@ -21,6 +21,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       `${product.name} Nepal`,
       `${product.name} price Nepal`,
       `${product.name} supplier Kathmandu`,
+      // Buyers search by chemical and trade name at least as often as by the
+      // name we happen to list a product under.
+      ...product.alsoKnownAs.flatMap((alias) => [alias, `${alias} Nepal`, `${alias} supplier Nepal`]),
       product.category,
       product.useCase,
     ],
@@ -57,12 +60,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    description: product.description,
+    alternateName: product.alsoKnownAs,
+    description: `${product.description} ${product.overview}`,
     category: product.category,
     sku: product.slug,
     url,
     image: `${site.url}/logo-mark.png`,
     brand: { "@type": "Organization", name: site.name },
+    audience: product.industries.map((ind) => ({ "@type": "Audience", audienceType: ind })),
     offers: {
       "@type": "Offer",
       url,
@@ -128,7 +133,31 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <Reveal>
             <div>
               <div className="eyebrow text-amber-deep mb-4">About this product</div>
-              <p className="text-ink/70 text-lg leading-relaxed mb-10">{product.description}</p>
+              <p className="text-ink/70 text-lg leading-relaxed mb-6">{product.description}</p>
+              <p className="text-ink/70 leading-relaxed mb-10">{product.overview}</p>
+
+              <div className="eyebrow text-muted mb-4">Common applications</div>
+              <ul className="mb-10 border-t border-line">
+                {product.applications.map((use) => (
+                  <li
+                    key={use}
+                    className="text-ink/70 text-sm leading-relaxed py-3 border-b border-line flex gap-3"
+                  >
+                    <span className="text-amber-deep shrink-0" aria-hidden>
+                      —
+                    </span>
+                    {use}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="eyebrow text-muted mb-4">Storage &amp; handling</div>
+              <p className="text-ink/70 text-sm leading-relaxed mb-10">{product.handling}</p>
+
+              <div className="eyebrow text-muted mb-4">Also known as</div>
+              <p className="text-ink/60 text-sm leading-relaxed mb-12">
+                {product.name} is also sold and searched for as {formatList(product.alsoKnownAs)}.
+              </p>
 
               <div className="eyebrow text-muted mb-4">Suited for</div>
               <div className="flex flex-wrap gap-2 mb-12">
@@ -263,6 +292,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </div>
     </div>
   );
+}
+
+// "a, b and c" — reads as prose rather than a comma-spliced keyword list.
+function formatList(items: string[]) {
+  if (items.length <= 1) return items[0] ?? "";
+  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
 }
 
 function SpecRow({ k, v }: { k: string; v: string }) {

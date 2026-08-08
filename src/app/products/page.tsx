@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { categories, products } from "@/lib/products";
-import { whatsappLink } from "@/lib/site";
+import { site, whatsappLink } from "@/lib/site";
 import { photos, categoryPhoto } from "@/lib/photos";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
@@ -31,8 +31,28 @@ export default async function ProductsPage({
   const { category } = await searchParams;
   const activeCategories = category ? categories.filter((c) => c === category) : categories;
 
+  // Names the full catalogue as an ordered list in one place. The product
+  // links are already in the markup; this states outright that they are a
+  // catalogue rather than leaving Google to infer it from the link graph.
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${site.name} product catalogue`,
+    numberOfItems: products.length,
+    itemListElement: products.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: p.name,
+      url: `${site.url}/products/${p.slug}`,
+    })),
+  };
+
   return (
     <div className="bg-paper">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       <PageHeader
         eyebrow="Catalogue"
         title={<>Everything we supply, <span className="italic text-amber-bright">in one place.</span></>}
