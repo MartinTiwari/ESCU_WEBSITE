@@ -51,19 +51,43 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     )
     .slice(0, 4);
 
+  const url = `${site.url}/products/${product.slug}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
     description: product.description,
     category: product.category,
+    sku: product.slug,
+    url,
+    image: `${site.url}/logo-mark.png`,
     brand: { "@type": "Organization", name: site.name },
     offers: {
       "@type": "Offer",
+      url,
       priceCurrency: "NPR",
       availability: "https://schema.org/InStock",
       seller: { "@type": "Organization", name: site.name },
     },
+  };
+
+  // Gives Google the catalogue → category → product hierarchy explicitly,
+  // rather than leaving it to infer structure from URL shape alone.
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+      { "@type": "ListItem", position: 2, name: "Products", item: `${site.url}/products` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.category,
+        item: `${site.url}/products?category=${encodeURIComponent(product.category)}`,
+      },
+      { "@type": "ListItem", position: 4, name: product.name, item: url },
+    ],
   };
 
   return (
@@ -71,6 +95,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Header */}
       <div className="bg-ink text-cream relative overflow-hidden">
