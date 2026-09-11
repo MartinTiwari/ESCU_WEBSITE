@@ -68,7 +68,7 @@ export default function PageBondProgress() {
 
   return (
     <div
-      className="fixed right-2 lg:right-5 top-24 z-40 pointer-events-none hidden md:block"
+      className="bond-progress fixed right-2 lg:right-5 top-24 z-40 pointer-events-none hidden md:block"
       style={{ height: h }}
       aria-hidden
     >

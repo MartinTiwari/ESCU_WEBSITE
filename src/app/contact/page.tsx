@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { site, whatsappLink } from "@/lib/site";
 import { photos } from "@/lib/photos";
+import { site, whatsappLink } from "@/lib/site";
+
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
 import { pageMetadata } from "@/lib/seo";
@@ -64,7 +65,6 @@ export default function ContactPage() {
         eyebrow="Contact"
         title={<>Talk to a <span className="italic text-amber-bright">real supplier.</span></>}
         sub="No call centre, no ticket number. You reach the same people who pack the order and load the truck."
-        bgImage={photos.warehouse}
       />
 
       <div className="max-w-6xl mx-auto px-5 py-16">
@@ -143,8 +143,8 @@ export default function ContactPage() {
               </div>
               <div className="relative px-8 pb-8 pt-6 border-t border-[var(--ink-line)]">
                 <p className="text-cream/45 text-sm leading-relaxed">
-                  Supplying hotels, hospitals, pools, and treatment plants from this
-                  address for over {site.yearsInOperation} years.
+                  Supplying hotels, hospitals, pools, and treatment plants
+                  since {site.founded.bs} BS.
                 </p>
               </div>
             </div>

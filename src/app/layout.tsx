@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
-import PageBondProgress from "@/components/PageBondProgress";
+
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0b1d19",
+  themeColor: "#061d35",
 };
 
 const jsonLd = {
@@ -112,8 +112,7 @@ const jsonLd = {
     },
   ],
   areaServed: "NP",
-  // Gregorian, per schema.org. See site.founded for the BS original.
-  foundingDate: String(site.founded.ad),
+  // The confirmed founding year is 2048 BS; omit an unconfirmed Gregorian date.
   sameAs: [] as string[],
 };
 
@@ -133,7 +132,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Header />
-        <PageBondProgress />
+
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppFloat />

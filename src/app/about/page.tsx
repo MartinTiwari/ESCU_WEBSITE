@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "About Us | Chemical Supplier in Kathmandu, Nepal",
-  description: `${site.name} (ESCU) has supplied water treatment, swimming pool, and housekeeping chemicals to hotels, hospitals, and industries across Nepal for ${site.yearsInOperation}+ years. Wholesale pricing, technical support, nationwide delivery.`,
+  description: `${site.name} (ESCU) has supplied water treatment, swimming pool, and housekeeping chemicals to hotels, hospitals, and industries across Nepal since ${site.founded.bs} BS. Wholesale pricing, technical support, nationwide delivery.`,
   keywords: [
     "chemical company Nepal",
     "chemical supplier Kathmandu",
@@ -22,9 +22,8 @@ export default function AboutPage() {
   return (
     <div className="bg-paper">
       <PageHeader
-        eyebrow={`${site.yearsInOperation}+ Years · Kathmandu`}
-        title={<>Over {site.yearsInOperation} years of <span className="italic text-amber-bright">keeping Nepal supplied.</span></>}
-        bgImage={photos.aboutHeaderBg}
+        eyebrow={`Established ${site.founded.bs} BS · Kathmandu`}
+        title={<>Since {site.founded.bs} BS, <span className="italic text-amber-bright">keeping Nepal supplied.</span></>}
       />
 
       <div className="max-w-5xl mx-auto px-5 py-16">
@@ -43,7 +42,7 @@ export default function AboutPage() {
                 happens to have. It&apos;s also why our bulk prices stay steady from order to order.
               </p>
               <p>
-                With {site.yearsInOperation}+ years in the business, we&apos;ve built long-term
+                Since our founding in {site.founded.bs} BS, we&apos;ve built long-term
                 relationships with hotels, resorts, and engineering projects across the country.
                 We back that up with wholesale prices, expert support, and reliable delivery
                 everywhere in Nepal.
@@ -54,7 +53,7 @@ export default function AboutPage() {
           <Reveal delay={0.1}>
             <div className="bg-ink text-cream p-8 grid grid-cols-2 gap-6 relative overflow-hidden">
               <div className="absolute inset-0 grid-blueprint opacity-20" aria-hidden />
-              <PullStat value={`${site.yearsInOperation}+`} label="Years in the trade" />
+              <PullStat value={`${site.founded.bs} BS`} label="Established" />
               <PullStat value="Countless" label="Deliveries made" />
               <PullStat value="8" label="Industries served" />
               <PullStat value="Nepal-wide" label="Delivery reach" />

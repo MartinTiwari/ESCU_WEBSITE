@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { categories, products } from "@/lib/products";
 import { site, whatsappLink } from "@/lib/site";
-import { photos, categoryPhoto } from "@/lib/photos";
+import { categoryPhoto } from "@/lib/photos";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
 import CategoryIcon from "@/components/CategoryIcon";
@@ -48,7 +48,7 @@ export default async function ProductsPage({
   };
 
   return (
-    <div className="bg-paper">
+    <div className="bg-paper compact-directory">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
@@ -57,11 +57,10 @@ export default async function ProductsPage({
         eyebrow="Catalogue"
         title={<>Everything we supply, <span className="italic text-amber-bright">in one place.</span></>}
         sub={`${products.length} products in ${categories.length} categories. Ask us for current prices and bulk discounts.`}
-        bgImage={photos.drums}
       />
 
       {/* Filter tabs */}
-      <div className="border-b border-line bg-cream sticky top-[72px] z-30">
+      <div className="border-b border-line bg-cream sticky top-[68px] z-30">
         <div className="max-w-6xl mx-auto px-5">
           <div className="flex items-center gap-1 overflow-x-auto py-1 -mb-px">
             <FilterTab href="/products" active={!category}>All</FilterTab>
@@ -75,56 +74,38 @@ export default async function ProductsPage({
       </div>
 
       {/* Product index — grouped by category */}
-      <div className="max-w-6xl mx-auto px-5 py-14">
-        <div className="space-y-20">
+      <div className="max-w-6xl mx-auto px-5 py-10">
+        <div className="catalogue-columns">
           {activeCategories.map((cat) => {
             const items = products.filter((p) => p.category === cat);
-            const offset = products.indexOf(items[0]);
+
             return (
               <Reveal key={cat}>
                 <section>
                   {/* Category header */}
-                  <div className="flex items-end justify-between gap-6 mb-2 pb-5 border-b-2 border-ink">
-                    <div className="flex items-center gap-5">
-                      <span className="relative w-12 h-12 rounded-md overflow-hidden shrink-0">
+                  <div className="catalogue-group-heading">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="relative w-9 h-9 rounded-md overflow-hidden shrink-0">
                         <Image src={categoryPhoto[cat]} alt="" fill sizes="48px" className="object-cover" />
                         <span className="absolute inset-0 bg-ink/30 grid place-items-center text-cream">
                           <CategoryIcon category={cat} className="w-[16px] h-[16px]" />
                         </span>
                       </span>
-                      <h2 className="font-display text-2xl md:text-3xl text-ink">{cat}</h2>
+                      <h2 className="font-display text-lg text-ink">{cat}</h2>
                     </div>
-                    <span className="eyebrow text-muted mb-1 shrink-0">
+                    <span className="text-xs text-muted shrink-0">
                       {items.length} {items.length === 1 ? "product" : "products"}
                     </span>
                   </div>
 
-                  {/* Products as row list */}
-                  <div>
-                    {items.map((p, i) => (
-                      <Link
-                        key={p.slug}
-                        href={`/products/${p.slug}`}
-                        className="group grid grid-cols-[40px_1fr_auto] md:grid-cols-[40px_1fr_280px_40px] items-center gap-4 md:gap-8 py-4 border-b border-line hover:bg-cream/70 transition-colors -mx-2 px-2"
-                      >
-                        <span className="eyebrow text-muted">
-                          {String(offset + i + 1).padStart(2, "0")}
-                        </span>
-                        <div className="min-w-0">
-                          <span className="font-display text-lg md:text-xl text-ink group-hover:text-amber-deep transition-colors leading-tight block">
-                            {p.name}
-                          </span>
-                        </div>
-                        <span className="text-muted text-sm leading-snug hidden md:block">
-                          {p.useCase}
-                        </span>
-                        <span className="text-muted group-hover:text-amber-deep group-hover:translate-x-0.5 transition-all text-right">
-                          →
-                        </span>
+                  <div className="catalogue-rows">
+                    {items.map((p) => (
+                      <Link key={p.slug} href={`/products/${p.slug}`} className="catalogue-product">
+                        <span><strong>{p.name}</strong><small>{p.useCase}</small></span>
+                        <span aria-hidden="true">↗</span>
                       </Link>
                     ))}
-                  </div>
-                </section>
+                  </div>                </section>
               </Reveal>
             );
           })}
@@ -132,7 +113,7 @@ export default async function ProductsPage({
 
         {/* Callout */}
         <Reveal>
-          <div className="mt-20 bg-ink text-cream p-10 md:p-14 relative overflow-hidden">
+          <div className="mt-10 bg-ink text-cream p-6 md:p-8 relative overflow-hidden">
             <div className="absolute inset-0 grid-blueprint opacity-25" aria-hidden />
             <div className="relative grid md:grid-cols-[1fr_auto] gap-8 items-center">
               <div>
@@ -140,7 +121,7 @@ export default async function ProductsPage({
                   <span className="w-6 h-px bg-amber-bright" />
                   Can&apos;t find it?
                 </div>
-                <h2 className="font-display text-2xl md:text-3xl mb-3">
+                <h2 className="font-display text-xl md:text-2xl mb-3">
                   We supply more than the catalogue.
                 </h2>
                 <p className="text-cream/55 leading-relaxed max-w-xl">
@@ -182,6 +163,7 @@ function FilterTab({
   return (
     <Link
       href={href}
+      aria-current={active ? "page" : undefined}
       className={`eyebrow px-5 py-3.5 border-b-2 whitespace-nowrap transition-colors ${
         active
           ? "border-amber text-amber-deep"

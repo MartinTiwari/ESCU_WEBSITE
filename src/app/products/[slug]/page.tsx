@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getProductBySlug, products } from "@/lib/products";
 import { site, whatsappLink } from "@/lib/site";
 import Reveal from "@/components/Reveal";
-import CategoryIcon from "@/components/CategoryIcon";
+import PageHeader from "@/components/PageHeader";
 import { pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -136,27 +136,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Header */}
-      <div className="bg-ink text-cream relative overflow-hidden">
-        <div className="absolute inset-0 grid-blueprint opacity-30" aria-hidden />
-        <div className="max-w-4xl mx-auto px-5 pt-28 pb-14 md:pt-32 md:pb-18 relative">
-          <Link href="/products" className="eyebrow text-cream/40 hover:text-amber-bright transition-colors">
-            ← Back to catalogue
-          </Link>
-          <Reveal>
-            <div className="mt-8">
-              <div className="eyebrow text-amber-bright mb-5 flex items-center gap-3">
-                <CategoryIcon category={product.category} className="w-4 h-4" />
-                {product.category}
-              </div>
-              <h1 className="font-display font-medium text-4xl md:text-6xl leading-[1.02] tracking-[-0.02em] mb-5">
-                {product.name}
-              </h1>
-              <p className="text-cream/55 text-lg max-w-xl">{product.useCase}</p>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-
+      <PageHeader eyebrow={product.category} title={product.name} sub={product.useCase}>
+        <Link href="/products" className="site-back-link">← Back to catalogue</Link>
+      </PageHeader>
       {/* Body */}
       <div className="max-w-4xl mx-auto px-5 py-14">
         <div className="grid md:grid-cols-[1fr_260px] gap-12 md:gap-16 items-start">

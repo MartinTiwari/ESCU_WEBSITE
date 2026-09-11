@@ -48,3 +48,6 @@ next-env.d.ts
 .claude/settings.local.json
 .codex/
 .impeccable/
+
+.vercel
+.env*

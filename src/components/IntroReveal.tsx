@@ -6,11 +6,12 @@ import { useEffect, useRef, useState } from "react";
    up into the real navbar logo (FLIP). Only once it has docked does the cream
    backdrop fade to reveal the whole page.
 
-   Plays once per browser session (sessionStorage), not on every navigation
+   Plays once per full page load, not on every navigation
    to "/" — and any click/tap/keypress skips straight to the end, since
-   someone reloading mid-phone-call shouldn't have to sit through it twice. */
+   someone visiting mid-phone-call shouldn't have to sit through it twice. */
 
-const SEEN_KEY = "escu-intro-seen";
+// Resets on full page load; internal navigation does not replay the intro.
+let introPlayed = false;
 
 export default function IntroReveal() {
   const [show, setShow] = useState(true);
@@ -23,7 +24,7 @@ export default function IntroReveal() {
 
   useEffect(() => {
     // Bailing out via setState here (rather than computing it during render)
-    // is deliberate: matchMedia/sessionStorage don't exist during SSR, so
+    // is deliberate: matchMedia don't exist during SSR, so
     // `show` has to default to true for a consistent server/client render,
     // then flip off once we can actually check the client's capabilities.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -31,11 +32,11 @@ export default function IntroReveal() {
       setShow(false);
       return;
     }
-    if (sessionStorage.getItem(SEEN_KEY)) {
+    if (introPlayed) {
       setShow(false);
       return;
     }
-    sessionStorage.setItem(SEEN_KEY, "1");
+
 
     document.body.style.overflow = "hidden";
 
@@ -55,6 +56,7 @@ export default function IntroReveal() {
     const tDock = setTimeout(dockLogo, 1700); // 1) hold, then dock the logo up into the navbar
     const tReveal = setTimeout(() => setReveal(true), 2650); // 2) only after it has reached the navbar, reveal the page
     const tEnd = setTimeout(() => {
+      introPlayed = true;
       setShow(false);
       document.body.style.overflow = "";
     }, 3450); // 3) tear down the overlay
@@ -64,6 +66,7 @@ export default function IntroReveal() {
     const skip = () => {
       if (skippedRef.current) return;
       skippedRef.current = true;
+      introPlayed = true;
       timers.forEach(clearTimeout);
       setEntered(true);
       dockLogo();
@@ -116,7 +119,7 @@ export default function IntroReveal() {
           }}
         />
         <span
-          className="font-display font-semibold text-ink tracking-tight text-2xl sm:text-3xl md:text-4xl whitespace-nowrap"
+          className="font-display font-semibold text-ink tracking-tight text-xl sm:text-3xl md:text-4xl text-center px-6"
           style={{
             opacity: dock ? 0 : entered ? 1 : 0,
             transform: entered && !dock ? "none" : "translateY(8px)",
