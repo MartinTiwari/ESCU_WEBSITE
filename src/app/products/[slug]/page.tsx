@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const product = getProductBySlug(slug);
   if (!product) return {};
   return pageMetadata({
-    title: `${product.name} in Nepal | ${product.useCase}`,
-    description: `${product.description} Wholesale supply of ${product.name.toLowerCase()} across Nepal for ${product.industries.join(", ").toLowerCase()}. Contact ${site.shortName} for pricing and bulk orders.`,
+    title: `${product.name} Supplier in Nepal`,
+    description: `${product.name} for ${product.useCase.toLowerCase()}. Supplied by ${site.name}, Kathmandu. Request bulk pricing and delivery across Nepal.`,
     keywords: [
       `${product.name} Nepal`,
       `${product.name} price Nepal`,
@@ -65,12 +65,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     category: product.category,
     sku: product.slug,
     url,
-    image: `${site.url}/logo-mark.png`,
-    // Brand, not Organization. Google's merchant listing spec types `brand`
-    // as Brand specifically, and rejected the Organization we had here as
-    // "Invalid object type for field brand" across every product. The
-    // manufacturer below is a different field and does take an Organization.
-    brand: { "@type": "Brand", name: site.name },
+    // ESCU both manufactures and imports. Do not assign an unverified
+    // manufacturer, brand or company-logo product image to every item.
     // Industries served are not a demographic audience. Google's merchant
     // listing spec only accepts PeopleAudience under `audience` and flagged
     // these Audience objects as "Invalid object type for field audience".
@@ -104,7 +100,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     // Revisit only if real list pricing is published (add a proper Offer with
     // priceCurrency "NPR") or if first-party reviews are genuinely collected
     // and displayed on the page.
-    manufacturer: { "@type": "Organization", name: site.name },
   };
 
   // Gives Google the catalogue → category → product hierarchy explicitly,

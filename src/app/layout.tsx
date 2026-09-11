@@ -31,8 +31,8 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} (${site.shortName}) | Chemical Supplier in Nepal`,
-    template: `%s | ${site.shortName}`,
+    default: `${site.name} | Chemical Supplier in Nepal`,
+    template: `%s | ${site.name}`,
   },
   description: site.tagline,
   keywords: [
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true },
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
 };
 
@@ -81,6 +81,7 @@ export const viewport: Viewport = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": ["Store", "LocalBusiness"],
+  "@id": `${site.url}/#organization`,
   name: site.name,
   alternateName: site.shortName,
   url: site.url,
@@ -111,7 +112,7 @@ const jsonLd = {
       closes: "17:00",
     },
   ],
-  areaServed: "NP",
+  areaServed: { "@type": "Country", name: "Nepal" },
   // The confirmed founding year is 2048 BS; omit an unconfirmed Gregorian date.
   sameAs: [] as string[],
 };

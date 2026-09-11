@@ -8,7 +8,7 @@ import PageHeader from "@/components/PageHeader";
 import CategoryIcon from "@/components/CategoryIcon";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata = pageMetadata({
+const catalogueMetadata = pageMetadata({
   title: "Chemical Products Catalogue | Water Treatment, Pool & Housekeeping",
   description: `Browse ${products.length}+ chemical products across water treatment, swimming pool, and housekeeping categories. Wholesale pricing and bulk supply for hotels, hospitals, and industries across Nepal.`,
   keywords: [
@@ -23,13 +23,31 @@ export const metadata = pageMetadata({
   path: "/products",
 });
 
+const categoryDescriptions: Record<string, string> = {
+  "Housekeeping & Cleaning Chemicals": "Liquid soap, hand wash, floor cleaner and cleaning supplies for hotels, restaurants and commercial buildings. Wholesale supply from Kathmandu across Nepal.",
+  "Swimming Pool Chemicals": "Source TCCA, liquid chlorine, copper sulphate, soda ash and sodium bicarbonate for swimming pools. Ask ESCU in Kathmandu for bulk pricing and delivery in Nepal.",
+  "Water Treatment Chemicals": "Water treatment chemicals in Nepal: PAC, alum, industrial salt, caustic soda, antiscalant and more. Bulk supply from Kathmandu for treatment plants and industry.",
+};
+
+export async function generateMetadata({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const { category } = await searchParams;
+  if (!category || !categories.some((value) => value === category)) return catalogueMetadata;
+  return pageMetadata({
+    title: `${category} in Nepal`,
+    description: categoryDescriptions[category],
+    path: `/products?category=${encodeURIComponent(category)}`,
+  });
+}
+
 export default async function ProductsPage({
   searchParams,
 }: {
   searchParams: Promise<{ category?: string }>;
 }) {
-  const { category } = await searchParams;
+  const { category: requestedCategory } = await searchParams;
+  const category = categories.find((value) => value === requestedCategory);
   const activeCategories = category ? categories.filter((c) => c === category) : categories;
+  const visibleProducts = products.filter((product) => activeCategories.includes(product.category));
 
   // Names the full catalogue as an ordered list in one place. The product
   // links are already in the markup; this states outright that they are a
@@ -37,9 +55,9 @@ export default async function ProductsPage({
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: `${site.name} product catalogue`,
-    numberOfItems: products.length,
-    itemListElement: products.map((p, i) => ({
+    name: `${site.name} ${category || "product catalogue"}`,
+    numberOfItems: visibleProducts.length,
+    itemListElement: visibleProducts.map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
       name: p.name,
@@ -55,8 +73,8 @@ export default async function ProductsPage({
       />
       <PageHeader
         eyebrow="Catalogue"
-        title={<>Everything we supply, <span className="italic text-amber-bright">in one place.</span></>}
-        sub={`${products.length} products in ${categories.length} categories. Ask us for current prices and bulk discounts.`}
+        title={category ? <>{category} <span className="text-amber-bright">in Nepal.</span></> : <>Everything we supply, <span className="italic text-amber-bright">in one place.</span></>}
+        sub={category ? categoryDescriptions[category] : `${products.length} products in ${categories.length} categories. Wholesale chemical supply from Kathmandu across Nepal. Ask us for current prices and bulk discounts.`}
       />
 
       {/* Filter tabs */}

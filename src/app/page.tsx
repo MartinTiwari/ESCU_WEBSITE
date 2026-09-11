@@ -4,6 +4,27 @@ import IntroReveal from "@/components/IntroReveal";
 import { site, whatsappLink } from "@/lib/site";
 import { products, type Category } from "@/lib/products";
 import { photos } from "@/lib/photos";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = {
+  ...pageMetadata({
+    title: `${site.name} | Chemical Supplier in Nepal`,
+    description: "Chemical manufacturer and supplier in Kathmandu, Nepal since 2048 BS. Liquid soap, water treatment and pool chemicals. Contact ESCU for wholesale and bulk orders.",
+    path: "/",
+  }),
+  title: { absolute: `${site.name} | Chemical Supplier in Nepal` },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${site.url}/#website`,
+  url: `${site.url}/`,
+  name: site.name,
+  alternateName: ["Everest Super Chemical", site.shortName],
+  inLanguage: "en",
+  publisher: { "@id": `${site.url}/#organization` },
+};
 
 const ranges: { category: Category; title: string; image: string; description: string; examples: string }[] = [
   { category: "Water Treatment Chemicals", title: "Water treatment.", image: photos.waterTreatment, description: "For the plants and systems that keep clean water flowing.", examples: "PAC · Alum · Chlorine · Bleaching powder" },
@@ -18,6 +39,7 @@ function Arrow({ diagonal = false }: { diagonal?: boolean }) {
 export default function Home() {
   return (
     <div className="home-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }} />
       <IntroReveal />
       <section className="element-hero" aria-labelledby="home-title">
         <div className="element-stage">
@@ -55,7 +77,7 @@ export default function Home() {
 
       <section id="our-range" className="home-range home-container" aria-labelledby="range-title">
         <div className="home-section-top"><p className="home-kicker">WHAT WE SUPPLY</p><span className="home-section-index">01 /</span></div>
-        <div className="home-section-heading"><h2 id="range-title">Good chemistry.<br /><span>For the everyday.</span></h2><div><p>Three specialist ranges. One place to source the chemicals your business depends on.</p><Link href="/products" className="home-text-link">View all {products.length} products <Arrow /></Link></div></div>
+        <div className="home-section-heading"><h2 id="range-title">Chemical supply.<br /><span>Across Nepal.</span></h2><div><p>Liquid soap and cleaning products, water treatment chemicals and pool supplies from our team in Kathmandu. Available for wholesale and bulk orders across Nepal.</p><Link href="/products" className="home-text-link">View all {products.length} products <Arrow /></Link></div></div>
         <div className="home-range-grid">
           {ranges.map((range, i) => <Link className="home-range-item" key={range.category} href={`/products?category=${encodeURIComponent(range.category)}`}>
             <div className="home-range-image"><Image src={range.image} alt="" fill sizes="(min-width: 760px) 32vw, 100vw" /><span className="home-range-number">0{i + 1}</span><span className="home-range-arrow"><Arrow diagonal /></span></div>
