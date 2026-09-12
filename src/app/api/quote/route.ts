@@ -36,6 +36,13 @@ function getClientIp(req: NextRequest): string {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_SHORT = 200;
 const MAX_LONG = 3000;
+const MAX_REQUEST_BYTES = 16 * 1024;
+
+function hasTrustedOrigin(req: NextRequest): boolean {
+  const origin = req.headers.get("origin");
+  if (!origin) return true;
+  return origin === new URL(site.url).origin || origin === req.nextUrl.origin;
+}
 
 function clean(v: unknown, max: number): string {
   if (typeof v !== "string") return "";
@@ -51,6 +58,17 @@ function cleanSingleLine(v: unknown, max: number): string {
 }
 
 export async function POST(req: NextRequest) {
+  if (!hasTrustedOrigin(req)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  if (!req.headers.get("content-type")?.toLowerCase().startsWith("application/json")) {
+    return NextResponse.json({ error: "Content-Type must be application/json" }, { status: 415 });
+  }
+  const declaredLength = Number(req.headers.get("content-length"));
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_REQUEST_BYTES) {
+    return NextResponse.json({ error: "Request too large" }, { status: 413 });
+  }
+
   const ip = getClientIp(req);
   if (isRateLimited(ip)) {
     return NextResponse.json(
@@ -61,7 +79,12 @@ export async function POST(req: NextRequest) {
 
   let body: Record<string, unknown>;
   try {
-    body = await req.json();
+    const raw = await req.text();
+    if (new TextEncoder().encode(raw).byteLength > MAX_REQUEST_BYTES) {
+      return NextResponse.json({ error: "Request too large" }, { status: 413 });
+    }
+    body = JSON.parse(raw);
+    if (!body || Array.isArray(body) || typeof body !== "object") throw new Error("Invalid body");
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
@@ -103,9 +126,10 @@ export async function POST(req: NextRequest) {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({ secret: turnstileSecret, response: token, remoteip: ip }),
+        signal: AbortSignal.timeout(5000),
       });
-      const verifyData = await verifyRes.json();
-      if (!verifyData.success) {
+      const verifyData = await verifyRes.json() as { success?: boolean; action?: string };
+      if (!verifyData.success || (verifyData.action && verifyData.action !== "quote")) {
         return NextResponse.json({ error: "Verification failed" }, { status: 403 });
       }
     } catch (err) {
@@ -137,7 +161,7 @@ export async function POST(req: NextRequest) {
   const resend = new Resend(apiKey);
 
   try {
-    await resend.emails.send({
+    const result = await resend.emails.send({
       // Must be an address on a domain verified in Resend. The old default was
       // Resend's shared sandbox (onboarding@resend.dev), which only delivers to
       // the Resend account owner — quote requests to any other inbox were
@@ -156,6 +180,7 @@ export async function POST(req: NextRequest) {
         `Message: ${message || "-"}`,
       ].join("\n"),
     });
+    if (result.error) throw result.error;
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Failed to send quote email", err);

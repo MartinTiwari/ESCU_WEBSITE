@@ -157,7 +157,7 @@ export default function ContactPage() {
                 className="w-full h-full min-h-80 grayscale-[0.2] contrast-[1.05]"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                src={`https://maps.google.com/maps?q=${site.geo.lat},${site.geo.lng}&z=17&output=embed`}
+                src={`https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${site.geo.lat},${site.geo.lng}!6i17`}
               />
             </div>
           </Reveal>

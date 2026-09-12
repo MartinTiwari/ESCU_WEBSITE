@@ -27,6 +27,7 @@ export default function Turnstile({ onToken }: { onToken: (token: string) => voi
     if (!scriptReady || !TURNSTILE_SITE_KEY || !containerRef.current || !window.turnstile) return;
     widgetId.current = window.turnstile.render(containerRef.current, {
       sitekey: TURNSTILE_SITE_KEY,
+      action: "quote",
       callback: (token: string) => onToken(token),
       "expired-callback": () => onToken(""),
       "error-callback": () => onToken(""),
