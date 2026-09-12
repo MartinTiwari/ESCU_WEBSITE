@@ -143,8 +143,8 @@ export default function ContactPage() {
               </div>
               <div className="relative px-8 pb-8 pt-6 border-t border-[var(--ink-line)]">
                 <p className="text-cream/45 text-sm leading-relaxed">
-                  Supplying hotels, hospitals, pools, and treatment plants
-                  since {site.founded.bs} BS.
+                  Supplying businesses and essential operations across Nepal
+                  for more than three decades.
                 </p>
               </div>
             </div>

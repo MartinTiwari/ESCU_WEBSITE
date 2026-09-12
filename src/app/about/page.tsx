@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "About Us | Chemical Supplier in Kathmandu, Nepal",
-  description: `${site.name} (ESCU) has supplied water treatment, swimming pool, and housekeeping chemicals to hotels, hospitals, and industries across Nepal since ${site.founded.bs} BS. Wholesale pricing, technical support, nationwide delivery.`,
+  description: `${site.name} (ESCU) has supplied water treatment, swimming pool, and housekeeping chemicals to businesses across Nepal for more than 35 years.`,
   keywords: [
     "chemical company Nepal",
     "chemical supplier Kathmandu",
@@ -23,7 +23,7 @@ export default function AboutPage() {
     <div className="bg-paper">
       <PageHeader
         eyebrow={`Established ${site.founded.bs} BS · Kathmandu`}
-        title={<>Since {site.founded.bs} BS, <span className="italic text-amber-bright">keeping Nepal supplied.</span></>}
+        title={<>Built through experience. <span className="italic text-amber-bright">Keeping Nepal supplied.</span></>}
       />
 
       <div className="max-w-5xl mx-auto px-5 py-16">
@@ -42,7 +42,7 @@ export default function AboutPage() {
                 happens to have. It&apos;s also why our bulk prices stay steady from order to order.
               </p>
               <p>
-                Since our founding in {site.founded.bs} BS, we&apos;ve built long-term
+                For more than three decades, we&apos;ve built long-term
                 relationships with hotels, resorts, and engineering projects across the country.
                 We back that up with wholesale prices, expert support, and reliable delivery
                 everywhere in Nepal.
@@ -53,7 +53,7 @@ export default function AboutPage() {
           <Reveal delay={0.1}>
             <div className="bg-ink text-cream p-8 grid grid-cols-2 gap-6 relative overflow-hidden">
               <div className="absolute inset-0 grid-blueprint opacity-20" aria-hidden />
-              <PullStat value={`${site.founded.bs} BS`} label="Established" />
+              <PullStat value="35+" label="Years in business" />
               <PullStat value="Countless" label="Deliveries made" />
               <PullStat value="8" label="Industries served" />
               <PullStat value="Nepal-wide" label="Delivery reach" />

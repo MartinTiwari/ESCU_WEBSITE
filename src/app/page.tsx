@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = {
   ...pageMetadata({
     title: `${site.name} | Chemical Supplier in Nepal`,
-    description: "Chemical manufacturer and supplier in Kathmandu, Nepal since 2048 BS. Industrial, water treatment, pool and cleaning chemicals for wholesale and bulk orders.",
+    description: "Chemical manufacturer and supplier in Kathmandu, Nepal with more than 35 years of experience. Industrial, water treatment, pool and cleaning chemicals for bulk orders.",
     path: "/",
   }),
   title: { absolute: `${site.name} | Chemical Supplier in Nepal` },
@@ -63,14 +63,14 @@ export default function Home() {
             <div className="company-hero-actions"><Link href="/about" className="element-button">Meet ESCU <Arrow /></Link><Link href="/products" className="company-catalogue-link">Explore our products <Arrow diagonal /></Link></div>
           </div>
           <div className="element-bottomline">
-            <span>Chemical supply since {site.founded.bs} BS</span>
+            <span>Kathmandu based · Serving Nepal</span>
             <Link href="/products" className="hero-range-link">Explore our chemical range ↗</Link>
           </div>
         </div>
         <div className="element-capabilities" aria-label="Our supply capabilities">
-          <div><small>01 · RANGE</small><strong>Broad chemical portfolio</strong></div>
-          <div><small>02 · SUPPLY</small><strong>Wholesale & bulk orders</strong></div>
-          <div><small>03 · SOURCING</small><strong>Made and sourced directly</strong></div>
+          <div><small>01 · EXPERIENCE</small><strong>35+ years in business</strong></div>
+          <div><small>02 · RANGE</small><strong>Broad chemical portfolio</strong></div>
+          <div><small>03 · SUPPLY</small><strong>Wholesale & bulk orders</strong></div>
           <div><small>04 · SERVICE</small><strong>Delivery across Nepal</strong></div>
         </div>
       </section>
