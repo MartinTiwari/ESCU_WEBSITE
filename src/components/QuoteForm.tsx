@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { whatsappLink } from "@/lib/site";
 import { products } from "@/lib/products";
-import Turnstile, { TURNSTILE_SITE_KEY } from "@/components/Turnstile";
 
 type FieldName = "name" | "phone" | "products" | "email";
 
@@ -30,7 +29,7 @@ export default function QuoteForm() {
   const searchParams = useSearchParams();
   const prefillProduct = searchParams.get("product") || "";
 
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error" | "rate-limited" | "verify-failed">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error" | "rate-limited">("idle");
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -42,10 +41,6 @@ export default function QuoteForm() {
     website: "", // honeypot — real visitors never see or fill this in
   });
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
-  const [turnstileToken, setTurnstileToken] = useState("");
-  // bumped on every failed attempt to force a fresh Turnstile widget —
-  // its tokens are single-use and expire after a few minutes
-  const [attempt, setAttempt] = useState(0);
   // when the form mounted, so the server can tell a scripted instant
   // submit apart from a real person filling it out. This is React's
   // documented "lazy ref initialization" pattern (avoids passing Date.now()
@@ -84,35 +79,21 @@ export default function QuoteForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!validateAll()) return;
-    if (TURNSTILE_SITE_KEY && !turnstileToken) {
-      setStatus("verify-failed");
-      return;
-    }
     setStatus("submitting");
     try {
       const res = await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, formRenderedAt: renderedAt.current, turnstileToken }),
+        body: JSON.stringify({ ...form, formRenderedAt: renderedAt.current }),
       });
       if (res.status === 429) {
         setStatus("rate-limited");
-        setAttempt((a) => a + 1);
-        setTurnstileToken("");
-        return;
-      }
-      if (res.status === 403) {
-        setStatus("verify-failed");
-        setAttempt((a) => a + 1);
-        setTurnstileToken("");
         return;
       }
       if (!res.ok) throw new Error("failed");
       setStatus("success");
     } catch {
       setStatus("error");
-      setAttempt((a) => a + 1);
-      setTurnstileToken("");
     }
   }
 
@@ -244,8 +225,6 @@ export default function QuoteForm() {
         />
       </Field>
 
-      <Turnstile key={attempt} onToken={setTurnstileToken} />
-
       {status === "error" && (
         <p className="text-hazard text-sm" role="alert">
           Something went wrong sending your request. Please try WhatsApp instead, or call us directly.
@@ -256,12 +235,6 @@ export default function QuoteForm() {
           You&apos;ve sent a few requests already. Please wait a bit before trying again, or reach us on WhatsApp.
         </p>
       )}
-      {status === "verify-failed" && (
-        <p className="text-hazard text-sm" role="alert">
-          Please complete the verification above, then try again.
-        </p>
-      )}
-
       <div className="flex flex-wrap gap-3 pt-2">
         <button type="submit" disabled={status === "submitting"} className="group btn-primary">
           {status === "submitting" ? "Sending…" : "Send Request"}

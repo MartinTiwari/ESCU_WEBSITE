@@ -7,8 +7,8 @@ import { site } from "@/lib/site";
 // multi-instance host (Vercel under real load) it is a speed bump, not a
 // hard guarantee — it stops a script hammering one warm instance, but a
 // distributed botnet needs the edge-level protection described below.
-// For a real guarantee, put this behind Cloudflare (rate limiting rule /
-// Turnstile on the domain) or swap this Map for Upstash Redis.
+// For a real guarantee, add a Vercel Firewall rate-limit rule or swap
+// this Map for a shared store such as Upstash Redis.
 const WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const MAX_PER_WINDOW = 5;
 const hits = new Map<string, number[]>();
@@ -29,8 +29,8 @@ function isRateLimited(ip: string): boolean {
 
 function getClientIp(req: NextRequest): string {
   const fwd = req.headers.get("x-forwarded-for");
-  if (fwd) return fwd.split(",")[0].trim();
-  return req.headers.get("x-real-ip") || "unknown";
+  const candidate = fwd ? fwd.split(",")[0].trim() : req.headers.get("x-real-ip") || "unknown";
+  return candidate.slice(0, 64);
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,8 +40,10 @@ const MAX_REQUEST_BYTES = 16 * 1024;
 
 function hasTrustedOrigin(req: NextRequest): boolean {
   const origin = req.headers.get("origin");
-  if (!origin) return true;
-  return origin === new URL(site.url).origin || origin === req.nextUrl.origin;
+  if (!origin) return process.env.NODE_ENV !== "production";
+  if (origin !== new URL(site.url).origin && origin !== req.nextUrl.origin) return false;
+  const fetchSite = req.headers.get("sec-fetch-site");
+  return !fetchSite || fetchSite === "same-origin";
 }
 
 function clean(v: unknown, max: number): string {
@@ -99,8 +101,8 @@ export async function POST(req: NextRequest) {
   // (400ms, not the ~1200ms a first draft used) — browser autofill can
   // legitimately fill and submit a multi-field form in under a second,
   // and silently discarding a real customer's lead is worse than letting
-  // a slightly-faster bot through; the honeypot above and Turnstile below
-  // still catch those. Missing timestamp is still a hard reject (no
+  // a slightly-faster bot through; the honeypot and request limits still
+  // catch broad abuse. Missing timestamp is still a hard reject (no
   // legitimate client omits it).
   const renderedAt = Number(body.formRenderedAt);
   if (!Number.isFinite(renderedAt)) {
@@ -108,34 +110,6 @@ export async function POST(req: NextRequest) {
   }
   if (Date.now() - renderedAt < 400) {
     return NextResponse.json({ ok: true });
-  }
-
-  // Cloudflare Turnstile: only enforced once a secret key is configured,
-  // so the form keeps working on environments that haven't set one up.
-  // Unlike the honeypot/timing checks above, a failure here is shown to
-  // the visitor (a token can legitimately expire if the form sits open
-  // a few minutes), so it returns a real error instead of a silent ok.
-  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
-  if (turnstileSecret) {
-    const token = typeof body.turnstileToken === "string" ? body.turnstileToken : "";
-    if (!token) {
-      return NextResponse.json({ error: "Verification failed" }, { status: 403 });
-    }
-    try {
-      const verifyRes = await fetch("https://challenge.cloudflare.com/turnstile/v0/siteverify", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ secret: turnstileSecret, response: token, remoteip: ip }),
-        signal: AbortSignal.timeout(5000),
-      });
-      const verifyData = await verifyRes.json() as { success?: boolean; action?: string };
-      if (!verifyData.success || (verifyData.action && verifyData.action !== "quote")) {
-        return NextResponse.json({ error: "Verification failed" }, { status: 403 });
-      }
-    } catch (err) {
-      console.error("Turnstile verification request failed", err);
-      return NextResponse.json({ error: "Verification failed" }, { status: 403 });
-    }
   }
 
   const name = cleanSingleLine(body.name, MAX_SHORT);

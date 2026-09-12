@@ -3,12 +3,12 @@ import type { NextConfig } from "next";
 const isDev = process.env.NODE_ENV === "development";
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://challenges.cloudflare.com`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://images.unsplash.com https://images.pexels.com",
   "font-src 'self'",
-  "connect-src 'self' https://challenges.cloudflare.com",
-  "frame-src https://challenges.cloudflare.com https://maps.google.com https://www.google.com",
+  "connect-src 'self'",
+  "frame-src https://maps.google.com https://www.google.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
