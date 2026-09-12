@@ -27,15 +27,7 @@ export default function IndustriesPage() {
         eyebrow="Applications"
         title={<>Built for the businesses <span className="italic text-amber-bright">that depend on us.</span></>}
         sub="From hotels to water treatment plants, ESCU supplies the chemicals your business needs. Jump to your industry to see the products."
-      >
-        <div className="flex flex-wrap gap-x-6 gap-y-2 mt-8">
-          {served.map((ind, i) => (
-            <a key={ind} href={`#${encodeURIComponent(ind)}`} className="eyebrow text-cream/80 hover:text-amber-bright transition-colors">
-              {String(i + 1).padStart(2, "0")} {ind}
-            </a>
-          ))}
-        </div>
-      </PageHeader>
+      />
 
       <div className="max-w-6xl mx-auto px-5 py-10">
         <p className="directory-hint">Choose an industry to see its products.</p>

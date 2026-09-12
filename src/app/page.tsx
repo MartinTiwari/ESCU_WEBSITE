@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = {
   ...pageMetadata({
     title: `${site.name} | Chemical Supplier in Nepal`,
-    description: "Chemical manufacturer and supplier in Kathmandu, Nepal since 2048 BS. Liquid soap, water treatment and pool chemicals. Contact ESCU for wholesale and bulk orders.",
+    description: "Chemical manufacturer and supplier in Kathmandu, Nepal since 2048 BS. Industrial, water treatment, pool and cleaning chemicals for wholesale and bulk orders.",
     path: "/",
   }),
   title: { absolute: `${site.name} | Chemical Supplier in Nepal` },
@@ -29,7 +29,7 @@ const websiteJsonLd = {
 const ranges: { category: Category; title: string; image: string; description: string; examples: string }[] = [
   { category: "Water Treatment Chemicals", title: "Water treatment.", image: photos.waterTreatment, description: "For the plants and systems that keep clean water flowing.", examples: "PAC · Alum · Chlorine · Bleaching powder" },
   { category: "Swimming Pool Chemicals", title: "Pool chemicals.", image: photos.pool, description: "The essentials for clear, balanced water, all season long.", examples: "TCCA · Copper sulphate · Soda ash" },
-  { category: "Housekeeping & Cleaning Chemicals", title: "Cleaning & hygiene.", image: photos.cleaning, description: "Everyday cleaning supplies for busy rooms and shared spaces.", examples: "Liquid soap · Floor cleaner · Glass cleaner" },
+  { category: "Housekeeping & Cleaning Chemicals", title: "Cleaning & hygiene.", image: photos.cleaning, description: "Everyday cleaning supplies for busy rooms and shared spaces.", examples: "Surface care · Hand hygiene · Housekeeping" },
 ];
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
@@ -59,25 +59,25 @@ export default function Home() {
           <div className="element-copy">
             <p className="element-intro">Everest Super Chemical Udhyog · Kathmandu, Nepal</p>
             <h1 id="home-title">EVERYDAY ESSENTIALS.<br /><span>EXPERTLY SUPPLIED.</span></h1>
-            <p className="element-description">From our signature liquid soap to water treatment and pool care,<br className="company-desktop-break" /> we make and source the essentials businesses across Nepal rely on.</p>
+            <p className="element-description">A dependable range of chemicals and allied supplies,<br className="company-desktop-break" /> manufactured and sourced for businesses across Nepal.</p>
             <div className="company-hero-actions"><Link href="/about" className="element-button">Meet ESCU <Arrow /></Link><Link href="/products" className="company-catalogue-link">Explore our products <Arrow diagonal /></Link></div>
           </div>
           <div className="element-bottomline">
             <span>Chemical supply since {site.founded.bs} BS</span>
-<Link href="/products/liquid-soap" className="hero-liquid-link">Discover our liquid soap ↗</Link>
+            <Link href="/products" className="hero-range-link">Explore our chemical range ↗</Link>
           </div>
         </div>
-        <nav className="element-ranges" aria-label="Explore ESCU">
-          <Link href="/products/liquid-soap"><span className="element-range-index">01</span><span><small>OUR MAIN PRODUCT</small><strong>Liquid soap</strong></span><Arrow diagonal /></Link>
-          <Link href="/products"><span className="element-range-index">02</span><span><small>THREE SPECIALIST RANGES</small><strong>One complete supply</strong></span><Arrow diagonal /></Link>
-          <Link href="/about"><span className="element-range-index">03</span><span><small>ESTABLISHED {site.founded.bs} BS</small><strong>People you can call</strong></span><Arrow diagonal /></Link>
-        </nav>
+        <div className="element-capabilities" aria-label="Our supply capabilities">
+          <div><small>01 · RANGE</small><strong>Broad chemical portfolio</strong></div>
+          <div><small>02 · SUPPLY</small><strong>Wholesale & bulk orders</strong></div>
+          <div><small>03 · SOURCING</small><strong>Made and sourced directly</strong></div>
+          <div><small>04 · SERVICE</small><strong>Delivery across Nepal</strong></div>
+        </div>
       </section>
-      <div className="home-service-strip"><span>One supplier. The whole order.</span><span>Wholesale & bulk supply</span><span>Delivery across Nepal</span><span>Support from real people <span aria-hidden="true">↗</span></span></div>
 
       <section id="our-range" className="home-range home-container" aria-labelledby="range-title">
         <div className="home-section-top"><p className="home-kicker">WHAT WE SUPPLY</p><span className="home-section-index">01 /</span></div>
-        <div className="home-section-heading"><h2 id="range-title">Chemical supply.<br /><span>Across Nepal.</span></h2><div><p>Liquid soap and cleaning products, water treatment chemicals and pool supplies from our team in Kathmandu. Available for wholesale and bulk orders across Nepal.</p><Link href="/products" className="home-text-link">View all {products.length} products <Arrow /></Link></div></div>
+        <div className="home-section-heading"><h2 id="range-title">Chemical supply.<br /><span>Across Nepal.</span></h2><div><p>A practical range for water treatment, cleaning, pool care and industrial applications, available for wholesale and bulk orders across Nepal.</p><Link href="/products" className="home-text-link">View all {products.length} products <Arrow /></Link></div></div>
         <div className="home-range-grid">
           {ranges.map((range, i) => <Link className="home-range-item" key={range.category} href={`/products?category=${encodeURIComponent(range.category)}`}>
             <div className="home-range-image"><Image src={range.image} alt="" fill sizes="(min-width: 760px) 32vw, 100vw" /><span className="home-range-number">0{i + 1}</span><span className="home-range-arrow"><Arrow diagonal /></span></div>
