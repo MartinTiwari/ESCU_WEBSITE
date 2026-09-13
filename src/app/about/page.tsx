@@ -7,8 +7,8 @@ import PageHeader from "@/components/PageHeader";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "About Us | Chemical Supplier in Kathmandu, Nepal",
-  description: `${site.name} (ESCU) has supplied water treatment, swimming pool, and housekeeping chemicals to businesses across Nepal for more than 35 years.`,
+  title: "About Our Chemical Supply Business in Kathmandu",
+  description: "Meet Everest Super Chemical Udhyog, established in 2048 BS. We manufacture and supply water treatment, pool and cleaning chemicals from Kathmandu across Nepal.",
   keywords: [
     "chemical company Nepal",
     "chemical supplier Kathmandu",
@@ -96,7 +96,7 @@ export default function AboutPage() {
             <div className="relative rounded-md overflow-hidden h-full min-h-64 frame-ticks text-cream">
               <Image
                 src={photos.labQuality}
-                alt="Quality control on a batch before dispatch"
+                alt="Laboratory quality-control work — illustrative photo"
                 fill
                 sizes="(min-width: 768px) 45vw, 100vw"
                 className="object-cover"

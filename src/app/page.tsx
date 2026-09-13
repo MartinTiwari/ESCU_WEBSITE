@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import IntroReveal from "@/components/IntroReveal";
 import { site, whatsappLink } from "@/lib/site";
 import { products, type Category } from "@/lib/products";
 import { photos } from "@/lib/photos";
@@ -8,11 +7,11 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = {
   ...pageMetadata({
-    title: `${site.name} | Chemical Supplier in Nepal`,
-    description: "Chemical manufacturer and supplier in Kathmandu, Nepal with more than 35 years of experience. Industrial, water treatment, pool and cleaning chemicals for bulk orders.",
+    title: `Chemical Supplier in Kathmandu, Nepal | ${site.name}`,
+    description: "ESCU manufactures and supplies water treatment, pool and cleaning chemicals from Kathmandu. Request wholesale pricing and bulk delivery across Nepal.",
     path: "/",
   }),
-  title: { absolute: `${site.name} | Chemical Supplier in Nepal` },
+  title: { absolute: `Chemical Supplier in Kathmandu, Nepal | ${site.name}` },
 };
 
 const websiteJsonLd = {
@@ -40,11 +39,10 @@ export default function Home() {
   return (
     <div className="home-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }} />
-      <IntroReveal />
       <section className="element-hero" aria-labelledby="home-title">
         <div className="element-stage">
           <Image
-            src="/images/liquid-flow-hero.png"
+            src="/images/liquid-flow-hero.webp"
             alt=""
             fill
             preload
@@ -80,7 +78,7 @@ export default function Home() {
         <div className="home-section-heading"><h2 id="range-title">Chemical supply.<br /><span>Across Nepal.</span></h2><div><p>A practical range for water treatment, cleaning, pool care and industrial applications, available for wholesale and bulk orders across Nepal.</p><Link href="/products" className="home-text-link">View all {products.length} products <Arrow /></Link></div></div>
         <div className="home-range-grid">
           {ranges.map((range, i) => <Link className="home-range-item" key={range.category} href={`/products?category=${encodeURIComponent(range.category)}`}>
-            <div className="home-range-image"><Image src={range.image} alt="" fill sizes="(min-width: 760px) 32vw, 100vw" /><span className="home-range-number">0{i + 1}</span><span className="home-range-arrow"><Arrow diagonal /></span></div>
+            <div className="home-range-image"><Image src={range.image} alt={`${range.category} — illustrative application photo`} fill sizes="(min-width: 1280px) 410px, (min-width: 760px) 32vw, 100vw" /><span className="home-range-number">0{i + 1}</span><span className="home-range-arrow"><Arrow diagonal /></span></div>
             <p className="home-range-category">{range.category.replace(" Chemicals", "")}</p><h3>{range.title}</h3><p className="home-range-description">{range.description}</p><p className="home-range-examples">{range.examples}</p>
           </Link>)}
         </div>

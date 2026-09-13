@@ -29,7 +29,7 @@ export default function IndustryDirectory({ groups }: {
         <details key={group.name} id={group.name} className="industry-disclosure" open={i === 0}>
           <summary>
             <span className="industry-thumbnail"><Image src={group.photo} alt="" fill sizes="48px" /></span>
-            <span className="industry-summary-name">{group.name}</span>
+            <h2 className="industry-summary-name">{group.name}</h2>
             <span className="industry-summary-count">{group.products.length} products</span>
             <span className="industry-toggle" aria-hidden="true">+</span>
           </summary>

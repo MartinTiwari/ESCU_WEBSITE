@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!product) return {};
   return pageMetadata({
     title: `${product.name} Supplier in Nepal`,
-    description: `${product.name} for ${product.useCase.toLowerCase()}. Supplied by ${site.name}, Kathmandu. Request bulk pricing and delivery across Nepal.`,
+    description: `${product.name} for ${product.useCase.toLowerCase()}. Request wholesale pricing from ESCU in Kathmandu, with bulk delivery across Nepal.`,
     keywords: [
       `${product.name} Nepal`,
       `${product.name} price Nepal`,
@@ -56,50 +56,26 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   const url = `${site.url}/products/${product.slug}`;
 
+  // This catalogue quotes on request and has no published product reviews.
+  // Product markup without offers/review/aggregateRating triggers Search
+  // Console alerts. Describe the informational page without opting into
+  // product snippets. Revisit only when real qualifying data is published.
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
-    alternateName: product.alsoKnownAs,
+    "@type": "WebPage",
+    "@id": `${url}/#webpage`,
+    name: `${product.name} Supplier in Nepal`,
     description: `${product.description} ${product.overview}`,
-    category: product.category,
-    sku: product.slug,
     url,
-    // ESCU both manufactures and imports. Do not assign an unverified
-    // manufacturer, brand or company-logo product image to every item.
-    // Industries served are not a demographic audience. Google's merchant
-    // listing spec only accepts PeopleAudience under `audience` and flagged
-    // these Audience objects as "Invalid object type for field audience".
-    // additionalProperty carries the same facts with no type constraint.
-    additionalProperty: product.industries.map((ind) => ({
-      "@type": "PropertyValue",
-      name: "Industry served",
-      value: ind,
-    })),
-    // No `offers` block on purpose, and no aggregateRating either. We quote on
-    // request rather than publish wholesale prices.
-    //
-    // Search Console reports "Either 'offers', 'review', or 'aggregateRating'
-    // should be specified" as a critical Product snippets issue. That is
-    // expected and accepted, not an oversight. Two things make it inert:
-    //
-    //   1. `name` is the only property Google strictly requires on Product,
-    //      so this markup is valid. "Critical" here means the page is not
-    //      eligible for the *rich result* (price/stock/stars in the SERP).
-    //      Indexing and ranking are unaffected.
-    //   2. The alternatives are worse. A price-less Offer was the previous
-    //      state and threw its own critical error, so re-adding one just
-    //      trades one error for another. Inventing an aggregateRating from
-    //      reviews we did not collect on this site breaks Google's guidelines
-    //      outright.
-    //
-    // The Product node stays because brand, sku, category and alternateName
-    // still feed entity understanding even with no snippet eligibility. This
-    // is the same position every quote-on-request catalogue sits in.
-    //
-    // Revisit only if real list pricing is published (add a proper Offer with
-    // priceCurrency "NPR") or if first-party reviews are genuinely collected
-    // and displayed on the page.
+    inLanguage: "en",
+    isPartOf: { "@id": `${site.url}/#website` },
+    publisher: { "@id": `${site.url}/#organization` },
+    about: {
+      "@type": "Thing",
+      name: product.name,
+      alternateName: product.alsoKnownAs,
+      description: product.description,
+    },
   };
 
   // Gives Google the catalogue → category → product hierarchy explicitly,
@@ -139,11 +115,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="grid md:grid-cols-[1fr_260px] gap-12 md:gap-16 items-start">
           <Reveal>
             <div>
-              <div className="eyebrow text-amber-deep mb-4">About this product</div>
+              <h2 className="eyebrow text-amber-deep mb-4">About this product</h2>
               <p className="text-ink/70 text-lg leading-relaxed mb-6">{product.description}</p>
               <p className="text-ink/70 leading-relaxed mb-10">{product.overview}</p>
 
-              <div className="eyebrow text-muted mb-4">Common applications</div>
+              <h2 className="eyebrow text-muted mb-4">Common applications</h2>
               <ul className="mb-10 border-t border-line">
                 {product.applications.map((use) => (
                   <li
@@ -158,10 +134,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 ))}
               </ul>
 
-              <div className="eyebrow text-muted mb-4">Storage &amp; handling</div>
+              <h2 className="eyebrow text-muted mb-4">Storage &amp; handling</h2>
               <p className="text-ink/70 text-sm leading-relaxed mb-10">{product.handling}</p>
 
-              <div className="eyebrow text-muted mb-4">Also known as</div>
+              <h2 className="eyebrow text-muted mb-4">Also known as</h2>
               <p className="text-ink/60 text-sm leading-relaxed mb-12">
                 {product.name} is also sold and searched for as {formatList(product.alsoKnownAs)}.
               </p>

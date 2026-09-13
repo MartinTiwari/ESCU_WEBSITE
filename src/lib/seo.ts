@@ -6,7 +6,7 @@ export function pageMetadata({
   description,
   keywords,
   path = "",
-  image = "/logo-white.png",
+  image = "/opengraph-image",
 }: {
   title: string;
   description: string;
@@ -25,7 +25,7 @@ export function pageMetadata({
       description,
       url,
       siteName: site.name,
-      images: [{ url: image }],
+      images: [{ url: image, width: 1200, height: 630, alt: `${site.name} — chemical supply in Nepal` }],
       locale: "en_US",
       type: "website",
     },

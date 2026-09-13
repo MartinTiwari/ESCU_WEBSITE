@@ -9,8 +9,8 @@ import CategoryIcon from "@/components/CategoryIcon";
 import { pageMetadata } from "@/lib/seo";
 
 const catalogueMetadata = pageMetadata({
-  title: "Chemical Products Catalogue | Water Treatment, Pool & Housekeeping",
-  description: `Browse ${products.length}+ chemical products across water treatment, swimming pool, and housekeeping categories. Wholesale pricing and bulk supply for hotels, hospitals, and industries across Nepal.`,
+  title: "Chemical Products in Nepal",
+  description: `Browse ${products.length} water treatment, pool and cleaning products from ESCU in Kathmandu. Request wholesale pricing and bulk chemical supply across Nepal.`,
   keywords: [
     "chemical products Nepal",
     "water treatment chemicals price Nepal",

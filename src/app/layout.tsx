@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 import { site } from "@/lib/site";
 
@@ -28,10 +29,12 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
+const isProductionDeployment = !process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production";
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | Chemical Supplier in Nepal`,
+    default: `Chemical Supplier in Kathmandu, Nepal | ${site.name}`,
     template: `%s | ${site.name}`,
   },
   description: site.tagline,
@@ -55,7 +58,7 @@ export const metadata: Metadata = {
     description: site.tagline,
     url: site.url,
     siteName: site.name,
-    images: [{ url: "/logo-white.png" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: `${site.name} — chemical supply in Nepal` }],
     locale: "en_US",
     type: "website",
   },
@@ -63,12 +66,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${site.name} (${site.shortName}) | Chemical Supplier in Nepal`,
     description: site.tagline,
-    images: ["/logo-white.png"],
+    images: ["/opengraph-image"],
   },
   robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+    index: isProductionDeployment,
+    follow: isProductionDeployment,
+    googleBot: { index: isProductionDeployment, follow: isProductionDeployment, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
 };
 
@@ -137,6 +140,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppFloat />
+        <GoogleAnalytics />
       </body>
     </html>
   );

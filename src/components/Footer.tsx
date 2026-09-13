@@ -10,10 +10,11 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-5 pt-16 pb-12 grid grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1.2fr] gap-10">
         <div className="col-span-2 md:col-span-1">
           <Image
-            src="/logo-mark.png"
+            src="/logo-mark.webp"
             alt="Everest Super Chemical Udhyog"
             width={1037}
             height={503}
+            sizes="116px"
             className="h-14 w-auto mb-4"
           />
           <p className="text-sm leading-relaxed max-w-xs">{site.tagline}</p>

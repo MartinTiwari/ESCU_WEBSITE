@@ -7,7 +7,7 @@ import { categories, products } from "@/lib/products";
 // looked equally stale. Bump this by hand when page content actually changes.
 // Deliberately not `new Date()`: a lastmod that always reads "now" is treated
 // as noise and discounted, which is worse than having none.
-const CONTENT_LAST_UPDATED = new Date("2026-09-11");
+const CONTENT_LAST_UPDATED = new Date("2026-09-13");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [

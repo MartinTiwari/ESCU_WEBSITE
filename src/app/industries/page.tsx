@@ -7,7 +7,7 @@ import IndustryDirectory from "@/components/IndustryDirectory";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Industries We Serve | Hotels, Hospitals & Water Treatment Plants",
+  title: "Chemical Supply for Industries in Nepal",
   description: "ESCU supplies chemicals to hotels, resorts, hospitals, restaurants, industrial plants, and water treatment facilities across Nepal, matched to each industry's needs.",
   keywords: [
     "chemical supplier hotels Nepal",

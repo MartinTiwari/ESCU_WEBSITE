@@ -1,0 +1,9 @@
+.codex-remote-attachments/
+.codex/
+.agents/
+.claude/
+.impeccable/
+.env*
+node_modules/
+.git/
+.next/

@@ -1,5 +1,7 @@
 # Search visibility — 11 September 2026
 
+> Updated 13 September: the policy of retaining incomplete Product markup below is superseded. Product details now use WebPage + Thing and BreadcrumbList, since there are no published prices or product reviews. A production-build check prevents Product markup from returning until qualifying data and a reviewed policy change exist. See SEO-CHECKLIST-2026-09-13.md for current status.
+
 Production: https://www.everestsuperchemical.com.np/
 
 ## Implemented

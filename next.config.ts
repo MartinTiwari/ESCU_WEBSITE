@@ -1,13 +1,20 @@
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
+const analyticsEnabled = process.env.NODE_ENV === "production" &&
+  (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production") &&
+  /^G-[A-Z0-9]+$/.test(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "");
+const analyticsScripts = analyticsEnabled ? " https://www.googletagmanager.com" : "";
+const analyticsConnections = analyticsEnabled
+  ? " https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com"
+  : "";
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${analyticsScripts}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://images.unsplash.com https://images.pexels.com",
+  `img-src 'self' data: blob: https://images.unsplash.com https://images.pexels.com${analyticsEnabled ? " https://*.google-analytics.com https://www.googletagmanager.com" : ""}`,
   "font-src 'self'",
-  "connect-src 'self'",
+  `connect-src 'self'${analyticsConnections}`,
   "frame-src https://maps.google.com https://www.google.com",
   "object-src 'none'",
   "base-uri 'self'",

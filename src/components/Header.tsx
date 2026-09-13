@@ -27,24 +27,26 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" aria-label="Everest Super Chemical Udhyog" className="shrink-0">
           <Image
-            src="/logo-mark-ink.png"
-            alt="ESCU"
+            src="/logo-mark-ink.webp"
+            alt="Everest Super Chemical Udhyog logo"
             width={1037}
             height={503}
-            priority
+            sizes="64px"
+            loading="eager"
             data-brandlogo
             className="h-[30px] w-auto"
           />
         </Link>
 
         {/* Desktop nav — centered */}
-        <nav className="hidden md:flex items-center gap-0.5 flex-1 justify-center">
+        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-0.5 flex-1 justify-center">
           {navLinks.map((link) => {
             const active = pathname === link.href || pathname.startsWith(link.href + "/");
             return (
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={active ? "page" : undefined}
                 className={`relative px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.13em] rounded-md transition-colors ${
                   active
                     ? "text-ink"
@@ -71,6 +73,7 @@ export default function Header() {
 
           <button
             aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-navigation"
+            onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}
             onClick={() => setOpen((o) => !o)}
             className="md:hidden flex flex-col justify-center gap-[5px] w-11 h-11 rounded-md hover:bg-paper-2 transition-colors"
           >
@@ -94,7 +97,7 @@ export default function Header() {
             transition={{ duration: 0.18 }}
             id="mobile-navigation" className="md:hidden border-t border-line bg-cream"
           >
-            <div className="max-w-7xl mx-auto px-5 py-2">
+            <nav aria-label="Mobile navigation" className="max-w-7xl mx-auto px-5 py-2" onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}>
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -115,7 +118,7 @@ export default function Header() {
               >
                 Request a quote
               </Link>
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

@@ -6,8 +6,8 @@ import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Get a Chemical Supply Quote | Bulk & Wholesale Pricing Nepal",
-  description: "Request a no-obligation quote for water treatment, swimming pool, or housekeeping chemicals. Bulk and B2B rates available, with same-day replies during business hours.",
+  title: "Wholesale Chemical Quotes in Nepal",
+  description: "Request bulk pricing for water treatment, pool and cleaning chemicals from ESCU in Kathmandu. Send your product list, quantities and delivery location in Nepal.",
   keywords: ["chemical price quote Nepal", "bulk chemical order Nepal", "wholesale chemical pricing Nepal"],
   path: "/quote",
 });

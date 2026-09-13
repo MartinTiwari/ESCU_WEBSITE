@@ -7,8 +7,8 @@ import PageHeader from "@/components/PageHeader";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Contact Us | Chemical Supplier in Kathmandu, Nepal",
-  description: `Contact ${site.name} for chemical supply pricing, bulk orders, and technical enquiries. Phone, WhatsApp, and email support based in ${site.address}.`,
+  title: "Contact Our Kathmandu Chemical Supply Team",
+  description: "Contact ESCU on Banshidhar Marg, Kathmandu for chemical pricing, bulk orders and product enquiries. Call, WhatsApp or email our supply team.",
   keywords: ["chemical supplier contact Nepal", "chemical supplier Kathmandu phone", "ESCU contact"],
   path: "/contact",
 });
@@ -71,15 +71,15 @@ export default function ContactPage() {
         {/* ── Pick a method ─────────────────────────── */}
         <Reveal>
           <div className="flex items-baseline gap-3 mb-8">
-            <span className="eyebrow text-amber-deep">01 / Reach us</span>
+            <h2 className="eyebrow text-amber-deep">Reach us</h2>
             <span className="h-px flex-1 bg-line" />
             <span className="eyebrow text-muted">Whichever is easiest</span>
           </div>
         </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-4 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-20">
           {methods.map((m, i) => (
-            <Reveal key={m.label} delay={i * 0.08}>
+            <Reveal key={m.label} delay={i * 0.08} className="min-w-0">
               <a
                 href={m.href}
                 target={m.external ? "_blank" : undefined}
@@ -89,8 +89,8 @@ export default function ContactPage() {
                 <div className="w-11 h-11 notch-sm bg-amber/10 text-amber-deep grid place-items-center mb-6 transition-colors group-hover:bg-amber group-hover:text-cream">
                   {m.icon}
                 </div>
-                <div className="eyebrow text-muted mb-2">{m.label}</div>
-                <div className="font-display text-xl text-ink leading-snug mb-3 break-words group-hover:text-amber-deep transition-colors">
+                <h3 className="eyebrow text-muted mb-2">{m.label}</h3>
+                <div className="font-display text-xl text-ink leading-snug mb-3 [overflow-wrap:anywhere] group-hover:text-amber-deep transition-colors">
                   {m.value}
                 </div>
                 <p className="text-muted text-sm leading-relaxed mb-6">{m.helper}</p>
@@ -106,7 +106,7 @@ export default function ContactPage() {
         {/* ── Find the warehouse ────────────────────── */}
         <Reveal>
           <div className="flex items-baseline gap-3 mb-8">
-            <span className="eyebrow text-amber-deep">02 / Find us</span>
+            <h2 className="eyebrow text-amber-deep">Find us</h2>
             <span className="h-px flex-1 bg-line" />
             <span className="eyebrow text-muted">Kathmandu</span>
           </div>
@@ -118,7 +118,7 @@ export default function ContactPage() {
               <div className="relative h-40 shrink-0">
                 <Image
                   src={photos.warehouseDispatch}
-                  alt="Orders being pulled and packed at the ESCU warehouse"
+                  alt="Warehouse storage and dispatch — illustrative photo"
                   fill
                   sizes="(min-width: 768px) 40vw, 100vw"
                   className="object-cover"
