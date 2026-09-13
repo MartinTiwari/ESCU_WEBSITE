@@ -11,6 +11,7 @@ const CONTENT_LAST_UPDATED = new Date("2026-09-13");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
+    { url: `${site.url}/privacy`, lastModified: CONTENT_LAST_UPDATED },
     { url: site.url, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "weekly", priority: 1 },
     { url: `${site.url}/products`, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "weekly", priority: 0.9 },
     { url: `${site.url}/industries`, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "monthly", priority: 0.7 },

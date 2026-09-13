@@ -10,7 +10,7 @@ Checked directly in the signed-in Google account during this audit:
 | --- | --- |
 | 1. Search Console | Domain property is accessible. Overview shows 20 indexed pages and 15 not indexed; exclusions need individual interpretation. |
 | 2. Submit sitemap | Already successful: 36 pages discovered. Submitted September 11; last read September 12. No redundant resubmission needed. |
-| 3. Analytics | Google opens first-time account creation; no measurement ID is configured in this checkout. The website integration is prepared but inactive. |
+| 3. Analytics | Created ESCU Website under martintiwari0@gmail.com after the owner approved Google's terms. Nepal reporting time, NPR currency, Business & Industrial, 1–10 employees. Web stream 15767935168; measurement ID G-Z92C49GGEY. Saved the ID in the actual live project's Production environment. |
 | 4. Business Profile | Completed the remaining profile customization screens. Although an intermediate screen said “You're now verified,” the final management panel says Google is processing verification and may take up to five days. Treat verification as pending. Real storefront/business photos are still needed. |
 | 5. Main keyword in title | Homepage now leads with “Chemical Supplier in Kathmandu, Nepal”; secondary titles are more focused. Product and category titles already name their chemical/range and Nepal. |
 | 6. City | Kathmandu already appears in visible business details, contact information and LocalBusiness structured data; now also leads the homepage search title. |
@@ -27,23 +27,23 @@ Every production build now checks the generated HTML and fails if Product or Pro
 
 The Business Profile's pending HTTP website change was corrected and saved as `https://www.everestsuperchemical.com.np/`. Phone/description/location edits are already pending with Google; no duplicate edits were submitted.
 
-## Finish Analytics setup
+## Analytics setup
 
-The account setup page has been left available for the owner. Create the Analytics account/property under the intended company-controlled Google account, review and accept Google's terms, and create a Web data stream for the canonical website above. Select Nepal reporting time and NPR currency where applicable.
+The account and Web stream have been created for the canonical website above. The owner approved the Terms of Service and Data Processing Terms. Page views (including browser-history changes), scrolls, outbound clicks and file downloads are enabled. Automatic form interactions, site search and video events are disabled.
 
 Set this environment variable in the Vercel **Production** environment, then rebuild/deploy:
 
 ```dotenv
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-YOUR_REAL_MEASUREMENT_ID
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-Z92C49GGEY
 ```
 
-Replace the placeholder with the actual G- measurement ID from Web stream details. This is a public identifier, not an API secret. Do not create a second installation through Tag Manager.
+This is a public identifier, not an API secret. Do not create a second installation through Tag Manager.
 
-The component loads the Google tag after the page becomes interactive and only with a valid ID in production. It is disabled in local development and Vercel previews. The Content Security Policy allows the required Analytics endpoints only when the integration is enabled. Google signals and advertising personalization are disabled by the integration.
+The component loads the Google tag only after a visitor selects Allow analytics, after the page becomes interactive and with a valid ID in production. Declining persists across visits. Analytics preferences at the foot of each page lets visitors withdraw permission; this disables tracking, removes accessible GA cookies and reloads the page. A linked /privacy notice explains this behavior. Local development and Vercel previews do not load the integration. Google signals and advertising personalization are disabled.
 
 In the web stream's Enhanced measurement settings, keep Page views and its browser-history event option enabled so Next.js client navigation is measured. Review other automatic events, particularly form interactions, before activation. Do not send customer names, email addresses, phone numbers or quote message contents as event parameters or URL parameters.
 
-After deployment, verify one initial page view and subsequent catalogue/product navigation in Realtime or DebugView. Confirm there is one event per navigation and no Content Security Policy errors. Live Analytics delivery cannot be verified until the real stream exists and the integration is deployed.
+After deployment, verify initial page views and subsequent catalogue/product navigation in Realtime. Local browser tests verified zero loader scripts before consent and after declining/reloading, exactly one loader/config after allowing, and no console/CSP errors. Live delivery must be verified separately.
 
 ## Earn relevant backlinks
 
@@ -83,6 +83,8 @@ The actual contact list and authorization to send outreach are still needed. Avo
 Prioritize relevance and real relationships over link volume. These are proposed targets, not claimed relationships or completed outreach.
 
 ## Release checks
+
+SEO commit 3d19c77 deployed successfully through the live Git integration on September 13. The public domain passed all 36 original sitemap pages, 71 internal link targets and 14 image URLs. Search Console accepted Validate Fix and shows “Validation started”, dated September 13. Google has not yet completed its validation. The subsequent Analytics/privacy update expands the sitemap to 37 pages and internal link targets to 72; its local production audit, build and lint pass.
 
 The public website is served by `milans-projects-44d07115/escu-site` on Vercel, connected to the GitHub repository's `main` branch. The local CLI is linked to a different project under Martin's account; its successful deployment does not update the public domain. Publish through the confirmed Git integration. The live project's existing quote-email variables are present and must be preserved. The existing production sitemap submission remains valid. After release, inspect the homepage and relevant product pages in Search Console; Google decides whether and when to recrawl/index them.
 

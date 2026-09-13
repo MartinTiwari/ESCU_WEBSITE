@@ -17,7 +17,7 @@ async function main() {
   assert.ok(robots.includes(`Sitemap: ${production}/sitemap.xml`));
   const xml = await read("/sitemap.xml");
   const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => decode(match[1]));
-  assert.equal(urls.length, 36);
+  assert.equal(urls.length, 37);
   assert.equal(new Set(urls).size, urls.length);
   const titles = new Set();
   const descriptions = new Set();
@@ -57,7 +57,7 @@ async function main() {
     const sharingImage = new URL(decode(og));
     sharingImages.add(sharingImage.pathname + sharingImage.search);
     assert.ok(!/<meta name="robots" content="[^"]*noindex/.test(html), `${url}: noindex`);
-    assert.ok(!html.includes("google-analytics-loader"), `${url}: analytics must be off without an ID`);
+    assert.ok(!html.includes("google-analytics-loader"), `${url}: analytics must not load before visitor consent`);
     const types = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)]
       .flatMap((match) => nodes(JSON.parse(match[1])))
       .flatMap((node) => node["@type"] || []);
