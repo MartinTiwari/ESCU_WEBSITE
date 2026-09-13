@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import IntroReveal from "@/components/IntroReveal";
 import { site, whatsappLink } from "@/lib/site";
 import { products, type Category } from "@/lib/products";
 import { photos } from "@/lib/photos";
@@ -38,6 +39,7 @@ function Arrow({ diagonal = false }: { diagonal?: boolean }) {
 export default function Home() {
   return (
     <div className="home-page">
+      <IntroReveal />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }} />
       <section className="element-hero" aria-labelledby="home-title">
         <div className="element-stage">
