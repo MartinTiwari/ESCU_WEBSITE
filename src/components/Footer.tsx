@@ -28,6 +28,7 @@ export default function Footer() {
             <li><Link href="/about" className="hover:text-cream transition-colors">About</Link></li>
             <li><Link href="/quote" className="hover:text-cream transition-colors">Get a Quote</Link></li>
             <li><Link href="/privacy" className="hover:text-cream transition-colors">Privacy</Link></li>
+            <li><Link href="/buying-guide" className="hover:text-cream transition-colors">Buying guide &amp; FAQs</Link></li>
           </ul>
         </div>
 
@@ -37,6 +38,7 @@ export default function Footer() {
             <li><a href={`tel:${site.phone}`} className="hover:text-cream transition-colors">{site.phone}</a></li>
             <li><a href={whatsappLink()} className="hover:text-cream transition-colors">WhatsApp {site.whatsappDisplay}</a></li>
             <li><a href={`mailto:${site.email}`} className="hover:text-cream transition-colors break-all">{site.email}</a></li>
+            <li><a href={site.instagram} className="hover:text-cream transition-colors">ESCU on Instagram</a></li>
           </ul>
         </div>
 

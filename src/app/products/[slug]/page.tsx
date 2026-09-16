@@ -135,6 +135,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               </ul>
 
               <h2 className="eyebrow text-muted mb-4">Storage &amp; handling</h2>
+              <p className="text-ink/70 text-sm leading-relaxed mb-4">For pricing, pack sizes and delivery questions, read our <Link href="/buying-guide" className="underline underline-offset-4 hover:text-amber-deep">chemical buying guide</Link>. Confirm the specifications for {product.name} with the team before ordering.</p>
               <p className="text-ink/70 text-sm leading-relaxed mb-10">{product.handling}</p>
 
               <h2 className="eyebrow text-muted mb-4">Also known as</h2>

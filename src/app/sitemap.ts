@@ -11,8 +11,9 @@ const CONTENT_LAST_UPDATED = new Date("2026-09-13");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
+    { url: `${site.url}/buying-guide`, lastModified: new Date("2026-09-17") },
     { url: `${site.url}/privacy`, lastModified: CONTENT_LAST_UPDATED },
-    { url: site.url, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "weekly", priority: 1 },
+    { url: site.url, lastModified: new Date("2026-09-17"), changeFrequency: "weekly", priority: 1 },
     { url: `${site.url}/products`, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "weekly", priority: 0.9 },
     { url: `${site.url}/industries`, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "monthly", priority: 0.7 },
     { url: `${site.url}/about`, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "monthly", priority: 0.6 },
@@ -22,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const productRoutes: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${site.url}/products/${p.slug}`,
-    lastModified: CONTENT_LAST_UPDATED,
+    lastModified: new Date("2026-09-17"),
     changeFrequency: "monthly",
     priority: 0.7,
   }));

@@ -91,7 +91,7 @@ const jsonLd = {
   image: `${site.url}/logo-mark.png`,
   logo: `${site.url}/logo-mark.png`,
   description: site.tagline,
-  telephone: site.phone,
+  telephone: site.phoneInternational,
   email: site.email,
   priceRange: "$$",
   address: {
@@ -117,7 +117,7 @@ const jsonLd = {
   ],
   areaServed: { "@type": "Country", name: "Nepal" },
   // The confirmed founding year is 2048 BS; omit an unconfirmed Gregorian date.
-  sameAs: [] as string[],
+  sameAs: [site.instagram],
 };
 
 export default function RootLayout({

@@ -59,7 +59,7 @@ export default function Home() {
           <div className="element-copy">
             <p className="element-intro">Everest Super Chemical Udhyog · Kathmandu, Nepal</p>
             <h1 id="home-title">EVERYDAY ESSENTIALS.<br /><span>EXPERTLY SUPPLIED.</span></h1>
-            <p className="element-description">A dependable range of chemicals and allied supplies,<br className="company-desktop-break" /> manufactured and sourced for businesses across Nepal.</p>
+            <p className="element-description">Water treatment, pool and cleaning chemicals,<br className="company-desktop-break" /> manufactured and supplied from Kathmandu across Nepal.</p>
             <div className="company-hero-actions"><Link href="/about" className="element-button">Meet ESCU <Arrow /></Link><Link href="/products" className="company-catalogue-link">Explore our products <Arrow diagonal /></Link></div>
           </div>
           <div className="element-bottomline">

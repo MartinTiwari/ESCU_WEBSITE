@@ -17,7 +17,7 @@ async function main() {
   assert.ok(robots.includes(`Sitemap: ${production}/sitemap.xml`));
   const xml = await read("/sitemap.xml");
   const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => decode(match[1]));
-  assert.equal(urls.length, 37);
+  assert.equal(urls.length, 38);
   assert.equal(new Set(urls).size, urls.length);
   const titles = new Set();
   const descriptions = new Set();
@@ -65,8 +65,18 @@ async function main() {
     if (route.pathname.startsWith("/products/")) {
       assert.ok(types.includes("WebPage") && types.includes("BreadcrumbList"), `${url}: missing page/breadcrumb markup`);
     }
+    if (route.pathname === "/buying-guide") {
+      const faq = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)]
+        .map((match) => JSON.parse(match[1])).find((node) => node["@type"] === "FAQPage");
+      assert.ok(faq && faq.mainEntity.length === 7, "Buying guide: missing answers");
+      const visibleText = decode(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "").replace(/<[^>]+>/g, ""));
+      for (const question of faq.mainEntity) {
+        assert.ok(visibleText.includes(question.name), "FAQ question must be visible");
+        assert.ok(visibleText.includes(question.acceptedAnswer.text), "FAQ answer must match visible content");
+      }
+    }
     for (const match of html.matchAll(/<a\b[^>]*href="([^"]+)"/g)) {
-      const link = new URL(decode(match[1]), production);
+      const link = new URL(decode(match[1]), url);
       if (link.origin === production) {
         internalLinks.add(link.pathname + link.search);
         linkTargets.add(link.pathname + link.search + link.hash);
