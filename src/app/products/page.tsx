@@ -7,6 +7,7 @@ import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
 import CategoryIcon from "@/components/CategoryIcon";
 import { pageMetadata } from "@/lib/seo";
+import { getCategoryUrl } from "@/lib/category-pages";
 
 const catalogueMetadata = pageMetadata({
   title: "Chemical Products in Nepal",
@@ -83,7 +84,7 @@ export default async function ProductsPage({
           <div className="flex items-center gap-1 overflow-x-auto py-1 -mb-px">
             <FilterTab href="/products" active={!category}>All</FilterTab>
             {categories.map((c) => (
-              <FilterTab key={c} href={`/products?category=${encodeURIComponent(c)}`} active={category === c}>
+              <FilterTab key={c} href={getCategoryUrl(c)} active={category === c}>
                 {c.replace(" Chemicals", "").replace(" & Cleaning", "")}
               </FilterTab>
             ))}

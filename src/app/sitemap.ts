@@ -1,13 +1,14 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
-import { categories, products } from "@/lib/products";
+import { products } from "@/lib/products";
+import { categoryLandingPages } from "@/lib/category-pages";
 
 // Google ignores <changefreq> and <priority> outright, but it does read
 // <lastmod> when scheduling crawls — and the sitemap had none, so every URL
 // looked equally stale. Bump this by hand when page content actually changes.
 // Deliberately not `new Date()`: a lastmod that always reads "now" is treated
 // as noise and discounted, which is worse than having none.
-const CONTENT_LAST_UPDATED = new Date("2026-09-13");
+const CONTENT_LAST_UPDATED = new Date("2026-10-01");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -28,9 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const categoryRoutes = categories.map((category) => ({
-    url: `${site.url}/products?category=${encodeURIComponent(category)}`,
-    lastModified: CONTENT_LAST_UPDATED,
+  const categoryRoutes = categoryLandingPages.map((page) => ({
+    url: `${site.url}/chemicals/${page.slug}`,
+    lastModified: new Date("2026-10-01"),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
   }));
   return [...staticRoutes, ...categoryRoutes, ...productRoutes];
 }

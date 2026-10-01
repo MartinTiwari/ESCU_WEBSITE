@@ -15,7 +15,7 @@ export const site = {
   // Routed by Cloudflare Email Routing to everestchem.np@gmail.com. Proven
   // working — Google's Business Profile verification code arrived this way.
   email: "info@everestsuperchemical.com.np",
-  address: "Banshidhar Marg, Kathmandu 44600, Nepal",
+  address: "Gokarneshor-06, Kathmandu 44600, Nepal",
   // Exact pin from the Google Maps listing — used for the embed and for
   // the LocalBusiness geo coordinates, so the map never mis-geocodes.
   geo: { lat: 27.7158594, lng: 85.3370884 },

@@ -5,6 +5,7 @@ import { site, whatsappLink } from "@/lib/site";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
 import { pageMetadata } from "@/lib/seo";
+import { getCategoryUrl } from "@/lib/category-pages";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -90,7 +91,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         "@type": "ListItem",
         position: 3,
         name: product.category,
-        item: `${site.url}/products?category=${encodeURIComponent(product.category)}`,
+        item: `${site.url}${getCategoryUrl(product.category)}`,
       },
       { "@type": "ListItem", position: 4, name: product.name, item: url },
     ],
@@ -215,7 +216,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <div className="eyebrow text-amber-deep mb-2">In the same category</div>
                   <h2 className="font-display text-2xl md:text-3xl text-ink">Related products</h2>
                 </div>
-                <Link href={`/products?category=${encodeURIComponent(product.category)}`} className="text-muted text-sm hover:text-ink link-ul shrink-0">
+                <Link href={getCategoryUrl(product.category)} className="text-muted text-sm hover:text-ink link-ul shrink-0">
                   View all →
                 </Link>
               </div>
