@@ -7,6 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 import { getCategoryUrl } from "@/lib/category-pages";
+import { getProductBuyingContent } from "@/lib/product-buying-content";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -16,9 +17,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) return {};
+  const buyingContent = getProductBuyingContent(slug);
   return pageMetadata({
-    title: `${product.name} Supplier in Nepal`,
-    description: `${product.name} for ${product.useCase.toLowerCase()}. Request wholesale pricing from ESCU in Kathmandu, with bulk delivery across Nepal.`,
+    title: buyingContent?.title ?? `${product.name} Supplier in Nepal`,
+    description: buyingContent?.description ?? `${product.name} for ${product.useCase.toLowerCase()}. Request wholesale pricing from ESCU in Kathmandu, with bulk delivery across Nepal.`,
     keywords: [
       `${product.name} Nepal`,
       `${product.name} price Nepal`,
@@ -37,6 +39,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) notFound();
+  const buyingContent = getProductBuyingContent(slug);
 
   const related = products
     .filter((p) => p.category === product.category && p.slug !== product.slug)
@@ -149,7 +152,29 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <h2 className="eyebrow text-muted mb-4">Also known as</h2>
               <p className="text-ink/60 text-sm leading-relaxed mb-12">
                 {product.name} is also sold and searched for as {formatList(product.alsoKnownAs)}.
+                {buyingContent?.nepaliName && (
+                  <> Nepali name: <span lang="ne">{buyingContent.nepaliName}</span>.</>
+                )}
               </p>
+
+              {buyingContent && (
+                <section className="mb-12" aria-labelledby="buying-questions">
+                  <h2 id="buying-questions" className="eyebrow text-muted mb-4">Buying questions</h2>
+                  <div className="border-t border-line">
+                    {buyingContent.questions.map(({ question, answer }) => (
+                      <details key={question} className="border-b border-line py-4">
+                        <summary className="cursor-pointer text-ink text-sm font-medium leading-relaxed focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-deep">
+                          {question}
+                        </summary>
+                        <p className="text-ink/70 text-sm leading-relaxed mt-3">{answer}</p>
+                      </details>
+                    ))}
+                  </div>
+                  <p className="text-ink/70 text-sm leading-relaxed mt-4">
+                    Buy from ESCU at {site.streetAddress}, Kathmandu. <Link href={`/quote?product=${encodeURIComponent(product.name)}`} className="underline underline-offset-4 hover:text-amber-deep">Request a quotation</Link> to confirm availability and delivery, or read the <Link href="/buying-guide" className="underline underline-offset-4 hover:text-amber-deep">chemical buying guide</Link> for ordering details.
+                  </p>
+                </section>
+              )}
 
               <div className="eyebrow text-muted mb-4">Suited for</div>
               <div className="flex flex-wrap gap-2 mb-12">

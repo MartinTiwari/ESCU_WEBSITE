@@ -25,7 +25,7 @@ export const categoryLandingPages: CategoryLandingPage[] = [
     questions: [
       { question: "Which water-treatment chemicals does ESCU supply?", answer: "The range includes PAC, alum, bleaching powder, liquid chlorine, industrial salt, caustic soda, sodium hydroxide, antiscalant and polyelectrolyte, subject to current availability." },
       { question: "Can you supply treatment chemicals outside Kathmandu?", answer: "Yes. ESCU handles wholesale and bulk enquiries for delivery across Nepal. Delivery timing and freight depend on the product, quantity and destination." },
-      { question: "How do I request the correct grade or concentration?", answer: "Send the chemical name, intended application, required concentration or specification, quantity and any available water analysis. The team will confirm availability and specifications before quotation." },
+      { question: "How can I get water-treatment chemical prices in Nepal?", answer: "Ask ESCU for a quotation for bleaching powder, PAC, alum, liquid chlorine or your other required product. Include the grade or concentration, quantity and delivery town so the team can confirm current pricing and availability. For a treatment application, include your required specification or available water analysis." },
     ],
   },
   {
@@ -40,7 +40,7 @@ export const categoryLandingPages: CategoryLandingPage[] = [
     questions: [
       { question: "Which pool chemicals are available in Nepal?", answer: "ESCU lists TCCA, liquid chlorine, copper sulphate, soda ash and sodium bicarbonate among its pool-care range, subject to current stock and specification." },
       { question: "Do you supply hotels and commercial swimming pools?", answer: "Yes. ESCU accepts repeat, wholesale and bulk enquiries from hotels, resorts, clubs and commercial pool operators across Nepal." },
-      { question: "What information is needed for a pool-chemical quotation?", answer: "Send the product name, required quantity, delivery location and any preferred specification. For treatment advice, include pool volume and recent pH and chlorine readings." },
+      { question: "How do I get swimming-pool chlorine prices in Nepal?", answer: "Specify whether you need liquid chlorine or TCCA, then send the required specification, quantity and delivery location. ESCU confirms current availability and a quotation for the requested product. If you are unsure which product fits your pool, share the pool volume and recent water-test readings before ordering." },
     ],
   },
   {
@@ -55,7 +55,7 @@ export const categoryLandingPages: CategoryLandingPage[] = [
     questions: [
       { question: "Which housekeeping products does ESCU supply?", answer: "The catalogue includes products for hand hygiene, utensils, laundry, floors, surfaces and general housekeeping. Availability and pack sizes can be confirmed with the team." },
       { question: "Can businesses order cleaning chemicals in bulk?", answer: "Yes. ESCU accepts wholesale and repeat-supply enquiries for hotels, hospitals, restaurants, offices and other facilities across Nepal." },
-      { question: "How can I compare products before ordering?", answer: "Send the intended use, surface or cleaning task, required quantity and current product details if you are replacing one. ESCU can confirm the closest available option and provide a quotation." },
+      { question: "How do I get floor-cleaner and cleaning-chemical prices in Kathmandu?", answer: "Send the product name, intended cleaning task, pack-size preference, quantity and delivery location. ESCU can quote for floor cleaner, liquid soap, handwash and other available cleaning products. For customer visits, find the team at Banshidhar Marg, Kathmandu; contact us to confirm the required product before travelling." },
     ],
   },
 ];

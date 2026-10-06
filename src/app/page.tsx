@@ -81,7 +81,7 @@ export default function Home() {
 
       <section id="our-range" className="home-range home-container" aria-labelledby="range-title">
         <div className="home-section-top"><p className="home-kicker">WHAT WE SUPPLY</p><span className="home-section-index">01 /</span></div>
-        <div className="home-section-heading"><h2 id="range-title">Chemical supply.<br /><span>Across Nepal.</span></h2><div><p>A practical range for water treatment, cleaning, pool care and industrial applications, available for wholesale and bulk orders across Nepal.</p><Link href="/products" className="home-text-link">View all {products.length} products <Arrow /></Link></div></div>
+        <div className="home-section-heading"><h2 id="range-title">Chemical supply.<br /><span>Across Nepal.</span></h2><div><p>Your chemical supplier in Kathmandu for water treatment, cleaning, pool care and industrial applications. Browse our range for wholesale and bulk supply across Nepal.</p><Link href="/products" className="home-text-link">View all {products.length} products <Arrow /></Link></div></div>
         <div className="home-range-grid">
           {ranges.map((range, i) => <Link className="home-range-item" key={range.category} href={getCategoryUrl(range.category)}>
             <div className="home-range-image"><Image src={range.image} alt={`${range.category} — illustrative application photo`} fill sizes="(min-width: 1280px) 410px, (min-width: 760px) 32vw, 94px" /><span className="home-range-number">0{i + 1}</span><span className="home-range-arrow"><Arrow diagonal /></span></div>
