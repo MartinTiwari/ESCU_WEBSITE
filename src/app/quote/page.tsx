@@ -17,8 +17,8 @@ export default function QuotePage() {
     <div className="bg-paper">
       <PageHeader
         eyebrow="Get a Quote"
-        title={<>Tell us what you need, <span className="italic text-amber-bright">we&apos;ll price it.</span></>}
-        sub="No payment, no commitment. We quote prices for bulk orders and businesses, and we usually reply the same working day."
+        title={<>A quick hello.<br /><span className="italic text-amber-bright">A quote that fits.</span></>}
+        sub="Tell us what you need, leave your number, and we’ll take it from there. No payment or commitment."
       />
 
       <div className="max-w-5xl mx-auto px-5 py-16">
@@ -40,7 +40,7 @@ export default function QuotePage() {
               ))}
               <div className="pt-4 border-t border-line">
                 <div className="eyebrow text-muted mb-2">Prefer to talk?</div>
-                <a href={`tel:${site.phone}`} className="font-display text-xl text-ink link-ul">{site.phone}</a>
+                <a href={`tel:${site.phoneInternational}`} className="font-display text-xl text-ink link-ul">{site.phone}</a>
               </div>
             </div>
           </Reveal>

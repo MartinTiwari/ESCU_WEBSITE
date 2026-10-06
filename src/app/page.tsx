@@ -45,13 +45,14 @@ export default function Home() {
       <section className="element-hero" aria-labelledby="home-title">
         <div className="element-stage">
           <Image
-            src="/images/liquid-flow-hero.webp"
+            src="/images/chemical-welcome-hero.webp"
             alt=""
             fill
             preload
             sizes="100vw"
             className="element-photograph"
           />
+          <div className="element-edge-blur" aria-hidden="true" />
           <div className="element-shade" aria-hidden="true" />
           <div className="element-topline">
             <span>MADE HERE. SOURCED DIRECTLY.</span>
@@ -61,7 +62,8 @@ export default function Home() {
             <p className="element-intro">Everest Super Chemical Udhyog · Kathmandu, Nepal</p>
             <h1 id="home-title">EVERYDAY ESSENTIALS.<br /><span>EXPERTLY SUPPLIED.</span></h1>
             <p className="element-description">Water treatment, pool and cleaning chemicals,<br className="company-desktop-break" /> manufactured and supplied from Kathmandu across Nepal.</p>
-            <div className="company-hero-actions"><Link href="/about" className="element-button">Meet ESCU <Arrow /></Link><Link href="/products" className="company-catalogue-link">Explore our products <Arrow diagonal /></Link></div>
+            <div className="company-hero-actions"><a href={whatsappLink("Hi ESCU, I'd like help choosing chemicals for my business.")} className="element-button">Ask on WhatsApp <Arrow /></a><Link href="/products" className="company-catalogue-link">Browse products <Arrow diagonal /></Link></div>
+            <p className="hero-welcome">Not sure what you need? Tell us what you’re working on.<br />We’ll help you choose.</p>
           </div>
           <div className="element-bottomline">
             <span>Kathmandu based · Serving Nepal</span>
@@ -88,13 +90,17 @@ export default function Home() {
         <div className="home-range-bottom"><p>Need machine oils, test kits or other allied supplies?</p><a href={whatsappLink("Hi ESCU, I'm looking for a product and would like to check availability.")} className="home-text-link">Ask us what’s available <Arrow diagonal /></a></div>
       </section>
 
-      <section className="home-about" aria-labelledby="about-title">
-        <div className="home-container home-about-grid"><div><p className="home-kicker">THE PEOPLE BEHIND THE SUPPLY</p><h2 id="about-title">Big on supply.<br /><span>Personal by nature.</span></h2><p className="home-about-body">We’re Everest Super Chemical Udhyog. We manufacture some of our products and import the rest directly, bringing water treatment, pool and housekeeping supplies together under one roof.</p><p className="home-about-body">Whether you’re buying for a hotel, a hospital or a treatment plant, you can speak to us about the product, the quantity and the next delivery.</p><Link href="/about" className="home-text-link">Get to know ESCU <Arrow /></Link></div><div className="home-about-facts"><div><span>01</span><h3>A single point of contact</h3><p>One team for your water treatment, pool and cleaning supplies.</p></div><div><span>02</span><h3>Built around your order</h3><p>Wholesale quantities and long-term supply plans for repeat requirements.</p></div><div><span>03</span><h3>Here to help you choose</h3><p>Talk through product selection and request specifications with our team.</p></div></div></div>
+      <section className="home-about home-about-compact" aria-labelledby="about-title">
+        <div className="home-container home-about-grid">
+          <div><p className="home-kicker">THE PEOPLE BEHIND THE SUPPLY</p><h2 id="about-title">Big on supply.<br /><span>Personal by nature.</span></h2></div>
+          <div><p className="home-about-body">We’re Everest Super Chemical Udhyog. We manufacture some of our products and import the rest directly, bringing water treatment, pool and housekeeping supplies together under one roof. Speak with our team about the right product and quantity for your business.</p><Link href="/about" className="home-text-link">Get to know ESCU <Arrow /></Link></div>
+        </div>
       </section>
 
-      <section className="home-industries home-container" aria-labelledby="industries-title"><div><p className="home-kicker">WHERE OUR SUPPLY GOES</p><h2 id="industries-title">Behind the scenes.<br />Across Nepal.</h2><Link href="/industries" className="home-text-link">Find your industry <Arrow /></Link></div><div className="home-industry-list">{["Hotels & Resorts", "Water Treatment Plants", "Swimming Pools", "Hospitals", "Industrial Plants", "Restaurants & Cafes", "Commercial Buildings", "Engineering Projects"].map((industry) => <Link href="/industries" key={industry}>{industry}<Arrow diagonal /></Link>)}</div></section>
-
-      <section className="home-contact" aria-labelledby="contact-title"><div className="home-container"><p className="home-kicker">LET’S GET YOUR ORDER STARTED</p><div className="home-contact-main"><h2 id="contact-title">What’s on<br />your supply list?</h2><div><p>Send us the products and quantities you need. We’ll help you put the order together.</p><Link href="/quote" className="home-button">Request a quote <Arrow diagonal /></Link><a href={`tel:${site.phone}`} className="home-contact-phone">Or call {site.phone}</a></div></div><div className="home-contact-bottom"><span>Everest Super Chemical Udhyog</span><span>Banshidhar Marg · Kathmandu</span></div></div></section>
+      <section className="home-end home-container" aria-labelledby="contact-title">
+            <div className="home-end-contact"><p className="home-kicker">LET’S GET YOUR ORDER STARTED</p><h2 id="contact-title">What’s on your supply list?</h2><p>Send a product name, a list or a question. We’ll confirm availability and pricing.</p><div className="home-end-actions"><Link href="/quote" className="home-button">Request a quote <Arrow diagonal /></Link><a href={whatsappLink("Hi ESCU, I'd like to check pricing and availability.")} className="home-text-link">WhatsApp <Arrow /></a></div><a href={whatsappLink("नमस्ते ESCU, मलाई मूल्य र उपलब्धता बारे सोध्नु छ।")} lang="ne" className="home-text-link home-end-nepali">नेपालीमा कुरा गर्नुहोस् <Arrow /></a><a href={`tel:${site.phoneInternational}`} className="home-contact-phone">Or call {site.phone}</a></div>
+            <div className="home-end-reviews"><h3>Your experience matters.</h3><p>Already ordered? Share your experience on Google, or read customer feedback.</p><a href="https://www.google.com/maps?cid=15578687259318146645" target="_blank" rel="noopener noreferrer" className="home-text-link">Find us on Google <Arrow diagonal /></a></div>
+      </section>
     </div>
   );
 }

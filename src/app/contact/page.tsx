@@ -4,6 +4,7 @@ import { site, whatsappLink } from "@/lib/site";
 
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
+import GoogleReviews from "@/components/GoogleReviews";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -18,7 +19,7 @@ const methods = [
     label: "Call us",
     value: site.phone,
     helper: "Most of our orders still start with a phone call. Ring us and ask.",
-    href: `tel:${site.phone}`,
+    href: `tel:${site.phoneInternational}`,
     action: "Call now",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
@@ -162,7 +163,12 @@ export default function ContactPage() {
             </div>
           </Reveal>
         </div>
+        <div className="mt-8 border-t border-line pt-6 flex flex-wrap items-center justify-between gap-5">
+          <div><h2 className="font-display text-xl text-ink mb-2">Planning a visit?</h2><p className="text-sm text-muted">Call before collecting so we can confirm your order and the pickup point.</p></div>
+          <a href={whatsappLink("नमस्ते ESCU, मलाई उत्पादन बारे सोध्नु छ।")} lang="ne" className="btn-secondary">नेपालीमा कुरा गर्नुहोस्</a>
+        </div>
       </div>
+      <GoogleReviews />
     </div>
   );
 }

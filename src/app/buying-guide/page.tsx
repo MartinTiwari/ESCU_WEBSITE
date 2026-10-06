@@ -1,7 +1,9 @@
-import Link from "next/link";
 import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 import { buyingQuestions } from "@/lib/buying-guide";
+import BuyingQuestions from "@/components/BuyingQuestions";
+import PageHeader from "@/components/PageHeader";
+import Reveal from "@/components/Reveal";
 
 export const metadata = pageMetadata({
   title: "Buying Chemicals in Nepal: Wholesale Quotes & Delivery FAQs",
@@ -26,21 +28,11 @@ export default function BuyingGuide() {
     })),
   };
   return (
-    <article className="bg-paper px-5 pt-32 pb-20 sm:px-8">
+    <article className="bg-paper">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }} />
-      <div className="max-w-3xl mx-auto">
-        <h1 className="font-display text-4xl sm:text-5xl text-ink leading-tight mb-6">Buying chemicals from ESCU in Nepal</h1>
-        <p className="text-lg leading-relaxed text-ink/80 mb-8">Everest Super Chemical Udhyog supplies water treatment, pool and cleaning chemicals from Kathmandu to businesses across Nepal. Start with your product, quantity and delivery location; the team will confirm pricing and availability.</p>
-        <nav aria-label="Buying questions" className="border-y border-line py-6 mb-10">
-          <ul className="space-y-3">{buyingQuestions.map(({ id, question }) => <li key={id}><a className="text-ink underline underline-offset-4 hover:text-amber-deep" href={`#${id}`}>{question}</a></li>)}</ul>
-        </nav>
-        {buyingQuestions.map(({ id, question, answer, href, link }) => (
-          <section key={id} id={id} className="scroll-mt-24 border-b border-line pb-8 mb-8">
-            <h2 className="font-display text-2xl text-ink mb-3">{question}</h2>
-            <p className="text-ink/80 leading-relaxed mb-4">{answer}</p>
-            <Link className="text-ink underline underline-offset-4 hover:text-amber-deep" href={href}>{link}</Link>
-          </section>
-        ))}
+      <PageHeader eyebrow="Buying guide" title={<>Your next order,<br /><em className="text-amber-bright">made simpler.</em></>} sub="Everest Super Chemical Udhyog supplies water treatment, pool and cleaning chemicals from Kathmandu to businesses across Nepal. Start with your product, quantity and delivery location; the team will confirm pricing and availability." />
+      <div className="mx-auto max-w-[1200px] px-5 py-14 sm:px-8 sm:py-20">
+        <Reveal><BuyingQuestions /></Reveal>
         <p className="text-sm text-muted">Business information from Everest Super Chemical Udhyog. Confirm current product and delivery details with the team when ordering.</p>
       </div>
     </article>

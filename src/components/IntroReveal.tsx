@@ -6,12 +6,21 @@ import { useEffect, useRef, useState } from "react";
    up into the real navbar logo (FLIP). Only once it has docked does the cream
    backdrop fade to reveal the whole page.
 
-   Plays once per full page load, not on every navigation
-   to "/" — and any click/tap/keypress skips straight to the end, since
+   Plays once per browser session — and any click/tap/keypress skips straight to the end, since
    someone visiting mid-phone-call shouldn't have to sit through it twice. */
 
-// Resets on full page load; internal navigation does not replay the intro.
+const INTRO_STORAGE_KEY = "escu:intro-played";
+// In-memory fallback when browser storage is unavailable.
 let introPlayed = false;
+
+function rememberIntro() {
+  introPlayed = true;
+  try {
+    window.sessionStorage.setItem(INTRO_STORAGE_KEY, "true");
+  } catch {
+    // The in-memory fallback still prevents replays during navigation.
+  }
+}
 
 export default function IntroReveal() {
   const [show, setShow] = useState(true);
@@ -27,18 +36,22 @@ export default function IntroReveal() {
     // is deliberate: matchMedia don't exist during SSR, so
     // `show` has to default to true for a consistent server/client render,
     // then flip off once we can actually check the client's capabilities.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let sessionPlayed = introPlayed;
+    try {
+      sessionPlayed ||= window.sessionStorage.getItem(INTRO_STORAGE_KEY) === "true";
+    } catch {
+      // Storage can be blocked in private or restricted browser contexts.
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || sessionPlayed) {
+      rememberIntro();
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setShow(false);
       return;
     }
-    if (introPlayed) {
-      setShow(false);
-      return;
-    }
-
-
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    let skipFrame: number | undefined;
+    let skipEnd: ReturnType<typeof setTimeout> | undefined;
 
     const dockLogo = () => {
       const img = logoRef.current;
@@ -53,29 +66,29 @@ export default function IntroReveal() {
     };
 
     const tIn = setTimeout(() => setEntered(true), 60);
-    const tDock = setTimeout(dockLogo, 1700); // 1) hold, then dock the logo up into the navbar
-    const tReveal = setTimeout(() => setReveal(true), 2650); // 2) only after it has reached the navbar, reveal the page
+    const tDock = setTimeout(dockLogo, 650); // 1) hold, then dock the logo up into the navbar
+    const tReveal = setTimeout(() => setReveal(true), 1250); // 2) reveal once the logo has docked
     const tEnd = setTimeout(() => {
-      introPlayed = true;
+      rememberIntro();
       setShow(false);
-      document.body.style.overflow = "";
-    }, 3450); // 3) tear down the overlay
+      document.body.style.overflow = previousOverflow;
+    }, 1750); // 3) tear down the overlay
 
     const timers = [tIn, tDock, tReveal, tEnd];
 
     const skip = () => {
       if (skippedRef.current) return;
       skippedRef.current = true;
-      introPlayed = true;
+      rememberIntro();
       timers.forEach(clearTimeout);
       setEntered(true);
       dockLogo();
       // let the dock transform apply for a beat so it doesn't look like a hard cut
-      requestAnimationFrame(() => {
+      skipFrame = requestAnimationFrame(() => {
         setReveal(true);
-        setTimeout(() => {
+        skipEnd = setTimeout(() => {
           setShow(false);
-          document.body.style.overflow = "";
+          document.body.style.overflow = previousOverflow;
         }, 200);
       });
     };
@@ -85,9 +98,11 @@ export default function IntroReveal() {
 
     return () => {
       timers.forEach(clearTimeout);
+      if (skipFrame !== undefined) cancelAnimationFrame(skipFrame);
+      if (skipEnd !== undefined) clearTimeout(skipEnd);
       window.removeEventListener("pointerdown", skip);
       window.removeEventListener("keydown", skip);
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, []);
 
@@ -98,7 +113,7 @@ export default function IntroReveal() {
       {/* cream backdrop — stays until the logo has docked, then fades */}
       <div
         className="absolute inset-0 bg-cream"
-        style={{ opacity: reveal ? 0 : 1, transition: "opacity 750ms ease" }}
+        style={{ opacity: reveal ? 0 : 1, transition: "opacity 450ms ease" }}
       />
 
       {/* lockup: logo on top, name at the bottom */}
@@ -114,8 +129,8 @@ export default function IntroReveal() {
             transform: dock ? logoTransform : entered ? "none" : "scale(0.94)",
             opacity: reveal ? 0 : entered ? 1 : 0,
             transition: dock
-              ? "transform 950ms cubic-bezier(0.72,0,0.18,1), opacity 400ms ease"
-              : "transform 600ms cubic-bezier(0.16,1,0.3,1), opacity 600ms ease",
+              ? "transform 600ms cubic-bezier(0.72,0,0.18,1), opacity 250ms ease"
+              : "transform 400ms cubic-bezier(0.16,1,0.3,1), opacity 400ms ease",
           }}
         />
         <span
@@ -123,7 +138,7 @@ export default function IntroReveal() {
           style={{
             opacity: dock ? 0 : entered ? 1 : 0,
             transform: entered && !dock ? "none" : "translateY(8px)",
-            transition: "opacity 500ms ease, transform 600ms cubic-bezier(0.16,1,0.3,1)",
+            transition: "opacity 300ms ease, transform 400ms cubic-bezier(0.16,1,0.3,1)",
           }}
         >
           Everest Super Chemical Udhyog

@@ -1,3 +1,5 @@
+
+
 import Link from "next/link";
 import Image from "next/image";
 import { site, whatsappLink } from "@/lib/site";
@@ -24,21 +26,22 @@ export default function Footer() {
           <div className="eyebrow text-amber-bright mb-4">Explore</div>
           <ul className="space-y-2.5 text-sm">
             <li><Link href="/products" className="hover:text-cream transition-colors">Products</Link></li>
-            <li><Link href="/industries" className="hover:text-cream transition-colors">Industries</Link></li>
             <li><Link href="/about" className="hover:text-cream transition-colors">About</Link></li>
             <li><Link href="/quote" className="hover:text-cream transition-colors">Get a Quote</Link></li>
             <li><Link href="/privacy" className="hover:text-cream transition-colors">Privacy</Link></li>
             <li><Link href="/buying-guide" className="hover:text-cream transition-colors">Buying guide &amp; FAQs</Link></li>
+            <li><a href={whatsappLink("नमस्ते ESCU, मलाई उत्पादन बारे जानकारी चाहिएको छ।")} lang="ne" className="hover:text-cream transition-colors">नेपालीमा कुरा गर्नुहोस्</a></li>
           </ul>
         </div>
 
         <div>
           <div className="eyebrow text-amber-bright mb-4">Reach us</div>
           <ul className="space-y-2.5 text-sm">
-            <li><a href={`tel:${site.phone}`} className="hover:text-cream transition-colors">{site.phone}</a></li>
+            <li><a href={`tel:${site.phoneInternational}`} className="hover:text-cream transition-colors">{site.phone}</a></li>
             <li><a href={whatsappLink()} className="hover:text-cream transition-colors">WhatsApp {site.whatsappDisplay}</a></li>
             <li><a href={`mailto:${site.email}`} className="hover:text-cream transition-colors break-all">{site.email}</a></li>
             <li><a href={site.instagram} className="hover:text-cream transition-colors">ESCU on Instagram</a></li>
+            <li><a href="https://www.google.com/maps?cid=15578687259318146645" target="_blank" rel="noopener noreferrer" className="hover:text-cream transition-colors">See ESCU &amp; reviews on Google</a></li>
           </ul>
         </div>
 

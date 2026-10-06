@@ -25,8 +25,8 @@ export default function IndustryDirectory({ groups }: {
   }, []);
   return (
     <div ref={root} className="industry-directory">
-      {groups.map((group, i) => (
-        <details key={group.name} id={group.name} className="industry-disclosure" open={i === 0}>
+      {groups.map((group) => (
+        <details key={group.name} id={group.name} className="industry-disclosure">
           <summary>
             <span className="industry-thumbnail"><Image src={group.photo} alt="" fill sizes="48px" /></span>
             <h2 className="industry-summary-name">{group.name}</h2>

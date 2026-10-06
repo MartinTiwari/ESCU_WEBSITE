@@ -1,11 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
-import { categories, products } from "@/lib/products";
+import { categories, industries, products } from "@/lib/products";
 import { site, whatsappLink } from "@/lib/site";
-import { categoryPhoto } from "@/lib/photos";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
-import CategoryIcon from "@/components/CategoryIcon";
+import CatalogueSearch from "@/components/CatalogueSearch";
+import IndustryFilter from "@/components/IndustryFilter";
 import { pageMetadata } from "@/lib/seo";
 import { getCategoryUrl } from "@/lib/category-pages";
 
@@ -30,7 +29,7 @@ const categoryDescriptions: Record<string, string> = {
   "Water Treatment Chemicals": "Water treatment chemicals in Nepal: PAC, alum, industrial salt, caustic soda, antiscalant and more. Bulk supply from Kathmandu for treatment plants and industry.",
 };
 
-export async function generateMetadata({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+export async function generateMetadata({ searchParams }: { searchParams: Promise<{ category?: string; industry?: string }> }) {
   const { category } = await searchParams;
   if (!category || !categories.some((value) => value === category)) return catalogueMetadata;
   return pageMetadata({
@@ -43,12 +42,13 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; industry?: string }>;
 }) {
-  const { category: requestedCategory } = await searchParams;
+  const { category: requestedCategory, industry: requestedIndustry } = await searchParams;
+  const industry = industries.find((value) => value === requestedIndustry);
   const category = categories.find((value) => value === requestedCategory);
   const activeCategories = category ? categories.filter((c) => c === category) : categories;
-  const visibleProducts = products.filter((product) => activeCategories.includes(product.category));
+  const visibleProducts = products.filter((product) => activeCategories.includes(product.category) && (!industry || product.industries.includes(industry)));
 
   // Names the full catalogue as an ordered list in one place. The product
   // links are already in the markup; this states outright that they are a
@@ -82,9 +82,9 @@ export default async function ProductsPage({
       <div className="border-b border-line bg-cream sticky top-[68px] z-30">
         <div className="max-w-6xl mx-auto px-5">
           <div className="flex items-center gap-1 overflow-x-auto py-1 -mb-px">
-            <FilterTab href="/products" active={!category}>All</FilterTab>
+            <FilterTab href={industry ? `/products?industry=${encodeURIComponent(industry)}` : "/products"} active={!category}>All</FilterTab>
             {categories.map((c) => (
-              <FilterTab key={c} href={getCategoryUrl(c)} active={category === c}>
+              <FilterTab key={c} href={industry ? `/products?category=${encodeURIComponent(c)}&industry=${encodeURIComponent(industry)}` : getCategoryUrl(c)} active={category === c}>
                 {c.replace(" Chemicals", "").replace(" & Cleaning", "")}
               </FilterTab>
             ))}
@@ -94,42 +94,18 @@ export default async function ProductsPage({
 
       {/* Product index — grouped by category */}
       <div className="max-w-6xl mx-auto px-5 py-10">
-        <div className="catalogue-columns">
-          {activeCategories.map((cat) => {
-            const items = products.filter((p) => p.category === cat);
-
-            return (
-              <Reveal key={cat}>
-                <section>
-                  {/* Category header */}
-                  <div className="catalogue-group-heading">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <span className="relative w-9 h-9 rounded-md overflow-hidden shrink-0">
-                        <Image src={categoryPhoto[cat]} alt="" fill sizes="48px" className="object-cover" />
-                        <span className="absolute inset-0 bg-ink/30 grid place-items-center text-cream">
-                          <CategoryIcon category={cat} className="w-[16px] h-[16px]" />
-                        </span>
-                      </span>
-                      <h2 className="font-display text-lg text-ink">{cat}</h2>
-                    </div>
-                    <span className="text-xs text-muted shrink-0">
-                      {items.length} {items.length === 1 ? "product" : "products"}
-                    </span>
-                  </div>
-
-                  <div className="catalogue-rows">
-                    {items.map((p) => (
-                      <Link key={p.slug} href={`/products/${p.slug}`} className="catalogue-product">
-                        <span><strong>{p.name}</strong><small>{p.useCase}</small></span>
-                        <span aria-hidden="true">↗</span>
-                      </Link>
-                    ))}
-                  </div>                </section>
-              </Reveal>
-            );
-          })}
-        </div>
-
+        {industry && (
+          <div className="mb-6 flex flex-wrap items-center gap-3 text-sm">
+            <p className="text-ink">Products for <strong>{industry}</strong></p>
+            <Link href={category ? `/products?category=${encodeURIComponent(category)}` : "/products"} className="text-amber-deep underline underline-offset-4">View all industries</Link>
+          </div>
+        )}
+        <CatalogueSearch
+          industryFilter={<IndustryFilter industries={industries.filter((value) => products.some((product) => product.industries.includes(value)))} selected={industry} category={category} />}
+          key={`${category || "all"}-${industry || "all"}`}
+          products={visibleProducts.map(({ slug, name, useCase, category, alsoKnownAs }) => ({ slug, name, useCase, category, alsoKnownAs }))}
+          categories={activeCategories}
+        />
         {/* Callout */}
         <Reveal>
           <div className="mt-10 bg-ink text-cream p-6 md:p-8 relative overflow-hidden">

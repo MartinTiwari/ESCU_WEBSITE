@@ -34,9 +34,17 @@ function getClientIp(req: NextRequest): string {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const MAX_SHORT = 200;
-const MAX_LONG = 3000;
-const MAX_REQUEST_BYTES = 16 * 1024;
+const FIELD_LIMITS = {
+  name: 200,
+  company: 200,
+  phone: 200,
+  email: 200,
+  products: 3000,
+  quantity: 1000,
+  deliveryTown: 200,
+  message: 3000,
+} as const;
+const MAX_REQUEST_BYTES = 32 * 1024;
 
 function hasTrustedOrigin(req: NextRequest): boolean {
   const origin = req.headers.get("origin");
@@ -46,17 +54,17 @@ function hasTrustedOrigin(req: NextRequest): boolean {
   return !fetchSite || fetchSite === "same-origin";
 }
 
-function clean(v: unknown, max: number): string {
+function clean(v: unknown): string {
   if (typeof v !== "string") return "";
   // strip stray control characters, but keep newlines — the message /
   // product-list fields are meant to hold multi-line input
-  return v.replace(/[\t\x00-\x09\x0b-\x1f]+/g, " ").trim().slice(0, max);
+  return v.replace(/\r\n?/g, "\n").replace(/[\x00-\x09\x0b-\x1f\x7f]+/g, " ").trim();
 }
 
 // for fields that end up in the email subject: no newlines allowed, so
 // nothing here can smuggle extra headers into the outgoing email
-function cleanSingleLine(v: unknown, max: number): string {
-  return clean(v, max).replace(/[\r\n]+/g, " ");
+function cleanSingleLine(v: unknown): string {
+  return clean(v).replace(/[\r\n]+/g, " ");
 }
 
 export async function POST(req: NextRequest) {
@@ -93,38 +101,46 @@ export async function POST(req: NextRequest) {
 
   // Honeypot: a field real visitors never see or fill in. Bots that
   // auto-fill every input on the form trip this.
-  if (clean(body.website, MAX_SHORT)) {
+  if (clean(body.website)) {
     return NextResponse.json({ ok: true });
   }
 
-  // Time trap: the form records when it rendered. Kept deliberately low
-  // (400ms, not the ~1200ms a first draft used) — browser autofill can
-  // legitimately fill and submit a multi-field form in under a second,
-  // and silently discarding a real customer's lead is worse than letting
-  // a slightly-faster bot through; the honeypot and request limits still
-  // catch broad abuse. Missing timestamp is still a hard reject (no
-  // legitimate client omits it).
-  const renderedAt = Number(body.formRenderedAt);
-  if (!Number.isFinite(renderedAt)) {
-    return NextResponse.json({ ok: true });
+  // Client clocks and autofill speed are not reliable abuse signals.
+  // Origin, honeypot and rate checks above protect this endpoint instead.
+  const fieldErrors: Record<string, string> = {};
+  for (const [field, max] of Object.entries(FIELD_LIMITS)) {
+    const value = body[field];
+    if (value !== undefined && typeof value !== "string") {
+      fieldErrors[field] = "Enter text for this field.";
+    } else if (typeof value === "string" && value.length > max) {
+      fieldErrors[field] = `Use ${max} characters or fewer.`;
+    }
   }
-  if (Date.now() - renderedAt < 400) {
-    return NextResponse.json({ ok: true });
+  if (body.productUncertain !== undefined && typeof body.productUncertain !== "boolean") {
+    fieldErrors.products = "Choose whether you need help selecting a product.";
   }
+  const fulfillment = body.fulfillment === undefined ? "unsure" : body.fulfillment;
+  if (!["delivery", "pickup", "unsure"].includes(fulfillment as string)) {
+    fieldErrors.fulfillment = "Choose delivery, pickup or not sure yet.";
+  }
+  const name = cleanSingleLine(body.name);
+  const company = cleanSingleLine(body.company);
+  const phone = cleanSingleLine(body.phone);
+  const email = cleanSingleLine(body.email);
+  const productUncertain = body.productUncertain === true;
+  const products = clean(body.products);
+  const quantity = clean(body.quantity);
+  const deliveryTown = cleanSingleLine(body.deliveryTown);
+  const message = clean(body.message);
 
-  const name = cleanSingleLine(body.name, MAX_SHORT);
-  const company = cleanSingleLine(body.company, MAX_SHORT);
-  const phone = cleanSingleLine(body.phone, MAX_SHORT);
-  const email = cleanSingleLine(body.email, MAX_SHORT);
-  const products = clean(body.products, MAX_LONG);
-  const quantity = clean(body.quantity, MAX_SHORT);
-  const message = clean(body.message, MAX_LONG);
-
-  if (!name || !phone || !products) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
-  }
+  if (!name) fieldErrors.name = "Enter your name.";
+  if (!phone) fieldErrors.phone = "Enter a phone number so we can reach you.";
+  if (!products && !productUncertain) fieldErrors.products = "Tell us what you need, or choose help selecting a product.";
   if (email && !EMAIL_RE.test(email)) {
-    return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+    fieldErrors.email = "Enter a valid email address.";
+  }
+  if (Object.keys(fieldErrors).length) {
+    return NextResponse.json({ error: "Please check the highlighted fields.", fieldErrors }, { status: 400 });
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -149,8 +165,11 @@ export async function POST(req: NextRequest) {
         `Company: ${company || "-"}`,
         `Phone: ${phone}`,
         `Email: ${email || "-"}`,
-        `Product(s): ${products}`,
+        `Product(s): ${products || "Not sure yet — please help me choose"}`,
+        `Help choosing a product: ${productUncertain ? "Yes" : "No"}`,
         `Quantity: ${quantity || "-"}`,
+        `Delivery town: ${deliveryTown || "Not specified"}`,
+        `Delivery / pickup preference: ${fulfillment === "delivery" ? "Delivery" : fulfillment === "pickup" ? "Pickup" : "Not sure yet"}`,
         `Message: ${message || "-"}`,
       ].join("\n"),
     });
