@@ -41,7 +41,7 @@ export default function Footer() {
             <li><a href={whatsappLink()} className="hover:text-cream transition-colors">WhatsApp {site.whatsappDisplay}</a></li>
             <li><a href={`mailto:${site.email}`} className="hover:text-cream transition-colors break-all">{site.email}</a></li>
             <li><a href={site.instagram} className="hover:text-cream transition-colors">ESCU on Instagram</a></li>
-            <li><a href="https://www.google.com/maps?cid=15578687259318146645" target="_blank" rel="noopener noreferrer" className="hover:text-cream transition-colors">See ESCU &amp; reviews on Google</a></li>
+            <li><a href="https://www.google.com/maps?cid=6505991632698609845" target="_blank" rel="noopener noreferrer" className="hover:text-cream transition-colors">See ESCU &amp; reviews on Google</a></li>
           </ul>
         </div>
 

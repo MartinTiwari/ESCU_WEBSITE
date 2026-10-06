@@ -99,7 +99,7 @@ export default function Home() {
 
       <section className="home-end home-container" aria-labelledby="contact-title">
             <div className="home-end-contact"><p className="home-kicker">LET’S GET YOUR ORDER STARTED</p><h2 id="contact-title">What’s on your supply list?</h2><p>Send a product name, a list or a question. We’ll confirm availability and pricing.</p><div className="home-end-actions"><Link href="/quote" className="home-button">Request a quote <Arrow diagonal /></Link><a href={whatsappLink("Hi ESCU, I'd like to check pricing and availability.")} className="home-text-link">WhatsApp <Arrow /></a></div><a href={whatsappLink("नमस्ते ESCU, मलाई मूल्य र उपलब्धता बारे सोध्नु छ।")} lang="ne" className="home-text-link home-end-nepali">नेपालीमा कुरा गर्नुहोस् <Arrow /></a><a href={`tel:${site.phoneInternational}`} className="home-contact-phone">Or call {site.phone}</a></div>
-            <div className="home-end-reviews"><h3>Your experience matters.</h3><p>Already ordered? Share your experience on Google, or read customer feedback.</p><a href="https://www.google.com/maps?cid=15578687259318146645" target="_blank" rel="noopener noreferrer" className="home-text-link">Find us on Google <Arrow diagonal /></a></div>
+            <div className="home-end-reviews"><h3>Your experience matters.</h3><p>Already ordered? Share your experience on Google, or read customer feedback.</p><a href="https://g.page/r/CbUQqnLr7ElaEBM/review" target="_blank" rel="noopener noreferrer" className="home-text-link">Write a Google review <Arrow diagonal /></a></div>
       </section>
     </div>
   );
