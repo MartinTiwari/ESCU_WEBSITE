@@ -55,10 +55,10 @@ export default function Footer() {
 
       <div className="max-w-6xl mx-auto px-5">
         <div className="border-t border-[var(--ink-line)] py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <span className="eyebrow text-cream/40">
+          <span className="eyebrow text-cream/60">
             © {new Date().getFullYear()} Everest Super Chemical Udhyog
           </span>
-          <span className="eyebrow text-cream/40">Kathmandu · Serving businesses across Nepal</span>
+          <span className="eyebrow text-cream/60">Kathmandu · Serving businesses across Nepal</span>
         </div>
       </div>
     </footer>

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import styles from "./Header.module.css";
 
 const navLinks = [
   { href: "/products", label: "Products" },
@@ -99,28 +99,26 @@ export default function Header() {
             onClick={() => setMenuPath(open ? null : pathname)}
             className="md:hidden flex flex-col justify-center gap-[5px] w-11 h-11 rounded-md hover:bg-paper-2 transition-colors"
           >
-            <motion.span animate={{ rotate: open ? 45 : 0, y: open ? 7 : 0 }} transition={{ duration: 0.22 }}
-              className="block h-[1.5px] mx-2 bg-ink origin-center" />
-            <motion.span animate={{ opacity: open ? 0 : 1, scaleX: open ? 0.4 : 1 }} transition={{ duration: 0.18 }}
-              className="block h-[1.5px] mx-2 bg-ink" />
-            <motion.span animate={{ rotate: open ? -45 : 0, y: open ? -7 : 0 }} transition={{ duration: 0.22 }}
-              className="block h-[1.5px] mx-2 bg-ink origin-center" />
+            <span style={{ transform: open ? "translateY(6.5px) rotate(45deg)" : undefined }}
+              className={`block h-[1.5px] mx-2 bg-ink origin-center ${styles.line}`} />
+            <span style={{ opacity: open ? 0 : 1, transform: open ? "scaleX(0.4)" : undefined }}
+              className={`block h-[1.5px] mx-2 bg-ink ${styles.line}`} />
+            <span style={{ transform: open ? "translateY(-6.5px) rotate(-45deg)" : undefined }}
+              className={`block h-[1.5px] mx-2 bg-ink origin-center ${styles.line}`} />
           </button>
         </div>
       </div>
 
       {/* Mobile menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
+          <div
             ref={menuRef}
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.18 }}
-            id="mobile-navigation" className="md:hidden border-t border-line bg-cream"
+            inert={!open}
+            aria-hidden={!open}
+            data-open={open}
+            id="mobile-navigation" className={`md:hidden bg-cream ${styles.menu}`}
           >
-            <nav aria-label="Mobile navigation" className="max-w-7xl mx-auto px-5 py-2">
+            <div className="overflow-hidden">
+            <nav aria-label="Mobile navigation" className="max-w-7xl mx-auto px-5 py-2 border-t border-line">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -143,9 +141,8 @@ export default function Header() {
                 Request a quote
               </Link>
             </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+          </div>
     </header>
   );
 }

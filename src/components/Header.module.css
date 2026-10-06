@@ -1,0 +1,35 @@
+.line {
+  transition: transform 220ms ease, opacity 180ms ease;
+}
+
+.menu {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: grid-template-rows 180ms ease, opacity 180ms ease,
+    transform 180ms ease, visibility 0s linear 180ms;
+}
+
+.menu[data-open="true"] {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+/* Keep the menu out of desktop layout despite the module's display rule. */
+@media (min-width: 48rem) {
+  .menu {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line,
+  .menu {
+    transition: none;
+  }
+}
