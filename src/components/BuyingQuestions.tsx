@@ -3,11 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { buyingQuestions } from "@/lib/buying-guide";
+import { site } from "@/lib/site";
 
 function Answer({ item }: { item: (typeof buyingQuestions)[number] }) {
   return (
     <>
-      <p className="text-base leading-relaxed text-ink/80 sm:text-lg">{item.answer}</p>
+      <p className="text-base leading-relaxed text-ink/80 sm:text-lg">
+        {item.id === "location" ? <>Visit ESCU at <strong className="font-semibold text-ink">{site.address}</strong>. Business hours are <strong className="font-semibold text-ink">{site.hours}</strong>. Call <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className="font-semibold text-ink underline underline-offset-4">{site.phone}</a> or email <a href={`mailto:${site.email}`} className="font-semibold text-ink underline underline-offset-4 break-words">{site.email}</a>.</> : item.answer}
+      </p>
       <Link href={item.href} className="mt-7 inline-flex min-h-11 items-center gap-4 border-b border-amber-deep pb-1 text-sm font-semibold text-ink transition-colors hover:text-amber-deep">
         {item.link}<span aria-hidden="true">↗</span>
       </Link>
