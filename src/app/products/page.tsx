@@ -30,12 +30,14 @@ const categoryDescriptions: Record<string, string> = {
 };
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ category?: string; industry?: string }> }) {
-  const { category } = await searchParams;
-  if (!category || !categories.some((value) => value === category)) return catalogueMetadata;
+  const { category: requestedCategory, industry: requestedIndustry } = await searchParams;
+  const category = categories.find((value) => value === requestedCategory);
+  const industry = industries.find((value) => value === requestedIndustry);
+  if (!category || industry) return catalogueMetadata;
   return pageMetadata({
     title: `${category} in Nepal`,
     description: categoryDescriptions[category],
-    path: `/products?category=${encodeURIComponent(category)}`,
+    path: getCategoryUrl(category),
   });
 }
 

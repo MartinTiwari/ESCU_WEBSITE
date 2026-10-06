@@ -4,6 +4,7 @@ import { getProductBySlug, products } from "@/lib/products";
 import { site, whatsappLink } from "@/lib/site";
 import Reveal from "@/components/Reveal";
 import PageHeader from "@/components/PageHeader";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 import { getCategoryUrl } from "@/lib/category-pages";
 
@@ -113,6 +114,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </PageHeader>
       {/* Body */}
       <div className="max-w-4xl mx-auto px-5 py-14">
+        <Breadcrumbs items={[
+          { name: "Home", href: "/" },
+          { name: "Products", href: "/products" },
+          { name: product.category, href: getCategoryUrl(product.category) },
+          { name: product.name },
+        ]} />
         <div className="grid md:grid-cols-[1fr_260px] gap-12 md:gap-16 items-start">
           <Reveal>
             <div>
@@ -149,7 +156,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 {product.industries.map((ind) => (
                   <Link
                     key={ind}
-                    href={`/industries#${encodeURIComponent(ind)}`}
+                    href={`/products?industry=${encodeURIComponent(ind)}#industry-filter`}
                     className="bg-paper-2 text-ink/70 text-xs font-medium px-4 py-2 border border-line hover:border-amber hover:text-amber-deep transition-colors"
                   >
                     {ind}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Reveal from "@/components/Reveal";
 import { categoryLandingPages, getCategoryLandingPage } from "@/lib/category-pages";
 import { products } from "@/lib/products";
@@ -70,6 +71,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       <Link href="/products" className="site-back-link">← Browse the full catalogue</Link>
     </PageHeader>
     <div className="max-w-6xl mx-auto px-5 py-14 md:py-20">
+      <Breadcrumbs items={[
+        { name: "Home", href: "/" },
+        { name: "Chemical products", href: "/products" },
+        { name: page.category },
+      ]} />
       <section className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-20 items-start mb-20" aria-labelledby="category-products">
         <Reveal>
           <div className="lg:sticky lg:top-28">

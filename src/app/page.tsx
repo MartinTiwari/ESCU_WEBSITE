@@ -48,7 +48,8 @@ export default function Home() {
             src="/images/chemical-welcome-hero.webp"
             alt=""
             fill
-            preload
+            loading="eager"
+            fetchPriority="high"
             sizes="100vw"
             className="element-photograph"
           />
@@ -83,7 +84,7 @@ export default function Home() {
         <div className="home-section-heading"><h2 id="range-title">Chemical supply.<br /><span>Across Nepal.</span></h2><div><p>A practical range for water treatment, cleaning, pool care and industrial applications, available for wholesale and bulk orders across Nepal.</p><Link href="/products" className="home-text-link">View all {products.length} products <Arrow /></Link></div></div>
         <div className="home-range-grid">
           {ranges.map((range, i) => <Link className="home-range-item" key={range.category} href={getCategoryUrl(range.category)}>
-            <div className="home-range-image"><Image src={range.image} alt={`${range.category} — illustrative application photo`} fill sizes="(min-width: 1280px) 410px, (min-width: 760px) 32vw, 100vw" /><span className="home-range-number">0{i + 1}</span><span className="home-range-arrow"><Arrow diagonal /></span></div>
+            <div className="home-range-image"><Image src={range.image} alt={`${range.category} — illustrative application photo`} fill sizes="(min-width: 1280px) 410px, (min-width: 760px) 32vw, 94px" /><span className="home-range-number">0{i + 1}</span><span className="home-range-arrow"><Arrow diagonal /></span></div>
             <p className="home-range-category">{range.category.replace(" Chemicals", "")}</p><h3>{range.title}</h3><p className="home-range-description">{range.description}</p><p className="home-range-examples">{range.examples}</p>
           </Link>)}
         </div>

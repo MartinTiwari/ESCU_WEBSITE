@@ -97,7 +97,7 @@ const jsonLd = {
   priceRange: "$$",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Gokarneshor-06",
+    streetAddress: site.streetAddress,
     addressLocality: "Kathmandu",
     addressRegion: "Bagmati",
     postalCode: "44600",

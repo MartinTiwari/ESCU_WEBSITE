@@ -130,6 +130,7 @@ export default function ContactPage() {
               <div className="relative px-8 pb-8 -mt-6">
                 <div className="eyebrow text-amber-bright mb-4">The warehouse</div>
                 <p className="font-display text-2xl leading-snug mb-4">{site.address}</p>
+                <p className="text-sm text-muted mb-4">Customer visits: Banshidhar Marg. Registered address: {site.registeredAddress}.</p>
                 <p className="flex items-center gap-2.5 text-cream/70 text-sm mb-4">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4 shrink-0 text-amber-bright">
                     <circle cx="12" cy="12" r="8.5" />

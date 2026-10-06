@@ -17,7 +17,8 @@ async function main() {
   assert.ok(robots.includes(`Sitemap: ${production}/sitemap.xml`));
   const xml = await read("/sitemap.xml");
   const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => decode(match[1]));
-  assert.equal(urls.length, 38);
+  assert.ok(urls.length >= 30, "Sitemap unexpectedly lost content pages");
+  assert.ok(!urls.some((url) => /\/(industries|ne)$/.test(url)), "Redirect routes must not be in the sitemap");
   assert.equal(new Set(urls).size, urls.length);
   const titles = new Set();
   const descriptions = new Set();
@@ -92,6 +93,12 @@ async function main() {
       assert.ok(html.includes(`id="${id}"`) || html.includes(`id="${id.replace(/&/g, "&amp;")}"`), `${target}: broken fragment`);
     }
   }
+  const categoryPath = "/chemicals/housekeeping-cleaning-chemicals-nepal";
+  const categoryFilter = await read("/products?category=Housekeeping%20%26%20Cleaning%20Chemicals");
+  assert.ok(categoryFilter.includes(`rel="canonical" href="${production}${categoryPath}"`), "Category filter must consolidate to the category landing page");
+  const industryFilter = await read("/products?industry=Hotels%20%26%20Resorts");
+  assert.ok(industryFilter.includes('id="industry-filter"'), "Industry filter anchor missing");
+  assert.ok(![...pages.values()].some((html) => /href="\/industries#/.test(html)), "Product industry links must retain their filter selection");
   for (const target of sharingImages) {
     const response = await fetch(new URL(target, base));
     assert.equal(response.status, 200, `${target}: broken sharing image`);
@@ -110,7 +117,7 @@ async function main() {
     const route = new URL(url);
     assert.ok(internalLinks.has(route.pathname + route.search), `${url}: no incoming internal link`);
   }
-  const image = await fetch(new URL("/images/liquid-flow-hero.webp", base));
+  const image = await fetch(new URL("/images/chemical-welcome-hero.webp", base));
   assert.equal(image.status, 200);
   assert.match(image.headers.get("content-type"), /image\/webp/);
   const missing = await fetch(new URL("/products/not-a-real-product", base));

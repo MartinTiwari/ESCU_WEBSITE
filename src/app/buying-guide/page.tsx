@@ -4,6 +4,7 @@ import { buyingQuestions } from "@/lib/buying-guide";
 import BuyingQuestions from "@/components/BuyingQuestions";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
+import Link from "next/link";
 
 export const metadata = pageMetadata({
   title: "Buying Chemicals in Nepal: Wholesale Quotes & Delivery FAQs",
@@ -22,6 +23,7 @@ export default function BuyingGuide() {
     inLanguage: "en",
     isPartOf: { "@id": `${site.url}/#website` },
     publisher: { "@id": `${site.url}/#organization` },
+    author: { "@id": `${site.url}/#organization` },
     mainEntity: buyingQuestions.map(({ question, answer }) => ({
       "@type": "Question", name: question,
       acceptedAnswer: { "@type": "Answer", text: answer },
@@ -33,7 +35,11 @@ export default function BuyingGuide() {
       <PageHeader eyebrow="Buying guide" title={<>Your next order,<br /><em className="text-amber-bright">made simpler.</em></>} sub="Everest Super Chemical Udhyog supplies water treatment, pool and cleaning chemicals from Kathmandu to businesses across Nepal. Start with your product, quantity and delivery location; the team will confirm pricing and availability." />
       <div className="mx-auto max-w-[1200px] px-5 py-14 sm:px-8 sm:py-20">
         <Reveal><BuyingQuestions /></Reveal>
-        <p className="text-sm text-muted">Business information from Everest Super Chemical Udhyog. Confirm current product and delivery details with the team when ordering.</p>
+        <aside aria-label="About this guide" className="border-t border-line pt-6 text-sm text-muted">
+          <p className="font-semibold text-ink mb-2">About this guide · Everest Super Chemical Udhyog</p>
+          <p className="max-w-2xl leading-relaxed">ESCU manufactures and supplies chemical and cleaning products from Kathmandu. This guide explains ordering, quotations and delivery. Confirm current specifications and availability with the team; follow the product label and safety documentation for use and handling.</p>
+          <Link href="/about" className="inline-block mt-3 underline underline-offset-4 text-ink">Meet the company behind the guide →</Link>
+        </aside>
       </div>
     </article>
   );

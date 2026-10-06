@@ -14,7 +14,7 @@ export default function PageHeader({
 }) {
   return (
     <section className="site-page-header">
-      <div className="site-page-header-art" aria-hidden="true"><Image src="/images/chemical-welcome-hero.webp" alt="" fill preload sizes="100vw" className="site-page-header-image" /></div>
+      <div className="site-page-header-art" aria-hidden="true"><Image src="/images/chemical-welcome-hero.webp" alt="" fill loading="eager" fetchPriority="high" sizes="100vw" className="site-page-header-image" /></div>
       <div className="site-page-header-shade" aria-hidden="true" />
       <Reveal className="site-page-header-content">
           <p className="eyebrow text-amber-bright mb-6">{eyebrow}</p>

@@ -8,13 +8,13 @@ import { categoryLandingPages } from "@/lib/category-pages";
 // looked equally stale. Bump this by hand when page content actually changes.
 // Deliberately not `new Date()`: a lastmod that always reads "now" is treated
 // as noise and discounted, which is worse than having none.
-const CONTENT_LAST_UPDATED = new Date("2026-10-01");
+const CONTENT_LAST_UPDATED = new Date("2026-10-06");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${site.url}/buying-guide`, lastModified: new Date("2026-09-17") },
+    { url: `${site.url}/buying-guide`, lastModified: CONTENT_LAST_UPDATED },
     { url: `${site.url}/privacy`, lastModified: CONTENT_LAST_UPDATED },
-    { url: site.url, lastModified: new Date("2026-09-17"), changeFrequency: "weekly", priority: 1 },
+    { url: site.url, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "weekly", priority: 1 },
     { url: `${site.url}/products`, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "weekly", priority: 0.9 },
     { url: `${site.url}/about`, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "monthly", priority: 0.6 },
     { url: `${site.url}/contact`, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "monthly", priority: 0.6 },
@@ -23,14 +23,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const productRoutes: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${site.url}/products/${p.slug}`,
-    lastModified: new Date("2026-09-17"),
+    lastModified: CONTENT_LAST_UPDATED,
     changeFrequency: "monthly",
     priority: 0.7,
   }));
 
   const categoryRoutes = categoryLandingPages.map((page) => ({
     url: `${site.url}/chemicals/${page.slug}`,
-    lastModified: new Date("2026-10-01"),
+    lastModified: CONTENT_LAST_UPDATED,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));

@@ -56,38 +56,38 @@ export const products: Product[] = [
   {
     slug: "liquid-soap",
     name: "Liquid Soap",
-    useCase: "Hand & Surface Cleaning",
+    useCase: "Utensil & Laundry Cleaning",
     category: "Housekeeping & Cleaning Chemicals",
     industries: hospitality,
     description:
-      "Gentle, effective liquid soap formulated for frequent hand and surface washing in high-traffic commercial settings.",
+      "Founder Liquid Soap for washing utensils, clothes and general cleaning in homes and commercial settings.",
     overview:
-      "A general-purpose liquid soap supplied in bulk to hotels, restaurants and commercial buildings across Nepal. It is intended for the kind of repeated, all-day washing that hospitality operations generate, where a harsh formulation would leave staff with dry or irritated skin. Because it is supplied in bulk rather than retail packaging, it works out considerably cheaper per wash than refilling from consumer bottles.",
+      "Founder Liquid Soap is used for cleaning utensils, clothes and other general cleaning tasks. Hotels, restaurants and commercial facilities can enquire about bulk supply from ESCU in Kathmandu. Tell us what you plan to clean and the quantity required so the team can confirm the appropriate product and usage instructions before ordering. For cleaning hands, choose the separate Handwash Shampoo product.",
     applications: [
-      "Refilling washroom and guest-room soap dispensers",
-      "Back-of-house and kitchen handwashing stations",
-      "General surface and equipment washing",
+      "Washing kitchen utensils",
+      "Washing clothes and laundry",
+      "General cleaning where the product is suitable",
       "Housekeeping trolleys and cleaning stations",
     ],
-    alsoKnownAs: ["Hand soap liquid", "Bulk liquid soap", "Commercial liquid soap"],
+    alsoKnownAs: ["Founder Liquid Soap", "Bulk liquid soap", "Liquid cleaning soap"],
     handling:
-      "Store in a cool, dry place with containers closed and out of direct sunlight. No special protective equipment is needed for normal use beyond avoiding prolonged eye contact.",
+      "Follow the product label and the team's usage instructions. Keep containers closed, avoid eye contact and keep out of reach of children. Do not mix with other cleaning chemicals. Confirm dilution and fabric or surface suitability before use.",
     sdsAvailable: false,
   },
   {
     slug: "hand-wash",
-    name: "Hand Wash",
+    name: "Handwash Shampoo",
     useCase: "Personal Hygiene Solution",
     category: "Housekeeping & Cleaning Chemicals",
     industries: [...hospitality, "Hospitals"],
-    description: "Hygienic hand wash solution suited for hotels, hospitals, and commercial washrooms.",
+    description: "Handwash Shampoo for cleaning hands in hotels, workplaces and commercial washrooms. This product is for handwashing, not hair washing.",
     overview:
-      "A hand wash intended for guest-facing and clinical washrooms, where hygiene expectations are higher and usage volumes are heavy. Hospitals and hotels typically order it on a standing schedule rather than ad hoc, and we supply it in bulk containers sized for dispenser refilling rather than individual sale.",
+      "Handwash Shampoo is a hand-cleaning product, not a hair shampoo. ESCU supplies it for washroom dispensers and handwashing stations in hotels, restaurants, workplaces and shared facilities. Send the quantity and intended use to confirm current availability, packaging and usage instructions. Follow your facility's hygiene requirements when choosing a product; no medical or sanitising performance is claimed here.",
     applications: [
       "Guest and public washroom dispensers",
       "Hospital and clinic handwashing points",
       "Staff and back-of-house washrooms",
-      "Reception and lobby sanitising stations",
+      "Handwashing stations in shared facilities",
     ],
     alsoKnownAs: ["Liquid handwash", "Hand wash refill", "Bulk hand wash"],
     handling:

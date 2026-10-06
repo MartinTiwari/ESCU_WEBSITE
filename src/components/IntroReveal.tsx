@@ -121,7 +121,9 @@ export default function IntroReveal() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={logoRef}
-          src="/logo-mark-ink.png"
+          src="/logo-intro.webp"
+          width={420}
+          height={204}
           alt="Everest Super Chemical Udhyog"
           className="h-16 md:h-20 w-auto"
           style={{
