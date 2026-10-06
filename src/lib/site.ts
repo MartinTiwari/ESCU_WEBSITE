@@ -10,6 +10,7 @@ export const site = {
   phone: "01-4543654",
   phoneInternational: "+977-1-4543654",
   instagram: "https://www.instagram.com/everestsuperchemicals/",
+  googleReviewUrl: "https://g.page/r/CbUQqnLr7ElaEBM/review",
   whatsapp: "+9779768380800",
   whatsappDisplay: "+977 9768380800",
   // Routed by Cloudflare Email Routing to everestchem.np@gmail.com. Proven
