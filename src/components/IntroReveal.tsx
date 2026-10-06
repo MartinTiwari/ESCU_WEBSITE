@@ -65,14 +65,14 @@ export default function IntroReveal() {
       setDock(true);
     };
 
-    const tIn = setTimeout(() => setEntered(true), 30);
-    const tDock = setTimeout(dockLogo, 250); // 1) brief hold, then dock the original logo
-    const tReveal = setTimeout(() => setReveal(true), 700); // 2) reveal once the logo has docked
+    const tIn = setTimeout(() => setEntered(true), 60);
+    const tDock = setTimeout(dockLogo, 950); // 1) let the brand be read before docking
+    const tReveal = setTimeout(() => setReveal(true), 1550); // 2) reveal once the logo has docked
     const tEnd = setTimeout(() => {
       rememberIntro();
       setShow(false);
       document.body.style.overflow = previousOverflow;
-    }, 1000); // 3) tear down the overlay without a long loading pause
+    }, 2000); // 3) complete the full brand sequence in two seconds
 
     const timers = [tIn, tDock, tReveal, tEnd];
 
@@ -113,7 +113,7 @@ export default function IntroReveal() {
       {/* cream backdrop — stays until the logo has docked, then fades */}
       <div
         className="absolute inset-0 bg-cream"
-        style={{ opacity: reveal ? 0 : 1, transition: "opacity 300ms ease" }}
+        style={{ opacity: reveal ? 0 : 1, transition: "opacity 450ms ease" }}
       />
 
       {/* lockup: logo on top, name at the bottom */}
@@ -131,8 +131,8 @@ export default function IntroReveal() {
             transform: dock ? logoTransform : entered ? "none" : "scale(0.94)",
             opacity: reveal ? 0 : entered ? 1 : 0,
             transition: dock
-              ? "transform 450ms cubic-bezier(0.72,0,0.18,1), opacity 200ms ease"
-              : "transform 200ms cubic-bezier(0.16,1,0.3,1), opacity 200ms ease",
+              ? "transform 600ms cubic-bezier(0.72,0,0.18,1), opacity 250ms ease"
+              : "transform 300ms cubic-bezier(0.16,1,0.3,1), opacity 300ms ease",
           }}
         />
         <span
@@ -140,7 +140,7 @@ export default function IntroReveal() {
           style={{
             opacity: dock ? 0 : entered ? 1 : 0,
             transform: entered && !dock ? "none" : "translateY(8px)",
-            transition: "opacity 200ms ease, transform 200ms cubic-bezier(0.16,1,0.3,1)",
+            transition: "opacity 300ms ease, transform 300ms cubic-bezier(0.16,1,0.3,1)",
           }}
         >
           Everest Super Chemical Udhyog
