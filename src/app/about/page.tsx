@@ -110,6 +110,19 @@ export default function AboutPage() {
         </div>
 
         <Reveal>
+          <section aria-labelledby="sister-company-title" className="mb-12 border-y border-line py-7 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="eyebrow text-amber-deep mb-2">Our sister company</p>
+              <h2 id="sister-company-title" className="font-display text-2xl text-ink">{site.sisterCompany.name}</h2>
+              <p className="mt-2 text-muted">Explore Everest Beverage on its own website.</p>
+            </div>
+            <a href={site.sisterCompany.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 shrink-0 items-center gap-3 font-semibold text-ink underline underline-offset-4 hover:text-amber-deep">
+              Visit Everest Beverage<span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </section>
+        </Reveal>
+
+        <Reveal>
           <div className="bg-ink text-cream p-10 md:p-12 relative overflow-hidden">
             <div className="absolute inset-0 grid-blueprint opacity-25" aria-hidden />
             <div className="relative max-w-xl">

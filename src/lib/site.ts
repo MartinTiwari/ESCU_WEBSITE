@@ -4,6 +4,10 @@ export const site = {
   tagline:
     "We make and supply water treatment chemicals, pool and cleaning products, cooking fuel, and other supplies like machine oils and test kits, for hotels, resorts, hospitals, and businesses across Nepal.",
   url: "https://www.everestsuperchemical.com.np",
+  sisterCompany: {
+    name: "Everest Beverage",
+    url: "https://everestbeverage.com.np/",
+  },
 
   // Founding year confirmed by the business, in Bikram Sambat.
   founded: { bs: 2048 },
