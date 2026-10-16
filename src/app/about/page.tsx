@@ -37,15 +37,15 @@ export default function AboutPage() {
                 businesses across Nepal.
               </p>
               <p>
-                We make some of what we sell ourselves, and import the rest directly. This means
-                we control the quality you get, instead of just passing on whatever a middleman
-                happens to have. It&apos;s also why our bulk prices stay steady from order to order.
+                We manufacture some of our products and import others directly. Tell us your
+                application, quantity and delivery location so we can confirm the right product,
+                current availability and a quotation for your order.
               </p>
               <p>
                 For more than three decades, we&apos;ve built long-term
                 relationships with hotels, resorts, and engineering projects across the country.
-                We back that up with wholesale prices, expert support, and reliable delivery
-                everywhere in Nepal.
+                Contact our team about wholesale supply, repeat orders and delivery options
+                for your location in Nepal.
               </p>
             </div>
           </Reveal>
@@ -54,7 +54,7 @@ export default function AboutPage() {
             <div className="bg-ink text-cream p-8 grid grid-cols-2 gap-6 relative overflow-hidden">
               <div className="absolute inset-0 grid-blueprint opacity-20" aria-hidden />
               <PullStat value="35+" label="Years in business" />
-              <PullStat value="Countless" label="Deliveries made" />
+              <PullStat value="Direct" label="Manufacture & imports" />
               <PullStat value="8" label="Industries served" />
               <PullStat value="Nepal-wide" label="Delivery reach" />
             </div>
@@ -64,8 +64,8 @@ export default function AboutPage() {
         <Reveal>
           <div className="border-t-2 border-ink pt-6 mb-20 max-w-2xl">
             <p className="font-display text-2xl md:text-[1.75rem] leading-snug text-ink">
-              Direct line to the warehouse. Whoever answers the phone packed
-              an order this morning, not a call centre reading from a script.
+              A direct conversation with our team. Bring a product list or tell us
+              what you need to clean or treat — we&apos;ll help you plan your order.
             </p>
             <div className="eyebrow text-muted mt-5">The ESCU team &middot; Banshidhar Marg</div>
           </div>
@@ -103,7 +103,7 @@ export default function AboutPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/0 to-ink/0" />
               <span className="eyebrow absolute bottom-4 left-5 text-cream/85">
-                Every batch checked before it ships
+                Ask about specifications & safety documentation
               </span>
             </div>
           </Reveal>

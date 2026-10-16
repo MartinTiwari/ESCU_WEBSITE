@@ -21,9 +21,19 @@ export default function QuotePage() {
         sub="Tell us what you need, leave your number, and we’ll take it from there. No payment or commitment."
       />
 
-      <div className="max-w-5xl mx-auto px-5 py-16">
+      <div className="max-w-5xl mx-auto px-5 py-8 sm:py-16">
         <div className="grid md:grid-cols-[1fr_1.6fr] gap-10 lg:gap-16 items-start">
-          <Reveal>
+
+
+          <Reveal delay={0.1} className="md:col-start-2 md:row-start-1">
+            <div className="bg-cream border border-line rounded-md p-6 md:p-8">
+              <Suspense>
+                <QuoteForm />
+              </Suspense>
+            </div>
+          </Reveal>
+
+          <Reveal className="md:col-start-1 md:row-start-1">
             <div className="space-y-6">
               {[
                 ["Same-day replies", "Send during business hours and we'll usually get back within the day."],
@@ -42,14 +52,6 @@ export default function QuotePage() {
                 <div className="eyebrow text-muted mb-2">Prefer to talk?</div>
                 <a href={`tel:${site.phoneInternational}`} className="font-display text-xl text-ink link-ul">{site.phone}</a>
               </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <div className="bg-cream border border-line rounded-md p-6 md:p-8">
-              <Suspense>
-                <QuoteForm />
-              </Suspense>
             </div>
           </Reveal>
         </div>

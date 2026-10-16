@@ -1,7 +1,8 @@
 import AnalyticsConsent from "./AnalyticsConsent";
 
 // Configure a real GA4 web stream before enabling this in production.
-// Use enhanced measurement for page views during client-side navigation.
+// AnalyticsConsent sends one explicit page view per route. Keep Enhanced
+// Measurement's browser-history page views disabled to avoid double counting.
 export default function GoogleAnalytics() {
   const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
   const isProduction = process.env.NODE_ENV === "production" &&

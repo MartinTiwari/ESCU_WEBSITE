@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Script from "next/script";
+import { usePathname } from "next/navigation";
+import { setAnalyticsAllowed, trackEnquiry, trackPageView } from "@/lib/analytics";
 
 const key = "escu-analytics-choice";
 function readChoice() {
@@ -18,16 +20,46 @@ function subscribe(callback: () => void) {
 }
 
 export default function AnalyticsConsent({ measurementId }: { measurementId: string }) {
+  const pathname = usePathname();
   const choice = useSyncExternalStore(subscribe, readChoice, () => null);
+  const [configured, setConfigured] = useState(false);
+  const lastPage = useRef<string | null>(null);
   const [editing, setEditing] = useState(false);
   const [sessionChoice, setSessionChoice] = useState<string | null>(null);
   const accepted = (sessionChoice || choice) === "accepted";
   useEffect(() => {
     (window as unknown as Record<string, unknown>)[`ga-disable-${measurementId}`] = !accepted;
+    setAnalyticsAllowed(accepted);
+    if (!accepted) return;
+    function trackContact(event: MouseEvent) {
+      if (!(event.target instanceof Element)) return;
+      const anchor = event.target.closest("a[href]");
+      if (!(anchor instanceof HTMLAnchorElement)) return;
+      const url = new URL(anchor.href, location.origin);
+      if (url.hostname === "wa.me" || url.hostname === "api.whatsapp.com") trackEnquiry("contact_click", "whatsapp");
+      else if (url.protocol === "tel:") trackEnquiry("contact_click", "phone");
+      else if (url.protocol === "mailto:") trackEnquiry("contact_click", "email");
+      else if (url.origin === location.origin && url.pathname === "/quote") trackEnquiry("quote_open", "quote_form");
+    }
+    document.addEventListener("click", trackContact);
+    return () => {
+      setAnalyticsAllowed(false);
+      document.removeEventListener("click", trackContact);
+    };
   }, [accepted, measurementId]);
+  useEffect(() => {
+    if (!accepted) {
+      lastPage.current = null;
+      return;
+    }
+    if (!configured || lastPage.current === pathname) return;
+    lastPage.current = pathname;
+    trackPageView();
+  }, [accepted, configured, pathname]);
   function choose(value: string) {
     const wasAccepted = accepted;
     (window as unknown as Record<string, unknown>)[`ga-disable-${measurementId}`] = value !== "accepted";
+    setAnalyticsAllowed(value === "accepted");
     try { localStorage.setItem(key, value); setSessionChoice(null); }
     catch { setSessionChoice(value); }
     setEditing(false);
@@ -46,11 +78,17 @@ export default function AnalyticsConsent({ measurementId }: { measurementId: str
 
   return <>
     {accepted && <>
-      <Script id="google-analytics-config" strategy="afterInteractive">{`
+      <Script id="google-analytics-config" strategy="afterInteractive" onReady={() => setConfigured(true)}>{`
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${measurementId}', { allow_google_signals: false, allow_ad_personalization_signals: false });
+gtag('config', '${measurementId}', {
+  send_page_view: false,
+  page_location: location.origin + location.pathname,
+  page_referrer: document.referrer.split(/[?#]/)[0],
+  allow_google_signals: false,
+  allow_ad_personalization_signals: false
+});
 `}</Script>
       <Script id="google-analytics-loader" src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`} strategy="afterInteractive" />
     </>}

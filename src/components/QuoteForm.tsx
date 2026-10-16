@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { whatsappLink } from "@/lib/site";
+import { trackEnquiry } from "@/lib/analytics";
 
 const LIMITS = { name: 200, company: 200, phone: 200, email: 200, products: 3000, quantity: 1000, deliveryTown: 200, message: 3000 } as const;
 type FieldName = keyof typeof LIMITS | "fulfillment";
@@ -173,6 +174,7 @@ export default function QuoteForm() {
         return;
       }
       if (!response.ok) throw new Error("Request failed");
+      trackEnquiry("generate_lead", "quote_form");
       try { sessionStorage.removeItem(DRAFT_KEY); } catch { /* Storage is optional. */ }
       setStatus("success");
     } catch {
@@ -289,7 +291,12 @@ export default function QuoteForm() {
           {status === "submitting" ? "Sending…" : step === 0 ? "Next: your contact" : step === 1 ? "Review request" : "Send request"}{status !== "submitting" && <span aria-hidden="true" className="transition-transform motion-reduce:transition-none group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0">→</span>}
         </button>
       </div>
-      <p className="text-sm text-muted">Prefer a chat? <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="text-ink underline underline-offset-4">{step === 2 ? "Send this via WhatsApp" : "Talk on WhatsApp"} ↗</a></p>
+      <p className="text-sm text-muted">Prefer a chat? <a href={whatsappLink()} onClick={(event) => {
+        // Keep private draft details out of the DOM link URL that automatic
+        // outbound-click measurement reads. They go only to WhatsApp on click.
+        event.preventDefault();
+        window.open(whatsappLink(waMessage), "_blank", "noopener,noreferrer");
+      }} target="_blank" rel="noopener noreferrer" className="text-ink underline underline-offset-4">{step === 2 ? "Send this via WhatsApp" : "Talk on WhatsApp"} ↗</a></p>
     </form>
   );
 }
