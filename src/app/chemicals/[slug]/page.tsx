@@ -82,14 +82,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             <p className="eyebrow text-amber-deep mb-4">What we supply</p>
             <h2 id="category-products" className="font-display text-3xl md:text-4xl text-ink mb-5">Products for the job.</h2>
             <p className="text-ink/65 leading-relaxed mb-7">{page.buyerSummary}</p>
-            <Link href="/quote" className="btn-primary">Request a quote →</Link>
+            <Link href="/quote" className="btn-primary">Request a quote</Link>
           </div>
         </Reveal>
         <div className="border-t border-line">
           {items.map((item, index) => <Reveal key={item.slug} delay={Math.min(index * 0.03, 0.18)}>
             <Link href={`/products/${item.slug}`} className="group grid grid-cols-[1fr_auto] gap-5 py-5 border-b border-line hover:bg-cream/70 transition-colors px-2 -mx-2">
               <span><strong className="font-display text-xl text-ink group-hover:text-amber-deep block mb-1">{item.name}</strong><small className="text-muted">{item.useCase}</small></span>
-              <span className="text-muted group-hover:text-amber-deep">↗</span>
+
             </Link>
           </Reveal>)}
         </div>
@@ -105,7 +105,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
       <section className="grid md:grid-cols-2 gap-10 bg-ink text-cream p-8 md:p-12" aria-labelledby="category-contact">
         <div><p className="eyebrow text-amber-bright mb-4">Serving organisations across Nepal</p><h2 id="category-contact" className="font-display text-3xl mb-5">Tell us what you need.</h2><p className="text-cream/65 leading-relaxed">Common buyers include {page.industries.join(", ")}. Availability, pack size and delivery are confirmed with each quotation.</p></div>
-        <div className="flex flex-col justify-center items-start md:items-end gap-3"><Link href="/quote" className="btn-primary">Request wholesale pricing →</Link><a href={whatsappLink(`Hi ESCU, I need information about ${page.category}.`)} className="btn-secondary-dark" target="_blank" rel="noopener noreferrer">Ask on WhatsApp</a><Link href="/buying-guide" className="text-cream/65 text-sm underline underline-offset-4">Read the chemical buying guide</Link></div>
+        <div className="flex flex-col justify-center items-start md:items-end gap-3"><Link href="/quote" className="btn-primary">Request wholesale pricing</Link><a href={whatsappLink(`Hi ESCU, I need information about ${page.category}.`)} className="btn-secondary-dark" target="_blank" rel="noopener noreferrer">Ask on WhatsApp</a><Link href="/buying-guide" className="text-cream/65 text-sm underline underline-offset-4">Read the chemical buying guide</Link></div>
       </section>
     </div>
   </div>;

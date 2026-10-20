@@ -16,12 +16,12 @@ export default function ChemicalSupplyVisual() {
           <Link key={drum.style} href={`/products?category=${encodeURIComponent(drum.category)}`} className={`chemical-drum chemical-drum-${drum.style}`} aria-label={`Explore ${drum.category}`}>
             <span className="drum-lid" aria-hidden="true"><span /></span>
             <span className="drum-rib drum-rib-top" aria-hidden="true" />
-            <span className="drum-label"><span className="drum-brand">ESCU <span>↗</span></span><span className="drum-range">{drum.title}</span><span className="drum-detail">{drum.detail}</span><span className="drum-label-bottom"><span>RANGE / 0{i + 1}</span><span className="drum-barcode" aria-hidden="true" /></span></span>
+            <span className="drum-label"><span className="drum-brand">ESCU </span><span className="drum-range">{drum.title}</span><span className="drum-detail">{drum.detail}</span><span className="drum-label-bottom"><span>RANGE / 0{i + 1}</span><span className="drum-barcode" aria-hidden="true" /></span></span>
             <span className="drum-rib drum-rib-bottom" aria-hidden="true" />
           </Link>
         ))}
       </div>
-      <div className="chemical-stage-caption"><span>Three ranges. One reliable source.</span><span>Explore a drum ↗</span></div>
+      <div className="chemical-stage-caption"><span>Three ranges. One reliable source.</span><span>Explore a drum</span></div>
     </div>
   );
 }

@@ -192,7 +192,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <div className="flex flex-wrap gap-3">
                 <Link href={`/quote?product=${encodeURIComponent(product.name)}`} className="group btn-primary">
                   Get a Quote
-                  <span className="transition-transform group-hover:translate-x-1">→</span>
+
                 </Link>
                 <a
                   href={whatsappLink(`Hi ESCU, I'd like pricing for ${product.name}.`)}
@@ -222,7 +222,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     <dt className="text-muted text-sm shrink-0">SDS</dt>
                     <dd className="text-sm text-right">
                       <a href={product.sdsUrl} target="_blank" rel="noopener noreferrer" className="text-amber-deep font-medium link-ul">
-                        Download →
+                        Download
                       </a>
                     </dd>
                   </div>
@@ -249,7 +249,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <h2 className="font-display text-2xl md:text-3xl text-ink">Related products</h2>
                 </div>
                 <Link href={getCategoryUrl(product.category)} className="text-muted text-sm hover:text-ink link-ul shrink-0">
-                  View all →
+                  View all
                 </Link>
               </div>
             </Reveal>
@@ -266,7 +266,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                       </span>
                       <span className="text-muted text-sm">{p.useCase}</span>
                     </div>
-                    <span className="text-muted group-hover:text-amber-deep group-hover:translate-x-0.5 transition-all">→</span>
+
                   </Link>
                 </Reveal>
               ))}
@@ -299,7 +299,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                       </span>
                       <span className="text-muted text-sm">{p.useCase}</span>
                     </div>
-                    <span className="text-muted group-hover:text-amber-deep group-hover:translate-x-0.5 transition-all">→</span>
+
                   </Link>
                 </Reveal>
               ))}

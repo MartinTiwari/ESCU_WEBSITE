@@ -15,7 +15,7 @@ export default function ProductCard({ product }: { product: Product }) {
           <p className="text-muted text-sm">{product.useCase}</p>
         </div>
       </div>
-      <span className="text-muted group-hover:text-amber-deep group-hover:translate-x-0.5 transition-all shrink-0 mt-1">→</span>
+
     </Link>
   );
 }

@@ -97,7 +97,7 @@ export default function ContactPage() {
                 <p className="text-muted text-sm leading-relaxed mb-6">{m.helper}</p>
                 <span className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-ink">
                   {m.action}
-                  <span className="transition-transform group-hover:translate-x-1">→</span>
+
                 </span>
               </a>
             </Reveal>

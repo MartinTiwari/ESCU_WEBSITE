@@ -12,7 +12,7 @@ function Answer({ item }: { item: (typeof buyingQuestions)[number] }) {
         {item.id === "location" ? <>Visit ESCU at <strong className="font-semibold text-ink">{site.address}</strong>. Business hours are <strong className="font-semibold text-ink">{site.hours}</strong>. Call <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className="font-semibold text-ink underline underline-offset-4">{site.phone}</a> or email <a href={`mailto:${site.email}`} className="font-semibold text-ink underline underline-offset-4 break-words">{site.email}</a>.</> : item.answer}
       </p>
       <Link href={item.href} className="mt-7 inline-flex min-h-11 items-center gap-4 border-b border-amber-deep pb-1 text-sm font-semibold text-ink transition-colors hover:text-amber-deep">
-        {item.link}<span aria-hidden="true">↗</span>
+        {item.link}
       </Link>
     </>
   );
@@ -36,7 +36,7 @@ export default function BuyingQuestions() {
             <button key={item.id} id={`question-${item.id}`} type="button" aria-expanded={active === index} aria-controls={`answer-${item.id}`} onClick={() => setActive(index)} className={`group flex min-h-16 w-full items-center gap-4 px-5 py-4 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-amber-deep ${active === index ? "bg-ink text-cream" : "text-ink hover:bg-ink/5"}`}>
               <span aria-hidden="true" className={`text-xs tabular-nums ${active === index ? "text-amber" : "text-muted"}`}>{String(index + 1).padStart(2, "0")}</span>
               <span className="flex-1 text-sm leading-relaxed font-medium">{item.question}</span>
-              <span aria-hidden="true" className={active === index ? "text-amber" : "text-muted"}>→</span>
+
             </button>
           ))}
         </div>

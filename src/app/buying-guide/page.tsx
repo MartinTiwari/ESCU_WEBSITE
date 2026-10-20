@@ -38,7 +38,7 @@ export default function BuyingGuide() {
         <aside aria-label="About this guide" className="border-t border-line pt-6 text-sm text-muted">
           <p className="font-semibold text-ink mb-2">About this guide · Everest Super Chemical Udhyog</p>
           <p className="max-w-2xl leading-relaxed">ESCU manufactures and supplies chemical and cleaning products from Kathmandu. This guide explains ordering, quotations and delivery. Confirm current specifications and availability with the team; follow the product label and safety documentation for use and handling.</p>
-          <Link href="/about" className="inline-block mt-3 underline underline-offset-4 text-ink">Meet the company behind the guide →</Link>
+          <Link href="/about" className="inline-block mt-3 underline underline-offset-4 text-ink">Meet the company behind the guide</Link>
         </aside>
       </div>
     </article>

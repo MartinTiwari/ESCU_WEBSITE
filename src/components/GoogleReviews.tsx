@@ -11,7 +11,7 @@ export default function GoogleReviews() {
       <div className="google-reviews-actions">
         <span className="google-reviews-mark" aria-hidden="true">Google</span>
         <h3>Tell us how your order went.</h3>
-        <a className="review-primary" href={site.googleReviewUrl} target="_blank" rel="noopener noreferrer">Write a Google review <span aria-hidden="true">↗</span></a>
+        <a className="review-primary" href={site.googleReviewUrl} target="_blank" rel="noopener noreferrer">Write a Google review </a>
         <p>Opens Google&apos;s review form. Sign in to your Google account if asked.</p>
       </div>
     </section>

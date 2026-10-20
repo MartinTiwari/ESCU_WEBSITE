@@ -117,7 +117,7 @@ export default function AboutPage() {
               <p className="mt-2 text-muted">Explore Everest Beverage on its own website.</p>
             </div>
             <a href={site.sisterCompany.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 shrink-0 items-center gap-3 font-semibold text-ink underline underline-offset-4 hover:text-amber-deep">
-              Visit Everest Beverage<span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
+              Visit Everest Beverage<span className="sr-only"> (opens in a new tab)</span>
             </a>
           </section>
         </Reveal>
@@ -135,7 +135,7 @@ export default function AboutPage() {
               </p>
               <Link href="/quote" className="group btn-primary">
                 Get a Quote
-                <span className="transition-transform group-hover:translate-x-1">→</span>
+
               </Link>
             </div>
           </div>

@@ -129,7 +129,7 @@ export default async function ProductsPage({
               </div>
               <div className="flex flex-col gap-3 shrink-0">
                 <Link href="/quote" className="group btn-primary justify-center">
-                  Request a Quote →
+                  Request a Quote
                 </Link>
                 <a
                   href={whatsappLink("Hi ESCU, I'm looking for a product that may not be on your website.")}

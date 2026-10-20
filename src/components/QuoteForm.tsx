@@ -207,7 +207,7 @@ export default function QuoteForm() {
             ...(form.message ? [["Message", form.message]] : []),
           ].map(([label, value]) => <div key={label}><dt className="font-medium text-ink mb-1">{label}</dt><dd className="text-muted whitespace-pre-wrap break-words">{value}</dd></div>)}
         </dl>
-        <Link href="/products" className="text-sm font-medium text-ink link-ul">Browse the full catalogue →</Link>
+        <Link href="/products" className="text-sm font-medium text-ink link-ul">Browse the full catalogue</Link>
       </div>
     );
   }
@@ -288,7 +288,7 @@ export default function QuoteForm() {
       <div className="flex flex-wrap gap-3 pt-2">
         {step > 0 && <button type="button" disabled={status === "submitting"} onClick={() => { pendingFocus.current = "heading"; setStep(step - 1); }} className="btn-secondary">← Back</button>}
         <button type="submit" disabled={status === "submitting"} className="group btn-primary">
-          {status === "submitting" ? "Sending…" : step === 0 ? "Next: your contact" : step === 1 ? "Review request" : "Send request"}{status !== "submitting" && <span aria-hidden="true" className="transition-transform motion-reduce:transition-none group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0">→</span>}
+          {status === "submitting" ? "Sending…" : step === 0 ? "Next: your contact" : step === 1 ? "Review request" : "Send request"}
         </button>
       </div>
       <p className="text-sm text-muted">Prefer a chat? <a href={whatsappLink()} onClick={(event) => {
@@ -296,7 +296,7 @@ export default function QuoteForm() {
         // outbound-click measurement reads. They go only to WhatsApp on click.
         event.preventDefault();
         window.open(whatsappLink(waMessage), "_blank", "noopener,noreferrer");
-      }} target="_blank" rel="noopener noreferrer" className="text-ink underline underline-offset-4">{step === 2 ? "Send this via WhatsApp" : "Talk on WhatsApp"} ↗</a></p>
+      }} target="_blank" rel="noopener noreferrer" className="text-ink underline underline-offset-4">{step === 2 ? "Send this via WhatsApp" : "Talk on WhatsApp"}</a></p>
     </form>
   );
 }

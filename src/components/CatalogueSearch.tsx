@@ -76,7 +76,7 @@ export default function CatalogueSearch({ products, categories, industryFilter }
                 {items.map((product) => (
                   <Link key={product.slug} href={`/products/${product.slug}`} className="catalogue-product">
                     <span><strong>{product.name}</strong><small>{product.useCase}</small></span>
-                    <span aria-hidden="true">↗</span>
+
                   </Link>
                 ))}
               </div>

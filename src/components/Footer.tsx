@@ -22,7 +22,7 @@ export default function Footer() {
           <p className="text-sm leading-relaxed max-w-xs">{site.tagline}</p>
           <p className="mt-5 text-xs text-cream/60">Our sister company</p>
           <a href={site.sisterCompany.url} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex min-h-11 items-center gap-2 text-sm text-cream hover:text-amber-bright transition-colors">
-            {site.sisterCompany.name}<span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
+            {site.sisterCompany.name}<span className="sr-only"> (opens in a new tab)</span>
           </a>
         </div>
 

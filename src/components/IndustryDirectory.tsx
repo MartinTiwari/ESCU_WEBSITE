@@ -37,7 +37,7 @@ export default function IndustryDirectory({ groups }: {
             {group.products.map((product) => (
               <Link href={`/products/${product.slug}`} key={product.slug} className="catalogue-product">
                 <span><strong>{product.name}</strong><small>{product.useCase}</small></span>
-                <span aria-hidden="true">↗</span>
+
               </Link>
             ))}
           </div>
