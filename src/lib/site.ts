@@ -2,7 +2,7 @@ export const site = {
   name: "Everest Super Chemical Udhyog",
   shortName: "ESCU",
   tagline:
-    "We make and supply water treatment chemicals, pool and cleaning products, cooking fuel, and other supplies like machine oils and test kits, for hotels, resorts, hospitals, and businesses across Nepal.",
+    "We make and supply water treatment chemicals, pool and cleaning products, and cooking fuel for hotels, resorts, hospitals, and businesses across Nepal.",
   url: "https://www.everestsuperchemical.com.np",
   sisterCompany: {
     name: "Everest Beverage",

@@ -119,12 +119,11 @@ export default async function ProductsPage({
                   Can&apos;t find it?
                 </div>
                 <h2 className="font-display text-xl md:text-2xl mb-3">
-                  We supply more than the catalogue.
+                  Looking for something else?
                 </h2>
                 <p className="text-cream/55 leading-relaxed max-w-xl">
-                  Machine oils, test kits, lab acids, cleaning equipment, and more. If it&apos;s
-                  used in water treatment, hotels, or industry, chances are we stock it or
-                  can get it for you.
+                  Tell us which product you need, your required quantity and intended use.
+                  We&apos;ll confirm whether we can supply it and discuss the available options.
                 </p>
               </div>
               <div className="flex flex-col gap-3 shrink-0">

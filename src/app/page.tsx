@@ -84,7 +84,7 @@ export default function Home() {
             <p className="home-range-category">{range.category.replace(" Chemicals", "")}</p><h3>{range.title}</h3><p className="home-range-description">{range.description}</p><p className="home-range-examples">{range.examples}</p>
           </Link>)}
         </div>
-        <div className="home-range-bottom"><p>Need machine oils, test kits or other allied supplies?</p><a href={whatsappLink("Hi ESCU, I'm looking for a product and would like to check availability.")} className="home-text-link">Ask us what’s available</a></div>
+        <div className="home-range-bottom"><p>Looking for a product not listed here?</p><a href={whatsappLink("Hi ESCU, I'm looking for a product and would like to check availability.")} className="home-text-link">Discuss your requirements</a></div>
       </section>
 
       <section className="home-about home-about-compact" aria-labelledby="about-title">
