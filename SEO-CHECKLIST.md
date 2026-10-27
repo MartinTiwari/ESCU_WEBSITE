@@ -10,6 +10,7 @@ Implementation date: 27 October 2026. Owner: Everest Super Chemical Udhyog.
 - Live audit passed all 44 sitemap pages and 80 internal link targets. Unique metadata, canonical URLs, one H1, heading hierarchy, alt attributes, OG images, JSON-LD, robots and expected missing-product 404s passed.
 - Phone preview passed at 390px with no horizontal overflow. PAC quote prefill and progression to the contact step passed without submitting a live enquiry.
 - All five cited public guidance URLs returned HTTP 200 after redirects.
+- Search Console accepted the sitemap submission on 27 October and reported Success, last read 27 October and 44 discovered pages. Discovered does not mean indexed.
 
 | Mobile Lighthouse, same public homepage | Before | After |
 |---|---:|---:|
@@ -43,7 +44,7 @@ These are single-run laboratory measurements, subject to network variability. LC
 
 ## Google Search Console
 
-- [ ] Resubmit the updated sitemap once after release and confirm Success and discovered URL count.
+- [x] Resubmit the updated sitemap once after release and confirm Success and discovered URL count (44, 27 October 2026).
 - [ ] Inspect priority pages: PAC Powder, TCCA, Bleaching Powder and pool category. Request indexing where eligible; do not repeatedly submit unchanged pages.
 - [ ] Follow up discovered/not-indexed URLs. The last audit showed nine; exclusions for redirect URLs are expected. Check current data before reporting a new count.
 - [ ] Check manual actions, security issues, HTTPS and real-user Core Web Vitals. Improve only confirmed issues; do not treat insufficient field data as a passing result.
