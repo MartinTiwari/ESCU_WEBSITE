@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import IntroReveal from "@/components/IntroReveal";
 import { site, whatsappLink } from "@/lib/site";
 import { products, type Category } from "@/lib/products";
 import { photos } from "@/lib/photos";
@@ -25,7 +24,6 @@ const ranges: { category: Category; title: string; image: string; description: s
 export default function Home() {
   return (
     <div className="home-page">
-      <IntroReveal />
       <section className="element-hero" aria-labelledby="home-title">
         <div className="element-stage">
           <Image

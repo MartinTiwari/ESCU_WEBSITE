@@ -2,6 +2,8 @@
 
 Implementation date: 27 October 2026. Owner: Everest Super Chemical Udhyog.
 
+Follow-up: the owner requested removal of the entry animation. The homepage now opens directly; historical before/after measurements below describe the earlier SEO release and are not a new performance measurement after removal.
+
 ## Release verification — 27 October 2026
 
 - Deployed commits: `bc57ffe`, `e01f3f4`, `0d6dc68`, `16d0505`.
@@ -36,7 +38,7 @@ These are single-run laboratory measurements, subject to network variability. LC
 
 - [ ] Confirm production redirects HTTP/apex to the canonical HTTPS www host.
 - [ ] Validate all sitemap URLs, page titles/descriptions, one H1, breadcrumbs, image alt attributes, canonical URLs and incoming links.
-- [ ] Verify no-JavaScript homepage is readable; reduced-motion and session-return behavior; keyboard skip control; no scroll lock.
+- [ ] Verify the homepage opens directly with no entry animation, opaque overlay or scroll lock, including without JavaScript.
 - [ ] Run source lint, TypeScript/production build, structured-data regression checks and the mocked quote API cases.
 - [ ] Verify quote prefill, WhatsApp enquiry, consent withdrawal and client-side page views after deployment. Never submit a fabricated customer enquiry to test live delivery without identifying it as a test.
 - [ ] Confirm generated `/llms.txt` and `/llms-full.txt` reflect public canonical content, with no customer data or internal TODOs.
