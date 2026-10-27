@@ -2,6 +2,28 @@
 
 Implementation date: 27 October 2026. Owner: Everest Super Chemical Udhyog.
 
+## Release verification — 27 October 2026
+
+- Deployed commits: `bc57ffe`, `e01f3f4`, `0d6dc68`, `16d0505`.
+- Production build and TypeScript passed. Structured-data checks passed for 47 rendered pages, including 27 semantic Product entities and visible FAQs; invented offers and ratings are blocked.
+- Source lint passed. All 52 mocked quote API cases passed, with no real enquiry emails sent.
+- Live audit passed all 44 sitemap pages and 80 internal link targets. Unique metadata, canonical URLs, one H1, heading hierarchy, alt attributes, OG images, JSON-LD, robots and expected missing-product 404s passed.
+- Phone preview passed at 390px with no horizontal overflow. PAC quote prefill and progression to the contact step passed without submitting a live enquiry.
+- All five cited public guidance URLs returned HTTP 200 after redirects.
+
+| Mobile Lighthouse, same public homepage | Before | After |
+|---|---:|---:|
+| Performance | 95 | 97 |
+| Accessibility | 100 | 100 |
+| Best practices | 100 | 100 |
+| SEO | 100 | 100 |
+| LCP | 2.9 s | 2.6 s |
+| CLS | 0 | 0 |
+| Total blocking time | 40 ms | 30 ms |
+| First contentful paint | 1.1 s | 0.9 s |
+
+These are single-run laboratory measurements, subject to network variability. LCP remains slightly above the 2.5-second good threshold in this run. No passing real-user INP claim is made. Before/after JSON reports are kept locally in `output/`.
+
 ## Measurement rules
 
 - Track the same Nepal-filtered queries and equivalent 28-day windows in Search Console; split mobile and desktop. Record clicks, impressions, CTR, average position and the actual landing URL. Average position is not a fixed ranking for every person.
