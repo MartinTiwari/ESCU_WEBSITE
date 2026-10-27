@@ -14,7 +14,11 @@ export default function robots(): MetadataRoute.Robots {
   }
 
   return {
-    rules: { userAgent: "*", allow: "/" },
+    rules: [
+      { userAgent: "*", allow: "/" },
+      // Search and training controls are distinct; all are allowed by owner choice.
+      { userAgent: ["Googlebot", "bingbot", "OAI-SearchBot", "ChatGPT-User", "GPTBot", "Claude-SearchBot", "Claude-User", "ClaudeBot", "PerplexityBot", "Perplexity-User", "Google-Extended"], allow: "/" },
+    ],
     sitemap: `${site.url}/sitemap.xml`,
     host: site.url,
   };

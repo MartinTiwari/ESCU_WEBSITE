@@ -25,7 +25,7 @@ ESCU makes part of what it sells in its own factory and imports the rest directl
 - One warehouse/dispatch point in Kathmandu (Banshidhar Marg); orders are picked up there or delivered by truck nationwide.
 - Pricing is quote-based (wholesale/bulk), not shown publicly — customers request a quote by phone, WhatsApp, email, or the site's quote form.
 - Most orders still start with a phone call or WhatsApp message; the website's quote form and product catalogue exist to support and speed up that conversation, not replace it.
-- 35+ years in operation (founded BS 2058).
+- 35+ years in operation (founded BS 2048).
 
 ## Capabilities and Constraints
 
