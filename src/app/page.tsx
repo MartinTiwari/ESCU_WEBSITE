@@ -16,17 +16,6 @@ export const metadata = {
   title: { absolute: `Chemical Supplier in Kathmandu, Nepal | ${site.name}` },
 };
 
-const websiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": `${site.url}/#website`,
-  url: `${site.url}/`,
-  name: site.name,
-  alternateName: ["Everest Super Chemical", site.shortName],
-  inLanguage: "en",
-  publisher: { "@id": `${site.url}/#organization` },
-};
-
 const ranges: { category: Category; title: string; image: string; description: string; examples: string }[] = [
   { category: "Water Treatment Chemicals", title: "Water treatment.", image: photos.waterTreatment, description: "For the plants and systems that keep clean water flowing.", examples: "PAC · Alum · Chlorine · Bleaching powder" },
   { category: "Swimming Pool Chemicals", title: "Pool chemicals.", image: photos.pool, description: "The essentials for clear, balanced water, all season long.", examples: "TCCA · Copper sulphate · Soda ash" },
@@ -37,7 +26,6 @@ export default function Home() {
   return (
     <div className="home-page">
       <IntroReveal />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }} />
       <section className="element-hero" aria-labelledby="home-title">
         <div className="element-stage">
           <Image
@@ -56,7 +44,7 @@ export default function Home() {
             <span>SUPPLYING BUSINESSES ACROSS NEPAL </span>
           </div>
           <div className="element-copy">
-            <p className="element-intro">Everest Super Chemical Udhyog · Kathmandu, Nepal</p>
+            <p className="element-intro">Chemical supplier in Kathmandu, Nepal</p>
             <h1 id="home-title">EVERYDAY ESSENTIALS.<br /><span>EXPERTLY SUPPLIED.</span></h1>
             <p className="element-description">Water treatment, pool and cleaning chemicals,<br className="company-desktop-break" /> manufactured and supplied from Kathmandu across Nepal.</p>
             <div className="company-hero-actions"><a href={whatsappLink("Hi ESCU, I'd like help choosing chemicals for my business.")} className="element-button">Ask on WhatsApp</a><Link href="/products" className="company-catalogue-link">Browse products</Link></div>

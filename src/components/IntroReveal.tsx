@@ -2,15 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/* Splash intro: logo on top, name below, held centered. Then the logo flies
-   up into the real navbar logo (FLIP). Only once it has docked does the cream
-   backdrop fade to reveal the whole page.
-
-   Plays once per browser session — and any click/tap/keypress skips straight to the end, since
-   someone visiting mid-phone-call shouldn't have to sit through it twice. */
-
+// A two-second brand greeting, progressively enhanced after hydration. The
+// website stays visible, scrollable and usable throughout the logo docking.
 const INTRO_STORAGE_KEY = "escu:intro-played";
-// In-memory fallback when browser storage is unavailable.
 let introPlayed = false;
 
 function rememberIntro() {
@@ -18,138 +12,120 @@ function rememberIntro() {
   try {
     window.sessionStorage.setItem(INTRO_STORAGE_KEY, "true");
   } catch {
-    // The in-memory fallback still prevents replays during navigation.
+    // The in-memory fallback also prevents replays during navigation.
   }
 }
 
 export default function IntroReveal() {
-  const [show, setShow] = useState(true);
+  // Render nothing on the server or before hydration: a failed script must
+  // never leave an opaque splash covering the website.
+  const [show, setShow] = useState(false);
   const [entered, setEntered] = useState(false);
   const [dock, setDock] = useState(false);
   const [reveal, setReveal] = useState(false);
   const [logoTransform, setLogoTransform] = useState("none");
   const logoRef = useRef<HTMLImageElement>(null);
-  const skippedRef = useRef(false);
+  const finishRef = useRef<() => void>(() => {});
 
   useEffect(() => {
-    // Bailing out via setState here (rather than computing it during render)
-    // is deliberate: matchMedia don't exist during SSR, so
-    // `show` has to default to true for a consistent server/client render,
-    // then flip off once we can actually check the client's capabilities.
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let sessionPlayed = introPlayed;
     try {
       sessionPlayed ||= window.sessionStorage.getItem(INTRO_STORAGE_KEY) === "true";
     } catch {
-      // Storage can be blocked in private or restricted browser contexts.
+      // Storage is optional in restricted browsing contexts.
     }
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || sessionPlayed) {
-      rememberIntro();
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setShow(false);
-      return;
-    }
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    let skipFrame: number | undefined;
-    let skipEnd: ReturnType<typeof setTimeout> | undefined;
+    if (motion.matches || sessionPlayed) return;
 
-    const dockLogo = () => {
-      const img = logoRef.current;
-      const target = document.querySelector<HTMLElement>("[data-brandlogo]");
-      if (img && target) {
-        const a = img.getBoundingClientRect();
-        const b = target.getBoundingClientRect();
-        const s = b.width / a.width;
-        setLogoTransform(`translate(${b.left - a.left}px, ${b.top - a.top}px) scale(${s})`);
-      }
-      setDock(true);
-    };
-
-    const tIn = setTimeout(() => setEntered(true), 60);
-    const tDock = setTimeout(dockLogo, 950); // 1) let the brand be read before docking
-    const tReveal = setTimeout(() => setReveal(true), 1550); // 2) reveal once the logo has docked
-    const tEnd = setTimeout(() => {
-      rememberIntro();
-      setShow(false);
-      document.body.style.overflow = previousOverflow;
-    }, 2000); // 3) complete the full brand sequence in two seconds
-
-    const timers = [tIn, tDock, tReveal, tEnd];
-
-    const skip = () => {
-      if (skippedRef.current) return;
-      skippedRef.current = true;
+    let finished = false;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const finish = () => {
+      if (finished) return;
+      finished = true;
       rememberIntro();
       timers.forEach(clearTimeout);
-      setEntered(true);
-      dockLogo();
-      // let the dock transform apply for a beat so it doesn't look like a hard cut
-      skipFrame = requestAnimationFrame(() => {
-        setReveal(true);
-        skipEnd = setTimeout(() => {
-          setShow(false);
-          document.body.style.overflow = previousOverflow;
-        }, 200);
-      });
+      setShow(false);
     };
+    finishRef.current = finish;
+    const startFrame = requestAnimationFrame(() => {
+      setShow(true);
+      timers.push(setTimeout(() => setEntered(true), 60));
+      timers.push(setTimeout(() => {
+        const image = logoRef.current;
+        const target = document.querySelector<HTMLElement>("[data-brandlogo]");
+        if (image && target) {
+          const from = image.getBoundingClientRect();
+          const to = target.getBoundingClientRect();
+          if (from.width > 0 && to.width > 0) {
+            setLogoTransform(`translate(${to.left - from.left}px, ${to.top - from.top}px) scale(${to.width / from.width})`);
+          }
+        }
+        setDock(true);
+      }, 950));
+      timers.push(setTimeout(() => setReveal(true), 1550));
+      timers.push(setTimeout(finish, 2000));
+    });
 
-    window.addEventListener("pointerdown", skip, { once: true });
-    window.addEventListener("keydown", skip, { once: true });
-
+    // The first interaction still reaches the real page control underneath.
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") finish();
+    };
+    const handleMotion = () => {
+      if (motion.matches) finish();
+    };
+    window.addEventListener("pointerdown", finish, { once: true });
+    window.addEventListener("keydown", handleKey);
+    motion.addEventListener("change", handleMotion);
     return () => {
+      cancelAnimationFrame(startFrame);
       timers.forEach(clearTimeout);
-      if (skipFrame !== undefined) cancelAnimationFrame(skipFrame);
-      if (skipEnd !== undefined) clearTimeout(skipEnd);
-      window.removeEventListener("pointerdown", skip);
-      window.removeEventListener("keydown", skip);
-      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("pointerdown", finish);
+      window.removeEventListener("keydown", handleKey);
+      motion.removeEventListener("change", handleMotion);
+      finishRef.current = () => {};
     };
   }, []);
 
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] grid place-items-center cursor-pointer" aria-hidden="true">
-      {/* cream backdrop — stays until the logo has docked, then fades */}
+    <div className="pointer-events-none fixed bottom-24 left-4 z-[100] w-64 max-w-[calc(100vw-2rem)] sm:left-6">
       <div
-        className="absolute inset-0 bg-cream"
-        style={{ opacity: reveal ? 0 : 1, transition: "opacity 450ms ease" }}
-      />
-
-      {/* lockup: logo on top, name at the bottom */}
-      <div className="relative flex flex-col items-center gap-5 md:gap-7">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          ref={logoRef}
-          src="/logo-intro.webp"
-          width={420}
-          height={204}
-          alt="Everest Super Chemical Udhyog"
-          className="h-16 md:h-20 w-auto"
-          style={{
-            transformOrigin: "0 0",
-            transform: dock ? logoTransform : entered ? "none" : "scale(0.94)",
-            opacity: reveal ? 0 : entered ? 1 : 0,
-            transition: dock
-              ? "transform 600ms cubic-bezier(0.72,0,0.18,1), opacity 250ms ease"
-              : "transform 300ms cubic-bezier(0.16,1,0.3,1), opacity 300ms ease",
-          }}
-        />
-        <span
-          className="font-display font-semibold text-ink tracking-tight text-xl sm:text-3xl md:text-4xl text-center px-6"
-          style={{
-            opacity: dock ? 0 : entered ? 1 : 0,
-            transform: entered && !dock ? "none" : "translateY(8px)",
-            transition: "opacity 300ms ease, transform 300ms cubic-bezier(0.16,1,0.3,1)",
-          }}
-        >
-          Everest Super Chemical Udhyog
-        </span>
+        className="rounded-md border border-line bg-cream px-5 py-4 shadow-lg"
+        style={{ opacity: dock ? 0 : entered ? 1 : 0, transition: "opacity 300ms ease" }}
+        aria-hidden="true"
+      >
+        {/* Keeps the original logo-above-name lockup without hiding the hero. */}
+        <div className="h-12" />
+        <span className="font-display mt-3 block text-base font-semibold leading-snug text-ink">Everest Super Chemical Udhyog</span>
       </div>
-
-      <span className="absolute bottom-8 eyebrow text-muted/60 text-[0.65rem]">
-        Tap to skip
-      </span>
+      {/* The image lives outside the fading card so it can dock in the header. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        ref={logoRef}
+        src="/logo-intro.webp"
+        width={420}
+        height={204}
+        alt=""
+        aria-hidden="true"
+        className="absolute left-5 top-4 h-12 w-auto"
+        style={{
+          transformOrigin: "0 0",
+          transform: dock ? logoTransform : entered ? "none" : "scale(0.94)",
+          opacity: reveal ? 0 : entered ? 1 : 0,
+          transition: dock
+            ? "transform 600ms cubic-bezier(0.72,0,0.18,1), opacity 250ms ease"
+            : "transform 300ms cubic-bezier(0.16,1,0.3,1), opacity 300ms ease",
+        }}
+      />
+      <button
+        type="button"
+        onClick={() => finishRef.current()}
+        className="pointer-events-auto mt-2 min-h-11 rounded bg-cream px-3 text-xs font-medium text-ink underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-deep"
+        style={{ opacity: reveal ? 0 : 1 }}
+      >
+        Skip animation
+      </button>
     </div>
   );
 }
