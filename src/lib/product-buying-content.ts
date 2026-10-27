@@ -1,3 +1,6 @@
+import { getProductBySlug } from "./products";
+import { getProductEditorial } from "./product-editorial";
+
 export interface ProductBuyingContent {
   title: string;
   description: string;
@@ -131,5 +134,34 @@ const productBuyingContent: Partial<Record<string, ProductBuyingContent>> = {
 };
 
 export function getProductBuyingContent(slug: string) {
-  return productBuyingContent[slug];
+  const product = getProductBySlug(slug);
+  if (!product) return undefined;
+  const editorial = getProductEditorial(slug);
+  const existing = productBuyingContent[slug];
+  const targetedMetadata: Record<string, { title: string; description: string }> = {
+    "pac-powder": {
+      title: "PAC Powder Supplier in Nepal | Poly Aluminium Chloride",
+      description: "Source PAC powder from ESCU in Kathmandu, Nepal. Request a quotation for Poly Aluminium Chloride with your grade, quantity and water-treatment requirements.",
+    },
+    "tcca-90": {
+      title: "TCCA Supplier & Price Quotation in Nepal",
+      description: "Request TCCA pool chlorine pricing from ESCU in Kathmandu, Nepal. Confirm the supplied specification, product form, packaging and delivery for your pool.",
+    },
+  };
+  return {
+    title: targetedMetadata[slug]?.title ?? existing?.title ?? `${product.name} Supplier in Kathmandu, Nepal`,
+    description: targetedMetadata[slug]?.description ?? existing?.description ?? `Enquire about ${product.name.toLowerCase()} from ESCU in Kathmandu, Nepal. Confirm the specification, pack options and quantity, with documents provided after enquiry.`,
+    nepaliName: existing?.nepaliName,
+    questions: [
+      {
+        question: `How can I order ${product.name} from ESCU?`,
+        answer: `Send the product name, intended application, required quantity and delivery town. Include any purchasing specification or existing product label. ESCU confirms the offered product, packaging, current quotation and delivery arrangements before the order is agreed; this page does not guarantee live stock.`,
+      },
+      {
+        question: `When will I receive the SDS and documents for ${product.name}?`,
+        answer: `Send an enquiry identifying the required product and application. ESCU provides the relevant SDS and related product documents after enquiry so your purchasing or operating team can review them. Tell us which documents your procedure requires; no unverified certification or product-specific numerical dose is implied by this catalogue page.`,
+      },
+      ...editorial.questions,
+    ],
+  } satisfies ProductBuyingContent;
 }

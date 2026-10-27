@@ -21,16 +21,9 @@ export interface Product {
   industries: Industry[];
   description: string;
 
-  // Longer-form page copy. Search Console had 23 of 33 URLs sitting at
-  // "Discovered - currently not indexed" because every product page carried
-  // only ~35 unique words against a shared template — Google sampled a few,
-  // read them as near-duplicates, and stopped crawling the rest.
-  //
-  // Deliberately free of purity, concentration, dosage and packaging figures:
-  // those aren't digitised anywhere, and inventing them for pool or drinking
-  // water chemicals would be dangerous, not just wrong. Everything here is
-  // either general chemistry that holds regardless of grade, or a fact about
-  // how ESCU sells. Add real figures when the spec sheets are digitised.
+  // Product-specific catalogue information. Lack of indexing has multiple
+  // possible causes; do not infer a Google quality decision from word count.
+  // Confirm grade, concentration, dosage and packaging from actual documents.
   overview: string;
   applications: string[];
   // Chemical and trade synonyms buyers actually search for. Accurate names
@@ -39,11 +32,9 @@ export interface Product {
   // Generic, grade-independent handling guidance. Safety facts only.
   handling: string;
 
+  // These fields describe a public download only. ESCU provides the SDS and
+  // related product documents after a customer sends an enquiry.
   sdsAvailable: boolean;
-  // Only set this alongside sdsAvailable: true. The product page checks
-  // both before rendering a real download link — sdsAvailable with no
-  // sdsUrl falls back to "on request" instead of claiming a file exists
-  // that nothing actually links to.
   sdsUrl?: string;
 }
 
@@ -100,9 +91,8 @@ export const products: Product[] = [
     useCase: "Scale & Stain Removal",
     category: "Housekeeping & Cleaning Chemicals",
     industries: hospitality,
-    description: "Removes hard water scale and stains from bathroom fixtures and tiles.",
-    overview:
-      "Formulated for the specific problem most Nepali properties face in bathrooms: hard water leaving mineral scale and staining on fixtures, tiles and glass. Ordinary all-purpose cleaners struggle with mineral deposits because they are not acidic enough to dissolve them. This is the product housekeeping teams reach for on sanitaryware, shower screens and tiled surfaces.",
+    description: "Bathroom-cleaning product for enquiries about scale and stains on suitable fixtures and tiles.",
+    overview: "Bathroom Cleaner is listed for washroom-cleaning requirements in hotels, restaurants and commercial facilities. Mineral deposits, general soil and finish damage are different problems, so describe what you are trying to remove and the surface involved. ESCU can confirm the offered product and its instructions after enquiry. A bathroom location alone does not establish that a cleaner suits every fixture in the room.",
     applications: [
       "Toilets, urinals and sanitaryware",
       "Shower screens, tiles and grout",
@@ -110,39 +100,35 @@ export const products: Product[] = [
       "Removing hard water and limescale marks",
     ],
     alsoKnownAs: ["Toilet cleaner", "Washroom cleaner", "Descaling bathroom cleaner"],
-    handling:
-      "Acidic cleaner — wear gloves and ensure ventilation. Never mix with bleach or any chlorine product: the combination releases toxic chlorine gas. Test on a small area first, as acids can etch natural marble and some stone.",
+    handling: "Follow the supplied label and SDS for protective equipment, ventilation, dilution and rinsing. Never mix with bleach, chlorine products or other cleaning chemicals. Confirm surface compatibility before use, particularly around stone, plated fixtures and delicate finishes.",
     sdsAvailable: false,
   },
   {
     slug: "herbal-lemon-phenyl",
     name: "Herbal Lemon Phenyl",
-    useCase: "Floor Disinfectant",
+    useCase: "Floor Cleaning & Freshening",
     category: "Housekeeping & Cleaning Chemicals",
     industries: [...hospitality, "Hospitals"],
-    description: "Disinfects and freshens floors with a long-lasting lemon fragrance.",
-    overview:
-      "Phenyl is the standard floor disinfectant across South Asian hospitality and healthcare, used for routine mopping of corridors, lobbies and wards. This lemon variant leaves a fresher, less clinical smell than white phenyl, which matters in guest-facing areas where the scent of a corridor is part of the impression. Supplied in bulk to properties that mop large floor areas daily.",
+    description: "Lemon-variant phenyl for routine floor-cleaning enquiries in homes and commercial facilities.",
+    overview: "Herbal Lemon Phenyl is offered for routine floor-cleaning requirements in guest areas, corridors and shared facilities. Tell ESCU about the flooring, cleaning method and the quantity used by your team. The product name is not a verified ingredient list or an antimicrobial-performance claim. Where a workplace procedure requires disinfection or a particular fragrance specification, include that requirement in the enquiry for review.",
     applications: [
       "Daily corridor, lobby and staircase mopping",
       "Hospital ward and clinic floors",
       "Guest room and bathroom floors",
       "Back-of-house and service areas",
     ],
-    alsoKnownAs: ["Lemon phenyl", "Floor phenyl", "Phenyle disinfectant", "Herbal phenyl"],
-    handling:
-      "Dilute with water before use — undiluted phenyl is wasteful and can leave residue. Store away from direct sunlight and keep out of reach of children.",
+    alsoKnownAs: ["Lemon phenyl","Floor phenyl","Lemon phenyle","Herbal phenyl"],
+    handling: "Use the supplied product instructions for dilution and suitable surfaces. Keep containers labelled and closed, and store as directed on the label and SDS. Do not mix with other cleaners. Confirm any required disinfection performance before specifying it for that purpose.",
     sdsAvailable: false,
   },
   {
     slug: "glass-cleaner",
     name: "Glass Cleaner",
-    useCase: "Streak-Free Shine",
+    useCase: "Glass & Mirror Cleaning",
     category: "Housekeeping & Cleaning Chemicals",
     industries: hospitality,
-    description: "Fast-drying, streak-free formula for glass and mirrored surfaces.",
-    overview:
-      "A fast-evaporating cleaner for glass and mirrors, where the difficulty is not removing dirt but avoiding the streaks and drying marks left behind. Commercial buildings with large glazed frontages and hotels with floor-to-ceiling windows go through this in volume, which is why it is worth buying by the drum rather than the bottle.",
+    description: "Glass-cleaning liquid for window, mirror and glazed-surface supply enquiries.",
+    overview: "Glass Cleaner is offered for window, mirror, partition and display-glass cleaning requirements. Hotels, restaurants and commercial buildings can enquire about a regular supply for housekeeping teams. Include the surface and any coating or film, the wiping method and the quantity required. This helps the team confirm the offered formulation instead of assuming a general glass-cleaner name guarantees a result on every type of glazing.",
     applications: [
       "Windows, glazed frontages and partitions",
       "Bathroom and guest room mirrors",
@@ -150,8 +136,7 @@ export const products: Product[] = [
       "Lift and lobby glass panels",
     ],
     alsoKnownAs: ["Window cleaner", "Mirror cleaner", "Glass cleaning liquid"],
-    handling:
-      "Store in a cool place away from direct sunlight and open flame. Apply to the cloth rather than the surface when cleaning near electrical fittings or screens.",
+    handling: "Follow the supplied label and SDS for storage, application and protective equipment. Check compatibility with coatings, films, frames and specialist screens. Avoid spraying onto electrical equipment, and do not mix with another cleaning product.",
     sdsAvailable: false,
   },
   {
@@ -160,9 +145,8 @@ export const products: Product[] = [
     useCase: "Multi-Surface Cleaning",
     category: "Housekeeping & Cleaning Chemicals",
     industries: hospitality,
-    description: "Multi-surface floor cleaner suitable for tile, marble, and vinyl flooring.",
-    overview:
-      "A neutral daily floor cleaner for properties running a mix of flooring types, where using a single product across tile, marble and vinyl is simpler than stocking three. Neutral pH matters here: acidic cleaners will dull and etch polished marble over time, which is an expensive mistake in a hotel lobby.",
+    description: "Floor-cleaning product for commercial housekeeping enquiries; confirm compatibility with the particular floor and finish.",
+    overview: "Floor Cleaner is listed for routine housekeeping requirements in hotels, restaurants and commercial buildings. A site may combine tile, stone, vinyl and other finishes, each with its own maintenance restrictions. Tell ESCU which surfaces you clean and whether the method involves a mop or equipment. The offered formulation, its pH and its compatibility must be confirmed; this page does not promise one neutral cleaner for every floor.",
     applications: [
       "Daily mopping of tiled and vitrified floors",
       "Polished marble and natural stone",
@@ -170,8 +154,7 @@ export const products: Product[] = [
       "Scrubber-drier machines in large areas",
     ],
     alsoKnownAs: ["Tile cleaner", "Marble floor cleaner", "Multi surface floor cleaner"],
-    handling:
-      "Dilute per the intended surface and mop area. Store closed, in a cool dry place. Safe for routine use on sealed stone.",
+    handling: "Follow the supplied label and SDS, including any dilution and rinsing instructions. Confirm the cleaner against the floor finish and equipment requirements before use. Keep containers closed and clearly labelled; never mix different cleaning products.",
     sdsAvailable: false,
   },
   {
@@ -201,8 +184,7 @@ export const products: Product[] = [
     category: "Housekeeping & Cleaning Chemicals",
     industries: hospitality,
     description: "All-purpose liquid cleaner for everyday housekeeping needs.",
-    overview:
-      "The general workhorse of a housekeeping trolley: one dilutable cleaner that handles most routine surfaces so teams are not juggling a separate product for every task. Properties typically pair it with a dedicated bathroom cleaner and glass cleaner, and use this for everything in between.",
+    overview: "Multi Cleaner Liquid is offered for routine surface-cleaning enquiries from housekeeping teams. Describe the worktops, furniture, fittings or other surfaces involved and the soil that needs removing. General-purpose cleaning is different from a specialist scale-removal, glass-care or hygiene requirement. ESCU can confirm the offered formulation and appropriate product information after receiving your enquiry, so a broad product name does not replace a compatibility check.",
     applications: [
       "Worktops, desks and general surfaces",
       "Doors, handles and painted woodwork",
@@ -210,8 +192,7 @@ export const products: Product[] = [
       "General-purpose spot cleaning",
     ],
     alsoKnownAs: ["All purpose cleaner", "General purpose cleaner", "Multipurpose cleaning liquid"],
-    handling:
-      "Dilute according to how heavily soiled the surface is. Store closed and away from direct sunlight.",
+    handling: "Follow the supplied instructions for dilution, surface compatibility, rinsing and storage. Keep working containers labelled and do not mix with other products. Do not assume suitability for every painted, coated or food-contact surface.",
     sdsAvailable: false,
   },
   {
@@ -221,8 +202,7 @@ export const products: Product[] = [
     category: "Housekeeping & Cleaning Chemicals",
     industries: hospitality,
     description: "Specialized formula for cleaning and maintaining tile and ceramic surfaces.",
-    overview:
-      "Aimed at ceramic and tiled surfaces specifically, including the grout lines between them, which is usually where discolouration first shows. In properties with hard water, ceramic surfaces accumulate a dulling mineral film that ordinary detergents leave behind; this is intended to cut through that and restore the original finish.",
+    overview: "Ceramic Cleaner is listed for tile and ceramic-care requirements in hotels, restaurants and commercial washrooms. Tell the team whether the problem is routine soil, mineral film, staining or another maintenance task, and identify the tile and grout. Nearby stone, metal and decorative finishes may have different restrictions. Confirm the offered product and instructions for the installation rather than assuming every tiled surface needs the same cleaner.",
     applications: [
       "Ceramic and vitrified wall and floor tiles",
       "Grout lines and tile joints",
@@ -230,8 +210,7 @@ export const products: Product[] = [
       "Restoring dulled or filmed tiled surfaces",
     ],
     alsoKnownAs: ["Tile cleaner", "Ceramic tile cleaning liquid", "Grout cleaner"],
-    handling:
-      "Wear gloves and ventilate the area. Do not mix with chlorine-based products. Test first on natural stone, which tolerates acidic cleaners poorly.",
+    handling: "Use the supplied label and SDS to plan protective equipment, ventilation, dilution and storage. Confirm compatibility with tile finishes, grout and adjacent materials. Never mix with chlorine products or other cleaning chemicals.",
     sdsAvailable: false,
   },
   {
@@ -240,10 +219,8 @@ export const products: Product[] = [
     useCase: "Buffet Food Warmer Fuel",
     category: "Housekeeping & Cleaning Chemicals",
     industries: hospitality,
-    description:
-      "Clean-burning wax fuel for buffet food warmers and catering setups, popular in hotel and restaurant operations.",
-    overview:
-      "The fuel canisters that sit under chafing dishes at buffets and catered events. Wax fuel burns steadily with very little smoke or odour, which matters when it is burning a few feet from food and guests. Hotels and caterers in Kathmandu buy it by the case for banquet and breakfast service, and demand is heavily seasonal around the wedding and conference calendar.",
+    description: "Fuel for compatible buffet food warmers and catering equipment; confirm the supplied container and instructions.",
+    overview: "Wax Fuel is offered for compatible food-warmer and chafing-dish equipment used at buffets and catered events. Tell ESCU the equipment requirements, number of warmers and service schedule when requesting supply. The offered product, container format and handling instructions must be confirmed before use. No burn duration, smoke performance, heat output or equipment approval is assumed from the catalogue name.",
     applications: [
       "Chafing dishes on breakfast and banquet buffets",
       "Outdoor catering and event service",
@@ -263,18 +240,16 @@ export const products: Product[] = [
     useCase: "Pool Sanitizer",
     category: "Swimming Pool Chemicals",
     industries: pool,
-    description: "High-strength chlorine sanitizer (90% TCCA) for swimming pool disinfection.",
-    overview:
-      "TCCA is the standard sanitiser for most commercial pools, supplied as slow-dissolving tablets or granules. Its key property is that it is stabilised — it carries its own cyanuric acid, which shields the chlorine from being burned off by sunlight. That matters a great deal for outdoor pools, where unstabilised chlorine can be largely destroyed within hours of strong sun. Hotels and resorts generally run TCCA in a floating dispenser or feeder for continuous sanitising, topping up with a faster-acting product when a pool needs shocking.",
+    description: "TCCA pool-treatment product listed as TCCA 90%; confirm the supplied form and available-chlorine specification after enquiry.",
+    overview: "TCCA is a chlorinated pool-treatment chemical, also known as trichlor or trichloroisocyanuric acid. ESCU accepts enquiries from pool operators, hotels and resorts for the product specified by their maintenance procedure. Confirm the supplied form, grade and what the percentage on its label represents before ordering. This listing does not establish tablet dimensions, available stock, a product-specific dose or suitability for every pool feeder.",
     applications: [
-      "Routine daily sanitising of hotel and resort pools",
-      "Continuous dosing via floaters and erosion feeders",
-      "Outdoor pools where sunlight degrades unstabilised chlorine",
-      "Maintaining residual chlorine between service visits",
+      "Hotel and resort pool-treatment enquiries against an approved operating procedure",
+      "Feeder-supply enquiries requiring confirmation of product form and equipment compatibility",
+      "Outdoor-pool maintenance enquiries with the operator's required grade and monitoring plan",
+      "Repeat supply for an established, approved pool-treatment specification",
     ],
     alsoKnownAs: ["Trichloroisocyanuric acid", "Trichlor", "Chlorine tablets", "Pool chlorine tablets"],
-    handling:
-      "Strong oxidiser. Never mix TCCA with any other pool chemical, and never with acid or ammonia — the reaction releases toxic chlorine gas and can ignite. Add product to water, never water to product. Store dry, sealed, and well away from acids. Cyanuric acid accumulates in the pool over time and eventually requires partial draining and refilling.",
+    handling: "Use the supplied label and SDS and the pool operator's approved procedure. Do not mix TCCA with another pool chemical, acid, ammonia or a different chlorine product. Confirm handling, dosing-equipment and storage requirements for the actual supplied form; no preparation instruction or numerical dose is published here.",
     sdsAvailable: false,
   },
   {
@@ -284,8 +259,7 @@ export const products: Product[] = [
     category: "Swimming Pool Chemicals",
     industries: pool,
     description: "Sodium hypochlorite solution for fast-acting pool water disinfection.",
-    overview:
-      "Sodium hypochlorite in solution — the fast-acting counterpart to TCCA tablets. It disperses immediately and does not add cyanuric acid to the pool, which makes it the usual choice for shocking a pool after heavy bathing loads, algae outbreaks or a storm. The trade-off is that it is unstabilised, so direct sunlight depletes it quickly, and it loses strength in storage rather than keeping indefinitely.",
+    overview: "Liquid Chlorine for pool enquiries is sodium hypochlorite solution. Hotels, resorts and other pool operators should identify the concentration and grade required by their operating procedure, together with the quantity and delivery location. A change from another chlorine product must be reviewed against the pool equipment and current water conditions. The team provides the relevant product information after enquiry; concentration and treatment dose are not assumed from this listing.",
     applications: [
       "Shock dosing after heavy use or contamination",
       "Rapid correction of low chlorine readings",
@@ -303,18 +277,16 @@ export const products: Product[] = [
     useCase: "Algae Prevention & Control",
     category: "Swimming Pool Chemicals",
     industries: pool,
-    description: "Controls and prevents algae growth in pool and reservoir water.",
-    overview:
-      "Distinctive blue crystals used as an algaecide in pools and open water storage. Copper is effective against the types of algae that chlorine alone struggles to clear, particularly in warm weather when growth outpaces routine sanitising. It is also used in reservoirs and tanks where algae would otherwise establish on the walls.",
+    description: "Copper sulphate for application-specific algae-control enquiries; suitability and operating requirements must be confirmed.",
+    overview: "Copper Sulphate is listed for algae-control supply enquiries where the responsible operator has established an appropriate treatment procedure. Tell ESCU the water system, its intended use and the required specification. The listing does not authorise use in any pool, reservoir or drinking-water supply without review. Request the product documents after enquiry and have the relevant technical person assess suitability, monitoring and disposal requirements.",
     applications: [
-      "Treating and preventing algae in swimming pools",
-      "Algae control in reservoirs and open storage tanks",
-      "Seasonal treatment during warm, high-growth months",
-      "Supplementing chlorine where algae keeps recurring",
+      "Pool algae-control enquiries requiring an approved grade and operator treatment plan",
+      "Reservoir or tank enquiries subject to confirmation of intended water use and application approval",
+      "Procurement against an established algae-control specification and monitoring procedure",
+      "Product-selection enquiries where the technical team must review suitability and disposal requirements",
     ],
     alsoKnownAs: ["Copper sulfate", "Blue vitriol", "Bluestone", "Cupric sulphate"],
-    handling:
-      "Harmful if swallowed and toxic to fish and aquatic life — never allow treated water to drain into rivers, ponds or irrigation. Wear gloves and avoid dust inhalation. Overdosing can stain plaster and fittings, and can tint blonde hair green.",
+    handling: "Follow the supplied label and SDS and the site-approved procedure. Avoid exposure and uncontrolled discharge; copper compounds can harm aquatic life. Storage, protective equipment and treatment restrictions must be checked for the supplied product. No general-purpose dose is published here.",
     sdsAvailable: false,
   },
   {
@@ -323,9 +295,8 @@ export const products: Product[] = [
     useCase: "pH Increaser",
     category: "Swimming Pool Chemicals",
     industries: pool,
-    description: "Raises pH levels to maintain balanced, comfortable pool water.",
-    overview:
-      "Sodium carbonate, used to bring pool pH back up when it drifts low. This matters for more than comfort: below the correct range, water turns aggressive and begins corroding metal fittings, heaters and pool surfaces, and chlorine behaves unpredictably. Soda ash raises pH significantly with relatively little product, which is why pool operators keep it alongside sodium bicarbonate and reach for one or the other depending on whether it is pH or alkalinity that has dropped.",
+    description: "Sodium carbonate for pool pH-adjustment supply enquiries.",
+    overview: "Soda Ash Powder is sodium carbonate, listed for pool pH-adjustment enquiries. It is distinct from sodium bicarbonate and sodium hydroxide, even though all may appear in water-treatment purchasing lists. Send the required specification and details of the maintenance process so the correct product can be quoted. The pool operator must establish the treatment quantity from the actual readings and supplied product instructions.",
     applications: [
       "Raising pool pH into the correct operating range",
       "Correcting acidic water that risks corroding fittings",
@@ -334,7 +305,7 @@ export const products: Product[] = [
     ],
     alsoKnownAs: ["Sodium carbonate", "Washing soda", "Soda ash light", "pH plus"],
     handling:
-      "Alkaline — wear gloves and eye protection and avoid raising dust. Add gradually with the pump running and retest before dosing again, as it is easy to overshoot. Store dry, since it cakes badly if it takes on moisture.",
+      "Follow the supplied label and SDS for protective equipment, dust control, handling and storage. Use the pool operator's approved treatment procedure for the actual water condition and supplied product. This catalogue does not provide application steps, mixing instructions or a numerical dose.",
     sdsAvailable: false,
   },
   {
@@ -343,9 +314,8 @@ export const products: Product[] = [
     useCase: "Total Alkalinity Booster",
     category: "Swimming Pool Chemicals",
     industries: pool,
-    description: "Boosts total alkalinity to stabilize pool water chemistry.",
-    overview:
-      "Used to raise total alkalinity, which acts as a buffer holding pH steady. When alkalinity is too low, pH swings sharply on small chemical additions and becomes almost impossible to keep in range — the frustrating situation where a pool is dosed daily and still tests wrong. Sodium bicarbonate raises alkalinity while barely moving pH, which is precisely why it is stocked separately from soda ash rather than treated as interchangeable with it.",
+    description: "Sodium bicarbonate for pool alkalinity-management supply enquiries.",
+    overview: "Sodium Bicarbonate is listed for pool alkalinity-management requirements. Send the required grade, quantity and the relevant operating specification when enquiring. It is a separate chemical from soda ash, and an industrial or pool-care listing should not be treated as proof of food grade. The product and treatment procedure must be confirmed for the actual pool and the supplied material.",
     applications: [
       "Raising total alkalinity in pools and spas",
       "Stabilising water that swings pH unpredictably",
@@ -353,8 +323,7 @@ export const products: Product[] = [
       "Routine rebalancing after refills or heavy rain",
     ],
     alsoKnownAs: ["Baking soda", "Bicarb", "Sodium hydrogen carbonate", "Alkalinity increaser"],
-    handling:
-      "Mild and easy to handle compared with most pool chemicals. Store dry and sealed. Add with the circulation running and allow it to disperse fully before retesting.",
+    handling: "Follow the supplied label and SDS for storage, handling and use. Keep the product clearly identified and protected from unsuitable storage conditions. Use the pool operator's treatment procedure rather than a fixed dose from a general catalogue.",
     sdsAvailable: false,
   },
 
@@ -365,18 +334,16 @@ export const products: Product[] = [
     useCase: "Water Disinfection",
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
-    description: "Calcium hypochlorite powder used for large-scale water disinfection.",
-    overview:
-      "Calcium hypochlorite in powder form, one of the most widely used disinfectants for water supplies, tanks and wells in Nepal. It is favoured for bulk work because it stores far better than liquid chlorine and is straightforward to transport to sites without reliable cold storage. Municipal supplies, apartment blocks and construction projects all use it for routine disinfection and for shock-treating a tank or line after contamination.",
+    description: "Bleaching powder for water-disinfection supply enquiries; confirm chemical identification, grade and available chlorine.",
+    overview: "Bleaching Powder is a trade-name listing for water-disinfection enquiries. Products sold under familiar chlorine-powder names can have different specifications, so confirm chemical identification and available chlorine from the actual supplied label and documents. ESCU accepts enquiries for water-supply and tank-treatment requirements, with suitability assessed against the responsible operator's process. No drinking-water approval, emergency-treatment instruction or universal dose is implied by this page.",
     applications: [
-      "Disinfecting municipal and community water supplies",
-      "Shock treatment of storage tanks, wells and reservoirs",
-      "Sanitising pipelines after repair or construction",
-      "Emergency disinfection following flooding or contamination",
+      "Water-supply enquiries requiring confirmation of an approved product grade and operator treatment plan",
+      "Tank, well or reservoir requirements assessed against the intended water use and site procedure",
+      "Pipeline-maintenance supply enquiries against the responsible operator's approved specification",
+      "Emergency-response procurement only where the responsible authority specifies the product and treatment plan",
     ],
-    alsoKnownAs: ["Calcium hypochlorite", "Chlorinated lime", "Chlorine powder", "Hypochlorite powder"],
-    handling:
-      "Strong oxidiser. Never mix with acids, ammonia or other chlorine products — this releases toxic gas. Keep completely dry and sealed: contact with moisture or organic material can cause it to heat and ignite. Store separately from fuels, acids and reducing agents, and always add product to water rather than water to product.",
+    alsoKnownAs: ["Chlorine powder","Chlorinated lime","Bleaching powder for water treatment"],
+    handling: "Follow the supplied label and SDS for the actual product. Do not mix with acids, ammonia, fuels or other chemicals. The operator must confirm storage separation, protective equipment and the approved treatment procedure before use; do not infer preparation instructions from a trade name.",
     sdsAvailable: false,
   },
   {
@@ -386,15 +353,14 @@ export const products: Product[] = [
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
     description: "Poly Aluminium Chloride coagulant for turbidity removal and water clarification.",
-    overview:
-      "Poly Aluminium Chloride is the modern replacement for traditional alum in most treatment plants. It works across a wider pH range, so it needs less alkalinity correction alongside it, and it produces noticeably less sludge for the same clarification result — which reduces disposal cost and handling. It also performs better in cold water, a genuine advantage during Nepali winters and for plants treating snowmelt-fed sources, where alum can become sluggish.",
+    overview: "Poly Aluminium Chloride, usually abbreviated PAC, is offered for water-clarification and coagulant-supply enquiries. Plants should compare the offered product against their water quality, treatment targets, preparation equipment and trial results. Performance relative to alum depends on those conditions and the products compared; no universal cost, sludge or cold-water advantage is promised here. Send your existing specification or plant requirement so ESCU can identify a suitable product for review.",
     applications: [
       "Turbidity removal in drinking water treatment plants",
       "Clarifying raw river and monsoon-season source water",
       "Industrial process and effluent treatment",
       "Replacing alum where sludge volume or cold performance is a problem",
     ],
-    alsoKnownAs: ["Poly Aluminium Chloride", "PAC", "Polyaluminium chloride", "PAC 30%"],
+    alsoKnownAs: ["Poly Aluminium Chloride","PAC","Polyaluminium chloride"],
     handling:
       "Acidic in solution — wear gloves and eye protection when mixing. Store dry and sealed, as the powder is hygroscopic and will cake. Correct dosing is determined by jar testing against the actual source water, since it varies with turbidity and season.",
     sdsAvailable: false,
@@ -406,17 +372,15 @@ export const products: Product[] = [
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
     description: "Traditional alum crystal used for clarifying raw water.",
-    overview:
-      "Alum in traditional crystal form, still the most widely recognised water clarifier in Nepal and still in steady demand for tank and small-system treatment. Suspended particles that would otherwise stay in the water indefinitely clump together and settle out. It remains popular because it is inexpensive, familiar to operators, and does not require the dosing equipment a plant-scale coagulant would.",
+    overview: "Crystal Alum is a catalogue listing for clarification-product enquiries in crystal form. Ask the team to confirm chemical identification and the required grade: the common word alum is not a complete specification. Explain the water-treatment process and preparation equipment, especially when changing from another alum form. The responsible operator should review the offered product and determine treatment conditions against the actual water.",
     applications: [
       "Clarifying raw water in tanks and small systems",
       "Settling suspended solids in stored or supply water",
       "Community and household-scale water treatment",
       "Pre-treatment before filtration or disinfection",
     ],
-    alsoKnownAs: ["Alum", "Aluminium sulphate", "Phitkari", "Potash alum"],
-    handling:
-      "Store dry and sealed, as crystals absorb moisture and clump. Dissolve fully before dosing and allow adequate settling time. Alum consumes alkalinity as it works, so very soft water may need alkalinity correction alongside it.",
+    alsoKnownAs: ["Alum crystals","Water treatment alum","Phitkari"],
+    handling: "Use the supplied label and SDS for storage, handling and preparation. Confirm the product identity and physical form before use. The treatment operator should establish preparation and dosing requirements for the actual product and water, rather than use a fixed general-purpose rate.",
     sdsAvailable: false,
   },
   {
@@ -425,9 +389,8 @@ export const products: Product[] = [
     useCase: "Water Treatment Coagulant",
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
-    description: "Low-iron coagulant suited for treating water where ferric residue must be minimized.",
-    overview:
-      "A low-iron grade of aluminium sulphate, used where the iron content of ordinary alum would cause problems. Iron traces can leave yellow-brown staining on fixtures and fabrics and can discolour the product in paper and textile processing, so applications sensitive to that specify the non-ferric grade. It performs the same coagulation job as standard alum, with the iron contamination controlled.",
+    description: "Non-ferric alum for coagulant enquiries with a defined low-iron purchasing requirement.",
+    overview: "Non-Ferric Alum is offered for treatment and process-water enquiries where a purchasing specification calls for this product. State the required chemical identification, iron limit and physical form rather than relying on the name alone. ESCU can provide the offered product information after enquiry for your team to review. This page does not establish a numerical purity, iron content or blanket drinking-water suitability.",
     applications: [
       "Drinking water treatment where staining must be avoided",
       "Paper and textile process water",
@@ -446,8 +409,7 @@ export const products: Product[] = [
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
     description: "Powdered alum used to aid sedimentation in water treatment processes.",
-    overview:
-      "The same coagulant chemistry as crystal alum, milled to a powder so it dissolves faster and doses more evenly. That makes it the practical choice wherever alum is fed continuously into a treatment train rather than added by hand — powder goes into solution quickly and can be metered accurately, where crystals need time to dissolve first.",
+    overview: "Alum Powder is offered for clarification and sedimentation-process supply enquiries. The powder form and its specification should match the plant's receiving, preparation and dosing arrangements. Send the existing purchasing requirement or product label when seeking a replacement. The offered material must be reviewed for the actual process; the word alum alone does not establish chemical equivalence with every crystal or non-ferric listing.",
     applications: [
       "Continuous dosing in water treatment plants",
       "Sedimentation and clarification stages",
@@ -466,8 +428,7 @@ export const products: Product[] = [
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
     description: "Bulk industrial-grade salt for regenerating water softener resin beds.",
-    overview:
-      "Bulk sodium chloride for regenerating the resin in water softeners. Softener resin strips hardness minerals from water until it saturates and stops working; flushing it with brine recharges it. Any property running a softener consumes salt continuously, which is why hotels, laundries and boiler operations buy it by the sack rather than retail. Using clean industrial-grade salt rather than table or rock salt matters, because insoluble impurities foul the resin bed and shorten its life.",
+    overview: "Industrial Salt is offered for water-softener and other industrial-process enquiries. Specify the sodium-chloride grade and physical form required by your equipment, including any limits on insoluble matter or other procurement criteria. The team can confirm the offered material after enquiry. This listing does not establish food grade, compatibility with every resin system or the amount needed for an individual regeneration cycle.",
     applications: [
       "Regenerating water softener resin beds",
       "Boiler feed water softening systems",
@@ -475,8 +436,7 @@ export const products: Product[] = [
       "Brine preparation for industrial processes",
     ],
     alsoKnownAs: ["Sodium chloride", "Softener salt", "Water softening salt", "Bulk salt"],
-    handling:
-      "Store dry and off the floor — salt draws moisture and hardens into a solid mass, which then bridges in the brine tank and stops the softener regenerating. Handling requires no special precautions beyond the weight of the sacks.",
+    handling: "Follow the supplied label, SDS and equipment instructions. Keep storage and receiving arrangements appropriate for the supplied packaging, and use suitable manual-handling methods. Confirm requirements for the brine system rather than assuming all industrial salt is interchangeable.",
     sdsAvailable: false,
   },
   {
@@ -486,8 +446,7 @@ export const products: Product[] = [
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
     description: "Sodium hydroxide flakes used for pH adjustment in industrial processes.",
-    overview:
-      "Sodium hydroxide supplied in flake form, the practical format for sites that make up their own solutions on demand. Flakes store and transport far more easily than bulk liquid caustic and let an operator mix only what is needed. It is used to raise pH in treatment systems, neutralise acidic effluent before discharge, and as the alkaline stage in clean-in-place cycles.",
+    overview: "Caustic Soda Flakes is sodium hydroxide in flake form, offered for approved pH-control, neutralisation and industrial-cleaning requirements. Send the required grade and process specification, especially if you are replacing another product or using a particular preparation system. ESCU provides product documents after enquiry so the responsible team can review the offered material. This listing is not a mixing instruction or an approval for any particular cleaning application.",
     applications: [
       "Raising pH in water and effluent treatment",
       "Neutralising acidic effluent before discharge",
@@ -495,8 +454,7 @@ export const products: Product[] = [
       "Preparing caustic solutions for industrial cleaning",
     ],
     alsoKnownAs: ["Sodium hydroxide flakes", "Caustic soda", "Lye", "NaOH flakes"],
-    handling:
-      "Severely corrosive — causes serious burns to skin and permanent eye damage. Always wear gloves, goggles and protective clothing. Add flakes slowly to water, never water to flakes: dissolving generates considerable heat and can boil and spit violently. Store sealed and dry, well away from acids.",
+    handling: "Caustic soda is corrosive. Use the supplied label and SDS, trained personnel and the site-approved preparation procedure. Confirm protective equipment, compatible containers and storage separation. Do not mix with other chemicals or improvise a preparation method from this catalogue.",
     sdsAvailable: false,
   },
   {
@@ -506,8 +464,7 @@ export const products: Product[] = [
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
     description: "Strong alkali used for alkalinity and pH control in treatment systems.",
-    overview:
-      "The same chemistry as our caustic soda flakes, listed separately because plants that dose it continuously order it as a process chemical rather than a cleaning one. It is the standard reagent for holding treated water within its target pH band and for adding alkalinity where a coagulant has consumed it — alum and PAC both drive pH down as they work, and something has to bring it back.",
+    overview: "Sodium Hydroxide is offered for process enquiries involving pH control or neutralisation. Specify the form, concentration and grade required rather than ordering by chemical name alone. For flake requirements, the catalogue has a separate Caustic Soda Flakes listing. Review the supplied product against the site's equipment and operating procedure before changing material, as a similar chemical name does not establish an equivalent supply format.",
     applications: [
       "Continuous pH correction in treatment plants",
       "Restoring alkalinity consumed by coagulant dosing",
@@ -515,8 +472,7 @@ export const products: Product[] = [
       "Industrial process pH control",
     ],
     alsoKnownAs: ["Caustic soda", "NaOH", "Lye", "Sodium hydrate"],
-    handling:
-      "Severely corrosive to skin and eyes. Full protective equipment required. Always add to water rather than the reverse, as the dissolution reaction is strongly exothermic. Store separately from acids — accidental mixing reacts violently.",
+    handling: "Sodium hydroxide is corrosive. Follow the supplied label and SDS and the approved site procedure for the actual form and concentration. Use trained personnel and suitable protective equipment; keep incompatible materials separated and do not improvise mixing instructions.",
     sdsAvailable: false,
   },
   {
@@ -526,8 +482,7 @@ export const products: Product[] = [
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
     description: "Hydrochloric acid for descaling equipment and lowering water pH.",
-    overview:
-      "Hydrochloric acid, used across treatment and industrial maintenance wherever pH needs lowering or scale needs removing. Hard water leaves mineral scale inside heat exchangers, boilers and pipework, which quietly destroys thermal efficiency long before anything visibly fails; periodic acid descaling restores it. It is also the standard regenerant for cation exchange resin in demineralisation plant.",
+    overview: "HCL Acid is hydrochloric acid, offered for descaling and pH-reduction supply enquiries. State the required concentration, grade and process. Equipment materials, seals and the deposit being treated affect whether an acid-cleaning procedure is suitable, so the maintenance team must review the proposed product before use. ESCU can provide the related product documents after enquiry; this page does not establish universal equipment compatibility.",
     applications: [
       "Descaling boilers, heat exchangers and pipework",
       "Lowering pH in water treatment and pool systems",
@@ -535,8 +490,7 @@ export const products: Product[] = [
       "Industrial cleaning of mineral and scale deposits",
     ],
     alsoKnownAs: ["Hydrochloric acid", "Muriatic acid", "HCl", "Spirit of salt"],
-    handling:
-      "Severely corrosive and gives off irritating fumes — use only with ventilation and full protective equipment. Never mix with bleach, hypochlorite or any chlorine product: this releases toxic chlorine gas and has killed people in poorly ventilated plant rooms. Always add acid to water, never water to acid. Store sealed, away from alkalis and metals.",
+    handling: "Hydrochloric acid is corrosive. Follow the supplied label and SDS and use trained personnel, appropriate protective equipment and ventilation. Never mix it with bleach or other chlorine products. Confirm the site's preparation and storage procedure for the actual concentration.",
     sdsAvailable: false,
   },
   {
@@ -546,8 +500,7 @@ export const products: Product[] = [
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
     description: "Sodium hypochlorite solution for disinfecting water supplies and storage tanks.",
-    overview:
-      "Sodium hypochlorite supplied for water supply work rather than pool duty. In liquid form it can be metered continuously by a dosing pump, which is what municipal supplies and larger buildings need for maintaining a consistent chlorine residual through a distribution network — something powder dosed by hand cannot do reliably. It is also the usual choice for disinfecting tanks and lines after cleaning or repair.",
+    overview: "Liquid Chlorine for water-treatment enquiries is sodium hypochlorite solution. Water-supply and tank-treatment buyers should state the required grade, concentration and operating specification, including equipment requirements where relevant. The offered product must be reviewed by the responsible operator for the actual water use and monitoring procedure. ESCU provides related documents after enquiry; no universal water-treatment approval or volume-only dosing rule is published here.",
     applications: [
       "Continuous disinfection of piped water supplies",
       "Storage tank and reservoir sanitisation",
@@ -565,9 +518,8 @@ export const products: Product[] = [
     useCase: "RO Membrane Protection",
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
-    description: "Prevents scale formation to protect RO membranes and extend system life.",
-    overview:
-      "Dosed ahead of reverse osmosis membranes to stop dissolved minerals crystallising on the membrane surface. RO concentrates whatever it rejects, so salts that were comfortably in solution at the inlet become supersaturated at the membrane face and begin to scale. Antiscalant keeps them in solution instead. It is a small cost that protects a very large one: membrane replacement is the single most expensive item in running an RO plant, and scaling is the fastest way to destroy a set.",
+    description: "RO antiscalant for membrane-system enquiries; select against the water analysis and equipment requirements.",
+    overview: "Antiscalant is listed for RO membrane-system supply enquiries. The appropriate formulation depends on the feed-water analysis, operating conditions and membrane requirements, so send this information when requesting a new product or reviewing a substitute. ESCU can identify the offered formulation and provide related documents after enquiry. This listing does not guarantee a particular membrane-life improvement, performance outcome or universal treatment dose.",
     applications: [
       "Protecting RO membranes in water purification plants",
       "Extending membrane life and cleaning intervals",
@@ -586,8 +538,7 @@ export const products: Product[] = [
     category: "Water Treatment Chemicals",
     industries: waterTreatment,
     description: "Flocculation aid that improves settling of suspended solids in water treatment.",
-    overview:
-      "A polymer flocculant used after a coagulant to bind small particles into larger, faster-settling flocs. Coagulant alone often leaves fine material that settles too slowly for the clarifier to keep up with; polyelectrolyte gives it the weight and structure to drop out properly. It is equally important in sludge dewatering, where it determines how much water comes out on the belt press or centrifuge. Grades are anionic, cationic or non-ionic, and the right one depends entirely on the specific application.",
+    overview: "Polyelectrolyte is offered for clarification, solids-separation and sludge-dewatering supply enquiries. Polymer selection should match the process, preparation equipment and trial results; the general product family name is not enough to establish the correct grade. Include an existing specification or product reference for repeat requirements. ESCU can confirm the offered material and related documents after enquiry, while the operator establishes application and preparation requirements.",
     applications: [
       "Improving floc formation and settling in clarifiers",
       "Sludge dewatering on belt presses and centrifuges",
