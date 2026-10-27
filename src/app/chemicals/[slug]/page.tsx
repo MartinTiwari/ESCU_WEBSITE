@@ -7,6 +7,7 @@ import { categoryLandingPages, getCategoryLandingPage } from "@/lib/category-pag
 import { products } from "@/lib/products";
 import { pageMetadata } from "@/lib/seo";
 import { site, whatsappLink } from "@/lib/site";
+import { getGuide } from "@/lib/guides";
 
 export function generateStaticParams() {
   return categoryLandingPages.map(({ slug }) => ({ slug }));
@@ -55,6 +56,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         })),
       },
       {
+        "@type": "FAQPage",
+        "@id": `${url}#questions`,
+        mainEntity: page.questions.map(({ question, answer }) => ({
+          "@type": "Question", name: question,
+          acceptedAnswer: { "@type": "Answer", text: answer },
+        })),
+      },
+      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: site.url },
@@ -93,6 +102,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             </Link>
           </Reveal>)}
         </div>
+      </section>
+
+      <section className="grid md:grid-cols-2 gap-8 border-t border-line pt-8 mb-12" aria-labelledby="category-selection">
+        <div><h2 id="category-selection" className="font-display text-2xl text-ink mb-4">Before you choose</h2><ul className="list-disc pl-5 space-y-3 text-sm leading-relaxed text-muted">{page.selectionNotes.map((note) => <li key={note}>{note}</li>)}</ul></div>
+        <div><h3 className="font-semibold text-ink mb-4">Practical buying guides</h3><ul className="space-y-3">{page.guideSlugs.map(getGuide).filter((guide) => Boolean(guide)).map((guide) => guide && <li key={guide.slug}><Link href={`/guides/${guide.slug}`} className="text-ink underline underline-offset-4">{guide.title}</Link></li>)}</ul></div>
       </section>
 
       <section className="border-t border-line pt-14 mb-20" aria-labelledby="buyer-questions">

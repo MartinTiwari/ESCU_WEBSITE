@@ -48,6 +48,9 @@ export default function IntroReveal() {
     };
     finishRef.current = finish;
     const startFrame = requestAnimationFrame(() => {
+      // A visitor may interact before this first frame is delivered.
+      // Do not restart an intro that has already been skipped.
+      if (finished) return;
       setShow(true);
       timers.push(setTimeout(() => setEntered(true), 60));
       timers.push(setTimeout(() => {

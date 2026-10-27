@@ -8,6 +8,8 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 import { getCategoryUrl } from "@/lib/category-pages";
 import { getProductBuyingContent } from "@/lib/product-buying-content";
+import { getProductEditorial } from "@/lib/product-editorial";
+import { guides } from "@/lib/guides";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -41,30 +43,17 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   if (!product) notFound();
   const buyingContent = getProductBuyingContent(slug);
 
-  const related = products
-    .filter((p) => p.category === product.category && p.slug !== product.slug)
-    .slice(0, 4);
-
-  // cross-category: other products that serve at least one of the same
-  // industries but come from a different category — this is where the
-  // "one supplier, three categories" pitch actually gets to prove itself
-  const relatedSlugs = new Set(related.map((p) => p.slug));
-  const crossCategory = products
-    .filter(
-      (p) =>
-        p.slug !== product.slug &&
-        p.category !== product.category &&
-        !relatedSlugs.has(p.slug) &&
-        p.industries.some((ind) => product.industries.includes(ind))
-    )
-    .slice(0, 4);
+  const editorial = getProductEditorial(slug);
+  const recommendations = editorial.relatedSlugs.map(getProductBySlug)
+    .filter((p): p is NonNullable<typeof p> => Boolean(p && p.slug !== product.slug));
+  const related = recommendations.filter((p) => p.category === product.category);
+  const crossCategory = recommendations.filter((p) => p.category !== product.category);
+  const relatedGuides = guides.filter((guide) => guide.productSlugs.includes(product.slug)).slice(0, 3);
 
   const url = `${site.url}/products/${product.slug}`;
 
-  // This catalogue quotes on request and has no published product reviews.
-  // Product markup without offers/review/aggregateRating triggers Search
-  // Console alerts. Describe the informational page without opting into
-  // product snippets. Revisit only when real qualifying data is published.
+  // Semantic product identity only: quotation-based supply has no public offer
+  // or product review. This does not claim Google product-rich-result eligibility.
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -75,9 +64,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     inLanguage: "en",
     isPartOf: { "@id": `${site.url}/#website` },
     publisher: { "@id": `${site.url}/#organization` },
-    about: {
-      "@type": "Thing",
+    mainEntity: {
+      "@type": "Product",
+      "@id": `${url}/#product`,
       name: product.name,
+      url,
+      category: product.category,
       alternateName: product.alsoKnownAs,
       description: product.description,
     },
@@ -100,6 +92,15 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       { "@type": "ListItem", position: 4, name: product.name, item: url },
     ],
   };
+  const faqJsonLd = buyingContent && {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${url}/#buying-questions`,
+    mainEntity: buyingContent.questions.map(({ question, answer }) => ({
+      "@type": "Question", name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
 
   return (
     <div className="bg-paper">
@@ -111,6 +112,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {faqJsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }} />}
       {/* Header */}
       <PageHeader eyebrow={product.category} title={product.name} sub={product.useCase}>
         <Link href="/products" className="site-back-link">← Back to catalogue</Link>
@@ -129,6 +131,19 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <h2 className="eyebrow text-amber-deep mb-4">About this product</h2>
               <p className="text-ink/70 text-lg leading-relaxed mb-6">{product.description}</p>
               <p className="text-ink/70 leading-relaxed mb-10">{product.overview}</p>
+
+              <section aria-labelledby="ordering-checklist" className="mb-10">
+                <h2 id="ordering-checklist" className="eyebrow text-muted mb-4">Before you order</h2>
+                <ul className="list-disc pl-5 space-y-2 text-sm leading-relaxed text-ink/70">
+                  {editorial.buyingChecklist.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+                <h3 className="font-semibold text-ink mt-5 mb-2">Packaging and specifications</h3>
+                <p className="text-sm leading-relaxed text-ink/70">{editorial.packagingNote}</p>
+                <h3 className="font-semibold text-ink mt-5 mb-2">Usage and suitability</h3>
+                <p className="text-sm leading-relaxed text-ink/70">{editorial.usageNote}</p>
+                <h3 className="font-semibold text-ink mt-5 mb-2">Delivery and collection</h3>
+                <p className="text-sm leading-relaxed text-ink/70">{editorial.deliveryNote}</p>
+              </section>
 
               <h2 className="eyebrow text-muted mb-4">Common applications</h2>
               <ul className="mb-10 border-t border-line">
@@ -227,17 +242,22 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     </dd>
                   </div>
                 ) : (
-                  <SpecRow k="SDS" v="On request" />
+                  <SpecRow k="SDS & documents" v="After enquiry" />
                 )}
               </dl>
               {!(product.sdsAvailable && product.sdsUrl) && (
                 <p className="text-muted text-xs leading-relaxed mt-6 pt-5 border-t border-line">
-                  SDS / spec sheet not yet online. Request one via the quote form or WhatsApp and we will send it over.
+                  SDS and related product documents are provided after your enquiry. Send the product name and intended use via the quote form or WhatsApp so our team can share the relevant documents for your order.
                 </p>
               )}
             </aside>
           </Reveal>
         </div>
+
+        {relatedGuides.length > 0 && <section className="mt-12 border-t border-line pt-7" aria-labelledby="product-guides">
+          <h2 id="product-guides" className="font-display text-2xl text-ink mb-4">Help with your next order</h2>
+          <div className="grid gap-4 sm:grid-cols-2">{relatedGuides.map((guide) => <Link key={guide.slug} href={`/guides/${guide.slug}`} className="text-ink underline underline-offset-4 hover:text-amber-deep">{guide.title}</Link>)}</div>
+        </section>}
 
         {/* Related products, same category */}
         {related.length > 0 && (

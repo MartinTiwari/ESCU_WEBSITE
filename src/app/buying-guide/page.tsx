@@ -35,6 +35,7 @@ export default function BuyingGuide() {
       <PageHeader eyebrow="Buying guide" title={<>Your next order,<br /><em className="text-amber-bright">made simpler.</em></>} sub="Everest Super Chemical Udhyog supplies water treatment, pool and cleaning chemicals from Kathmandu to businesses across Nepal. Start with your product, quantity and delivery location; the team will confirm pricing and availability." />
       <div className="mx-auto max-w-[1200px] px-5 py-14 sm:px-8 sm:py-20">
         <Reveal><BuyingQuestions /></Reveal>
+        <div className="mb-8 border-t border-line pt-6"><Link href="/guides" className="font-semibold text-ink underline underline-offset-4">Compare products and plan your order with our chemical buying guides</Link></div>
         <aside aria-label="About this guide" className="border-t border-line pt-6 text-sm text-muted">
           <p className="font-semibold text-ink mb-2">About this guide · Everest Super Chemical Udhyog</p>
           <p className="max-w-2xl leading-relaxed">ESCU manufactures and supplies chemical and cleaning products from Kathmandu. This guide explains ordering, quotations and delivery. Confirm current specifications and availability with the team; follow the product label and safety documentation for use and handling.</p>

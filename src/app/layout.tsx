@@ -84,7 +84,7 @@ export const viewport: Viewport = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": ["Store", "LocalBusiness"],
+  "@type": ["Organization", "Store", "LocalBusiness"],
   "@id": `${site.url}/#organization`,
   name: site.name,
   alternateName: site.shortName,
@@ -94,7 +94,7 @@ const jsonLd = {
   description: site.tagline,
   telephone: site.phoneInternational,
   email: site.email,
-  priceRange: "$$",
+  hasMap: "https://www.google.com/maps?cid=6505991632698609845",
   address: {
     "@type": "PostalAddress",
     streetAddress: site.streetAddress,
@@ -118,7 +118,7 @@ const jsonLd = {
   ],
   areaServed: { "@type": "Country", name: "Nepal" },
   // The confirmed founding year is 2048 BS; omit an unconfirmed Gregorian date.
-  sameAs: [site.instagram],
+  sameAs: [site.instagram, "https://www.google.com/maps?cid=6505991632698609845"],
 };
 
 export default function RootLayout({
@@ -134,7 +134,15 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [jsonLd, {
+              "@type": "WebSite", "@id": `${site.url}/#website`,
+              url: `${site.url}/`, name: site.name,
+              alternateName: ["Everest Super Chemical", site.shortName],
+              inLanguage: "en", publisher: { "@id": `${site.url}/#organization` },
+            }],
+          }).replace(/</g, "\\u003c") }}
         />
         <Header />
 

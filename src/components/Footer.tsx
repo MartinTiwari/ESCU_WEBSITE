@@ -34,6 +34,7 @@ export default function Footer() {
             <li><Link href="/quote" className="hover:text-cream transition-colors">Get a Quote</Link></li>
             <li><Link href="/privacy" className="hover:text-cream transition-colors">Privacy</Link></li>
             <li><Link href="/buying-guide" className="hover:text-cream transition-colors">Buying guide &amp; FAQs</Link></li>
+            <li><Link href="/guides" className="hover:text-cream transition-colors">Chemical buying guides</Link></li>
             <li><a href={whatsappLink("नमस्ते ESCU, मलाई उत्पादन बारे जानकारी चाहिएको छ।")} lang="ne" className="hover:text-cream transition-colors">नेपालीमा कुरा गर्नुहोस्</a></li>
           </ul>
         </div>

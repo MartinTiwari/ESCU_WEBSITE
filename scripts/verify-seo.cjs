@@ -59,12 +59,16 @@ async function main() {
     sharingImages.add(sharingImage.pathname + sharingImage.search);
     assert.ok(!/<meta name="robots" content="[^"]*noindex/.test(html), `${url}: noindex`);
     assert.ok(!html.includes("google-analytics-loader"), `${url}: analytics must not load before visitor consent`);
-    const types = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)]
-      .flatMap((match) => nodes(JSON.parse(match[1])))
-      .flatMap((node) => node["@type"] || []);
-    assert.ok(!types.includes("Product") && !types.includes("ProductGroup"), `${url}: incomplete Product markup must not return`);
+    const schemaNodes = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)]
+      .flatMap((match) => nodes(JSON.parse(match[1])));
+    const types = schemaNodes.flatMap((node) => node["@type"] || []);
+    for (const product of schemaNodes.filter((node) => node["@type"] === "Product")) {
+      assert.ok(product.name && product.description && product.url && product.category, `${url}: incomplete Product identity`);
+      assert.ok(!product.offers && !product.review && !product.aggregateRating, `${url}: unverified offers or ratings`);
+    }
     if (route.pathname.startsWith("/products/")) {
       assert.ok(types.includes("WebPage") && types.includes("BreadcrumbList"), `${url}: missing page/breadcrumb markup`);
+      assert.ok(types.includes("Product") && types.includes("FAQPage"), `${url}: missing product/FAQ markup`);
     }
     if (route.pathname === "/buying-guide") {
       const faq = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)]
@@ -83,6 +87,10 @@ async function main() {
         linkTargets.add(link.pathname + link.search + link.hash);
       }
     }
+  }
+  for (const path of ["/llms.txt", "/llms-full.txt"]) {
+    const text = await read(path);
+    assert.ok(text.includes("Everest Super Chemical Udhyog") && text.includes("/products/pac-powder") && text.includes("/guides/pac-vs-alum"), `${path}: incomplete public content export`);
   }
   for (const target of linkTargets) {
     const link = new URL(target, production);
