@@ -138,6 +138,7 @@ export function getProductBuyingContent(slug: string) {
   if (!product) return undefined;
   const editorial = getProductEditorial(slug);
   const existing = productBuyingContent[slug];
+  const seenQuestions = new Set<string>();
   const targetedMetadata: Record<string, { title: string; description: string }> = {
     "pac-powder": {
       title: "PAC Powder Supplier in Nepal | Poly Aluminium Chloride",
@@ -150,7 +151,7 @@ export function getProductBuyingContent(slug: string) {
   };
   return {
     title: targetedMetadata[slug]?.title ?? existing?.title ?? `${product.name} Supplier in Kathmandu, Nepal`,
-    description: targetedMetadata[slug]?.description ?? existing?.description ?? `Enquire about ${product.name.toLowerCase()} from ESCU in Kathmandu, Nepal. Confirm the specification, pack options and quantity, with documents provided after enquiry.`,
+    description: targetedMetadata[slug]?.description ?? existing?.description ?? `Enquire about ${product.name} for ${product.useCase}. Request a quotation from ESCU in Kathmandu, Nepal.`,
     nepaliName: existing?.nepaliName,
     questions: [
       {
@@ -161,7 +162,13 @@ export function getProductBuyingContent(slug: string) {
         question: `When will I receive the SDS and documents for ${product.name}?`,
         answer: `Send an enquiry identifying the required product and application. ESCU provides the relevant SDS and related product documents after enquiry so your purchasing or operating team can review them. Tell us which documents your procedure requires; no unverified certification or product-specific numerical dose is implied by this catalogue page.`,
       },
+      ...(existing?.questions ?? []),
       ...editorial.questions,
-    ],
+    ].filter(({ question }) => {
+      const key = question.trim().replace(/\s+/g, " ").toLocaleLowerCase();
+      if (seenQuestions.has(key)) return false;
+      seenQuestions.add(key);
+      return true;
+    }).slice(0, 6),
   } satisfies ProductBuyingContent;
 }

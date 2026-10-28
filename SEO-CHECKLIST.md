@@ -4,6 +4,15 @@ Implementation date: 27 October 2026. Owner: Everest Super Chemical Udhyog.
 
 Follow-up: the owner requested removal of the entry animation. The homepage now opens directly; historical before/after measurements below describe the earlier SEO release and are not a new performance measurement after removal.
 
+## Follow-up audit — 28 October 2026
+
+- Live crawl passed all 44 sitemap pages, 80 internal link targets and eight page-image targets. No missing metadata, canonical, H1, image alt attribute, broken internal target or indexing tag blocker was found by these checks.
+- Verified permanent redirects from HTTP to HTTPS and the apex host to the canonical www host.
+- Fixed a content assembly bug that omitted prepared price/suitability FAQs on seven product pages. These answers now feed the visible accordions, matching FAQ schema and full public AI export; each affected page has six unique answers.
+- Made fallback product descriptions identify the existing product use case instead of repeating the same generic document/enquiry wording. Prices, grades and packaging still require enquiry.
+- Updated sitemap modification dates only for changed product pages and added a rendered-output regression check against losing the tailored FAQs again.
+- No new ranking, Search Console, GA4 account or real-user performance measurement is implied by this code/live-crawl audit. The performance figures below remain the 27 October measurements.
+
 ## Release verification — 27 October 2026
 
 - Deployed commits: `bc57ffe`, `e01f3f4`, `0d6dc68`, `16d0505`.

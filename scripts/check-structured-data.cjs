@@ -40,6 +40,12 @@ function validate(html, filename) {
     assert.ok(types.includes("Product"), `${filename}: missing semantic Product identity`);
     const faq = data.find((node) => node["@type"] === "FAQPage");
     assert.ok(faq && faq.mainEntity.length >= 4, `${filename}: missing product buying answers`);
+    // These pages have tailored price/suitability answers in addition to the
+    // shared ordering/document questions. Guard against silently dropping them.
+    const tailoredFaqProducts = ["bleaching-powder", "floor-cleaner", "hcl-acid", "caustic-soda-flakes", "liquid-chlorine-water", "liquid-chlorine-pool", "antiscalant"];
+    if (tailoredFaqProducts.some((slug) => filename.endsWith(`${path.sep}${slug}.html`))) {
+      assert.equal(faq.mainEntity.length, 6, `${filename}: tailored buying answers were omitted`);
+    }
   }
 }
 
