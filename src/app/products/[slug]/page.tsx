@@ -10,6 +10,7 @@ import { getCategoryUrl } from "@/lib/category-pages";
 import { getProductBuyingContent } from "@/lib/product-buying-content";
 import { getProductEditorial } from "@/lib/product-editorial";
 import { guides } from "@/lib/guides";
+import { getProductPackaging } from "@/lib/product-packaging";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -44,6 +45,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const buyingContent = getProductBuyingContent(slug);
 
   const editorial = getProductEditorial(slug);
+  const packaging = getProductPackaging(slug);
   const recommendations = editorial.relatedSlugs.map(getProductBySlug)
     .filter((p): p is NonNullable<typeof p> => Boolean(p && p.slug !== product.slug));
   const related = recommendations.filter((p) => p.category === product.category);
@@ -71,7 +73,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       url,
       category: product.category,
       alternateName: product.alsoKnownAs,
-      description: product.description,
+      description: `${product.description} Pack sizes: ${packaging.label}.${packaging.smallerQuantities ? " Smaller quantities are available on request." : ""}`,
     },
   };
 
@@ -222,7 +224,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </Reveal>
 
           {/* Ordering info — deliberately not called "Spec sheet": we don't
-              have per-product technical specs (purity, dosage, packaging)
+              have per-product technical specs (purity, dosage)
               digitized yet, and a card promising specs with none would
               undercut trust right where it matters most. This only states
               what's actually true today. */}
@@ -230,6 +232,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <aside className="bg-cream border border-line rounded-md p-7 sticky top-28">
               <div className="eyebrow text-amber-deep mb-5">Ordering info</div>
               <dl className="space-y-4">
+                <SpecRow k="Pack sizes" v={packaging.label} />
+                {packaging.smallerQuantities && <SpecRow k="Smaller quantities" v="Available on request" />}
                 <SpecRow k="Pricing" v="Ask us for a price" />
                 <SpecRow k="Delivery" v="Nepal-wide" />
                 {product.sdsAvailable && product.sdsUrl ? (

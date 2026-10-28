@@ -1,3 +1,5 @@
+import { getProductPackaging } from "./product-packaging";
+
 export interface ProductEditorial {
   buyingChecklist: string[];
   usageNote: string;
@@ -287,8 +289,10 @@ const content: Record<string, EditorialInput> = {
 export function getProductEditorial(slug: string): ProductEditorial {
   const editorial = content[slug];
   if (!editorial) throw new Error(`Missing product editorial content for ${slug}`);
+  const packaging = getProductPackaging(slug);
   return {
     ...editorial,
+    packagingNote: `Pack sizes: ${packaging.label}.${packaging.smallerQuantities ? " Smaller quantities are available on request." : ""} ${editorial.packagingNote}`,
     deliveryNote: "ESCU handles supply enquiries from Kathmandu and across Nepal. Include your delivery town, required date and receiving arrangements. The team confirms availability, freight and timing for the order before you commit; a catalogue listing is not a live stock or delivery promise.",
   };
 }

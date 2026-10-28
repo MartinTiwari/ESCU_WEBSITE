@@ -1,5 +1,6 @@
 import { getProductBySlug } from "./products";
 import { getProductEditorial } from "./product-editorial";
+import { getProductPackaging } from "./product-packaging";
 
 export interface ProductBuyingContent {
   title: string;
@@ -137,6 +138,7 @@ export function getProductBuyingContent(slug: string) {
   const product = getProductBySlug(slug);
   if (!product) return undefined;
   const editorial = getProductEditorial(slug);
+  const packaging = getProductPackaging(slug);
   const existing = productBuyingContent[slug];
   const seenQuestions = new Set<string>();
   const targetedMetadata: Record<string, { title: string; description: string }> = {
@@ -156,7 +158,7 @@ export function getProductBuyingContent(slug: string) {
     questions: [
       {
         question: `How can I order ${product.name} from ESCU?`,
-        answer: `Send the product name, intended application, required quantity and delivery town. Include any purchasing specification or existing product label. ESCU confirms the offered product, packaging, current quotation and delivery arrangements before the order is agreed; this page does not guarantee live stock.`,
+        answer: `Pack sizes: ${packaging.label}.${packaging.smallerQuantities ? " Smaller quantities are available on request." : ""} Send the product name, intended application, required quantity and delivery town. Include any purchasing specification or existing product label. ESCU confirms the offered product, current quotation and delivery arrangements before the order is agreed; this page does not guarantee live stock.`,
       },
       {
         question: `When will I receive the SDS and documents for ${product.name}?`,

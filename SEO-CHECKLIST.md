@@ -85,7 +85,8 @@ These are single-run laboratory measurements, subject to network variability. LC
 The owner confirmed SDS and related product documents are shared after an enquiry. This is a confirmed workflow, not a public document download library.
 
 - TODO: verify product labels/specifications for every listed product before publishing numerical concentration, purity, physical properties or dosage. In particular, confirm the meaning of the existing TCCA 90% product name. No PAC 30% grade should be inferred from a search alias.
-- TODO: confirm packaging units, net contents, minimum order quantities, origin/manufacturer, price validity and current stock per product. Do not infer any from a generic chemical name.
+- Owner confirmed pack sizes in kg on 28 October, including liquid drums. Published for all 27 products; smaller quantities only on the seven specified cleaning products. Wax Fuel remains a tin with weight confirmed on enquiry; Cleaning Powder's container type remains unspecified.
+- TODO: confirm Wax Fuel tin weight, Cleaning Powder container type, minimum order quantities, origin/manufacturer, price validity and current stock per product. Do not infer any from a generic chemical name.
 - TODO: supply original product and packaging photos with usage rights. The shared hero is illustrative, not evidence of ESCU stock.
 - TODO: identify a real, qualified technical reviewer before publishing quantitative treatment or pool-dosing calculations. Company editorial attribution is not a chemical qualification.
 - TODO: obtain and review true equivalent Nepali translations before adding `/ne/...`, reciprocal hreflang and a language selector. Do not relabel English pages or use partial translations as equivalents.

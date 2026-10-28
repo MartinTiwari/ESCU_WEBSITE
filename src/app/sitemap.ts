@@ -24,9 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const productRoutes: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${site.url}/products/${p.slug}`,
-    // PAC/TCCA kept their existing descriptions and FAQs in this follow-up.
-    lastModified: ["pac-powder", "tcca-90"].includes(p.slug)
-      ? CONTENT_LAST_UPDATED : new Date("2026-10-28"),
+    // Owner-confirmed packaging added to every product on 28 October.
+    lastModified: new Date("2026-10-28"),
     changeFrequency: "monthly",
     priority: 0.7,
   }));
