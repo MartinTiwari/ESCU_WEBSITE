@@ -15,7 +15,7 @@ const productBuyingContent: Partial<Record<string, ProductBuyingContent>> = {
   "bleaching-powder": {
     title: "Bleaching Powder Price & Supply in Nepal",
     description:
-      "Buy bleaching powder for water disinfection from ESCU in Kathmandu, Nepal. Request a price quote and confirm the grade, pack size and delivery for your site.",
+      `Bleaching powder in ${getProductPackaging("bleaching-powder").label} for water-disinfection enquiries. Request pricing from ESCU in Kathmandu, Nepal; confirm grade and suitability.`,
     nepaliName: "ब्लिचिङ पाउडर",
     questions: [
       {
@@ -33,7 +33,7 @@ const productBuyingContent: Partial<Record<string, ProductBuyingContent>> = {
   "floor-cleaner": {
     title: "Floor Cleaner Supplier in Kathmandu, Nepal",
     description:
-      "Buy floor cleaner for hotels, restaurants and commercial buildings from ESCU in Kathmandu, Nepal. Ask for bulk pricing and confirm suitability for your flooring.",
+      `Floor cleaner in ${getProductPackaging("floor-cleaner").label} for commercial housekeeping. Request pricing from ESCU in Kathmandu, Nepal; smaller quantities on request.`,
     questions: [
       {
         question: "Can I order floor cleaner in bulk for a hotel or commercial building?",
@@ -50,7 +50,7 @@ const productBuyingContent: Partial<Record<string, ProductBuyingContent>> = {
   "hcl-acid": {
     title: "Hydrochloric Acid (HCL) Price & Supply in Nepal",
     description:
-      "Source hydrochloric acid (HCL) for descaling and pH reduction from ESCU in Kathmandu, Nepal. Request a price quote and confirm concentration and intended use.",
+      `HCL acid in ${getProductPackaging("hcl-acid").label} for descaling and pH-control enquiries. Request pricing from ESCU in Kathmandu, Nepal; confirm concentration and suitability.`,
     questions: [
       {
         question: "How can I get a hydrochloric acid price in Nepal?",
@@ -67,7 +67,7 @@ const productBuyingContent: Partial<Record<string, ProductBuyingContent>> = {
   "caustic-soda-flakes": {
     title: "Caustic Soda Flakes Price & Supply in Nepal",
     description:
-      "Source caustic soda flakes (sodium hydroxide) from ESCU in Kathmandu, Nepal. Ask for a price quote and confirm grade and pack sizes for your treatment process.",
+      `Caustic soda flakes in ${getProductPackaging("caustic-soda-flakes").label} for treatment and industrial-cleaning enquiries. Request pricing from ESCU in Kathmandu, Nepal; confirm the required grade.`,
     questions: [
       {
         question: "What is the price of caustic soda flakes in Nepal?",
@@ -84,7 +84,7 @@ const productBuyingContent: Partial<Record<string, ProductBuyingContent>> = {
   "liquid-chlorine-water": {
     title: "Liquid Chlorine for Water Treatment in Nepal",
     description:
-      "Buy liquid chlorine (sodium hypochlorite) for water and tank disinfection from ESCU in Kathmandu, Nepal. Confirm concentration and request a supply quotation.",
+      `Liquid chlorine in ${getProductPackaging("liquid-chlorine-water").label} for water and tank disinfection enquiries. Request pricing from ESCU in Kathmandu, Nepal; confirm concentration and suitability.`,
     questions: [
       {
         question: "How do I request a price for liquid chlorine for water treatment?",
@@ -101,7 +101,7 @@ const productBuyingContent: Partial<Record<string, ProductBuyingContent>> = {
   "liquid-chlorine-pool": {
     title: "Liquid Chlorine for Swimming Pools in Nepal",
     description:
-      "Source liquid pool chlorine (sodium hypochlorite) from ESCU in Kathmandu, Nepal. Request bulk pricing and confirm concentration and pack sizes for your pool.",
+      `Liquid pool chlorine in ${getProductPackaging("liquid-chlorine-pool").label} for swimming-pool treatment enquiries. Request pricing from ESCU in Kathmandu, Nepal; confirm concentration and suitability.`,
     questions: [
       {
         question: "Can I get a quotation for regular pool chlorine supply?",
@@ -118,7 +118,7 @@ const productBuyingContent: Partial<Record<string, ProductBuyingContent>> = {
   antiscalant: {
     title: "RO Antiscalant Supplier in Kathmandu, Nepal",
     description:
-      "Source RO antiscalant from ESCU in Kathmandu, Nepal. Share your feed water report and system details to confirm the suitable product and request a price quote.",
+      `RO antiscalant in ${getProductPackaging("antiscalant").label} from ESCU in Kathmandu, Nepal. Share your feed-water report and system details to request pricing and check compatibility.`,
     questions: [
       {
         question: "What information is needed for an RO antiscalant quotation?",
@@ -144,16 +144,16 @@ export function getProductBuyingContent(slug: string) {
   const targetedMetadata: Record<string, { title: string; description: string }> = {
     "pac-powder": {
       title: "PAC Powder Supplier in Nepal | Poly Aluminium Chloride",
-      description: "Source PAC powder from ESCU in Kathmandu, Nepal. Request a quotation for Poly Aluminium Chloride with your grade, quantity and water-treatment requirements.",
+      description: `PAC powder (Poly Aluminium Chloride) in ${packaging.label} for water clarification. Request pricing from ESCU in Kathmandu, Nepal; confirm the required grade.`,
     },
     "tcca-90": {
       title: "TCCA Supplier & Price Quotation in Nepal",
-      description: "Request TCCA pool chlorine pricing from ESCU in Kathmandu, Nepal. Confirm the supplied specification, product form, packaging and delivery for your pool.",
+      description: `TCCA pool chlorine in ${packaging.label} from ESCU in Kathmandu, Nepal. Request a quotation and confirm product form, specification and delivery for your pool.`,
     },
   };
   return {
     title: targetedMetadata[slug]?.title ?? existing?.title ?? `${product.name} Supplier in Kathmandu, Nepal`,
-    description: targetedMetadata[slug]?.description ?? existing?.description ?? `Enquire about ${product.name} for ${product.useCase}. Request a quotation from ESCU in Kathmandu, Nepal.`,
+    description: targetedMetadata[slug]?.description ?? existing?.description ?? `${product.name} for ${product.useCase.toLowerCase()}. Packs: ${packaging.label}. Request wholesale pricing and delivery details from ESCU in Kathmandu, Nepal.`,
     nepaliName: existing?.nepaliName,
     questions: [
       {

@@ -13,7 +13,7 @@ export function llmsText(full = false) {
     `Canonical website: ${site.url}`, `Customer visits: ${site.address}`,
     `Registered address: ${site.registeredAddress}`, `Telephone: ${site.phoneInternational}`,
     `Email: ${site.email}`, `Hours: ${site.hours}`, "",
-    "Prices, current stock, packaging, grade and delivery are confirmed by enquiry. SDS and related product documents are provided after enquiry. No public numerical dosing recommendations are supplied by this catalogue.", "",
+    "Standard pack sizes are listed on product pages, with weights in kg including liquid drums. Prices, current stock, grade, delivery and any other packaging requirements are confirmed by enquiry. SDS and related product documents are provided after enquiry. No public numerical dosing recommendations are supplied by this catalogue.", "",
     "## Main pages", ...[["Company", "/about"], ["Contact", "/contact"], ["Request a quote", "/quote"], ["Catalogue", "/products"], ["Ordering FAQs", "/buying-guide"]].map(([name, path]) => `- [${name}](${site.url}${path})`), "",
     "## Categories", ...categoryLandingPages.map((page) => `- [${page.title}](${site.url}/chemicals/${page.slug}): ${page.description}`), "",
     "## Products", ...products.map((product) => `- [${product.name}](${site.url}/products/${product.slug}): ${product.description}`), "",

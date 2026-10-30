@@ -9,12 +9,46 @@ const nodes = (value) => value && typeof value === "object"
 async function read(path) {
   const response = await fetch(new URL(path, base), { signal: AbortSignal.timeout(30000) });
   assert.equal(response.status, 200, `${path}: HTTP ${response.status}`);
+  assert.ok(!/\b(?:noindex|none)\b/i.test(response.headers.get("x-robots-tag") || ""), `${path}: HTTP header blocks indexing`);
   return response.text();
 }
+
+function assertCrawlerAccess(robots, agent, pathname = "/") {
+  const groups = [];
+  let group;
+  for (const raw of robots.split(/\r?\n/)) {
+    const line = raw.split("#")[0].trim();
+    const match = line.match(/^(user-agent|allow|disallow)\s*:\s*(.*)$/i);
+    if (!match) continue;
+    const [, directive, value] = match;
+    if (directive.toLowerCase() === "user-agent") {
+      if (!group || group.rules.length) groups.push(group = { agents: [], rules: [] });
+      group.agents.push(value.toLowerCase());
+    } else if (group && value) group.rules.push({ allow: directive.toLowerCase() === "allow", path: value });
+  }
+  const specific = groups.filter((item) => item.agents.includes(agent.toLowerCase()));
+  const selected = specific.length ? specific : groups.filter((item) => item.agents.includes("*"));
+  const matching = selected.flatMap((item) => item.rules).filter((rule) => {
+    const anchored = rule.path.endsWith("$");
+    const pattern = (anchored ? rule.path.slice(0, -1) : rule.path)
+      .split("*").map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join(".*");
+    return new RegExp(`^${pattern}${anchored ? "$" : ""}`).test(pathname);
+  });
+  const longest = Math.max(0, ...matching.map((rule) => Buffer.byteLength(rule.path)));
+  const effective = matching.filter((rule) => Buffer.byteLength(rule.path) === longest);
+  assert.ok(!effective.some((rule) => !rule.allow) || effective.some((rule) => rule.allow), `${agent}: robots.txt blocks ${pathname}`);
+}
+
+// Prove the audit detects a block rather than just finding a Sitemap line.
+assert.throws(() => assertCrawlerAccess("User-agent: *\nDisallow: /", "Googlebot"), /blocks/);
+assert.throws(() => assertCrawlerAccess("User-agent: *\nAllow: /\nUser-agent: OAI-SearchBot\nDisallow: /", "OAI-SearchBot"), /blocks/);
+assertCrawlerAccess("User-agent: *\nDisallow: /api/", "Googlebot");
+assert.throws(() => assertCrawlerAccess("User-agent: *\nAllow: /\nDisallow: /products/", "Googlebot", "/products/pac-powder"), /blocks/);
 
 async function main() {
   const robots = await read("/robots.txt");
   assert.ok(robots.includes(`Sitemap: ${production}/sitemap.xml`));
+  for (const agent of ["Googlebot", "bingbot", "OAI-SearchBot", "Claude-SearchBot", "PerplexityBot", "Bravebot"]) assertCrawlerAccess(robots, agent);
   const xml = await read("/sitemap.xml");
   const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => decode(match[1]));
   assert.ok(urls.length >= 30, "Sitemap unexpectedly lost content pages");
@@ -30,6 +64,7 @@ async function main() {
   for (const url of urls) {
     assert.ok(url.startsWith(production));
     const route = new URL(url);
+    for (const agent of ["Googlebot", "bingbot", "OAI-SearchBot", "Claude-SearchBot", "PerplexityBot", "Bravebot"]) assertCrawlerAccess(robots, agent, route.pathname);
     const html = await read(route.pathname + route.search);
     pages.set(route.pathname + route.search, html);
     const title = html.match(/<title>(.*?)<\/title>/)?.[1];
@@ -57,7 +92,7 @@ async function main() {
     assert.ok(og && og.startsWith(production), `${url}: missing absolute og:image`);
     const sharingImage = new URL(decode(og));
     sharingImages.add(sharingImage.pathname + sharingImage.search);
-    assert.ok(!/<meta name="robots" content="[^"]*noindex/.test(html), `${url}: noindex`);
+    assert.ok(!/<meta name="(?:robots|googlebot|bingbot)" content="[^"]*\b(?:noindex|none)\b/i.test(html), `${url}: noindex`);
     assert.ok(!html.includes("google-analytics-loader"), `${url}: analytics must not load before visitor consent`);
     const schemaNodes = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)]
       .flatMap((match) => nodes(JSON.parse(match[1])));

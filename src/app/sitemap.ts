@@ -24,8 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const productRoutes: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${site.url}/products/${p.slug}`,
-    // Owner-confirmed packaging added to every product on 28 October.
-    lastModified: new Date("2026-10-28"),
+    // Search descriptions updated with owner-confirmed packaging on 30 October.
+    lastModified: new Date("2026-10-30"),
     changeFrequency: "monthly",
     priority: 0.7,
   }));

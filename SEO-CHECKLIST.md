@@ -13,6 +13,13 @@ Follow-up: the owner requested removal of the entry animation. The homepage now 
 - Updated sitemap modification dates only for changed product pages and added a rendered-output regression check against losing the tailored FAQs again.
 - No new ranking, Search Console, GA4 account or real-user performance measurement is implied by this code/live-crawl audit. The performance figures below remain the 27 October measurements.
 
+## Follow-up audit — 30 October 2026
+
+- Live crawl again passed 44 sitemap pages, 80 internal targets and eight image targets. The stronger audit now checks HTTP indexing headers, crawler-specific indexing meta tags and robots rules for each sitemap path, including Google, Bing, OpenAI search, Claude search, Perplexity and Brave. These checks do not prove actual crawler visits or bypass a CDN challenge.
+- Product search descriptions now include owner-confirmed packaging rather than asking buyers to confirm already-known standard packs. No price, grade, concentration or stock claim was invented.
+- Public AI-readable exports now distinguish listed standard packs from order-specific availability and packaging requests; SDS remains available after enquiry.
+- Updated modification dates for the changed product metadata. Search Console/GA4 account reports, rankings and Lighthouse were not remeasured in this follow-up.
+
 ## Release verification — 27 October 2026
 
 - Deployed commits: `bc57ffe`, `e01f3f4`, `0d6dc68`, `16d0505`.
