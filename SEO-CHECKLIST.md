@@ -30,6 +30,7 @@ Follow-up: the owner requested removal of the entry animation. The homepage now 
 - Fixed quote product prefill when the URL changes and draft storage is empty, corrupt or unavailable. Added component-effect regression checks for five storage states, retaining valid saved contact details.
 - Aligned all 27 packaging notes with confirmed standard sizes; preserved unknown product-form/concentration details, Wax Fuel tin weight and Cleaning Powder container type. No new specifications or stock claims were inferred.
 - Existing Product entities remain semantic catalogue information. The overview showed seven invalid product-snippet items; no invented offers, prices or ratings were added to obtain rich-result eligibility. Detail status was not rechecked in this session.
+- Deployment diagnosis: `7793b99` initially failed on Vercel (`dpl_2QES5mMeYi9nv8Gn8DUDaAgm7gfP`). The owner restored access to `milans-projects-44d07115/escu-site`; the build log showed the Google-font resolver failing on Fraunces with `Can't resolve @vercel/turbopack-next/internal/font/google/font` and `next/font/google queries have exactly one entry`. Replaced build-time Google font fetching with the same cached Latin Inter, Fraunces normal/italic and Space Mono font assets through `next/font/local`, retaining weights, CSS variables and licences. Production build, TypeScript, source lint and all 47 rendered structured-data checks passed. No enquiry safeguard or Vercel security setting was weakened.
 
 ## Release verification — 27 October 2026
 

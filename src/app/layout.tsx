@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Fraunces, Space_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import "./mobile-home.css";
 import Header from "@/components/Header";
@@ -9,25 +9,34 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 import { site } from "@/lib/site";
 
-const inter = Inter({
+// Bundle the same Latin font assets used by the existing site. Deployment no
+// longer depends on Google Fonts CSS responses or the Google-font resolver.
+const inter = localFont({
+  src: "./fonts/inter-latin.woff2",
   variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: "300 700",
+  display: "swap",
 });
 
 // Editorial serif with real character (not the templated Playfair).
-const fraunces = Fraunces({
+const fraunces = localFont({
+  src: [
+    { path: "./fonts/fraunces-latin.woff2", weight: "400 900", style: "normal" },
+    { path: "./fonts/fraunces-latin-italic.woff2", weight: "400 900", style: "italic" },
+  ],
   variable: "--font-fraunces",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "900"],
-  style: ["normal", "italic"],
+  display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
 // Technical mono for spec-sheet eyebrows and product codes.
-const spaceMono = Space_Mono({
+const spaceMono = localFont({
+  src: [
+    { path: "./fonts/space-mono-latin-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/space-mono-latin-700.woff2", weight: "700", style: "normal" },
+  ],
   variable: "--font-mono-tech",
-  subsets: ["latin"],
-  weight: ["400", "700"],
+  display: "swap",
 });
 
 const isProductionDeployment = !process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production";
