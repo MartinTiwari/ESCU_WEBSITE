@@ -61,27 +61,31 @@ export default function QuoteForm() {
   const submittingRef = useRef(false);
 
   useEffect(() => {
+    let saved: Partial<QuoteDraft> | undefined;
     try {
-      const saved = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "null");
-      if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
-      // Restore only recognized, valid draft values from external storage.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setForm((current) => {
-        const restored = { ...current };
-        for (const field of Object.keys(LIMITS) as (keyof typeof LIMITS)[]) {
-          if (typeof saved[field] === "string" && saved[field].length <= LIMITS[field]) restored[field] = saved[field];
-        }
-        if (["delivery", "pickup", "unsure"].includes(saved.fulfillment)) restored.fulfillment = saved.fulfillment;
-        restored.productUncertain = saved.productUncertain === true;
-        if (prefillProduct) {
-          restored.products = prefillProduct;
-          restored.productUncertain = false;
-        }
-        return restored;
-      });
+      const parsed = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "null");
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) saved = parsed;
     } catch {
       // A malformed draft or unavailable storage must never block an enquiry.
     }
+    // URL selection must also work when storage is empty, malformed or denied.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setForm((current) => {
+      const restored = { ...current };
+      if (saved) {
+        for (const field of Object.keys(LIMITS) as (keyof typeof LIMITS)[]) {
+          const value = saved[field];
+          if (typeof value === "string" && value.length <= LIMITS[field]) restored[field] = value;
+        }
+        if (saved.fulfillment && ["delivery", "pickup", "unsure"].includes(saved.fulfillment)) restored.fulfillment = saved.fulfillment;
+        restored.productUncertain = saved.productUncertain === true;
+      }
+      if (prefillProduct) {
+        restored.products = prefillProduct;
+        restored.productUncertain = false;
+      }
+      return restored;
+    });
   }, [prefillProduct]);
 
   useEffect(() => {

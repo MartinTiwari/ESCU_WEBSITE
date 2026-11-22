@@ -18,14 +18,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/products`, lastModified: SUPPLY_COPY_UPDATED, changeFrequency: "weekly", priority: 0.9 },
     { url: `${site.url}/about`, lastModified: ANALYTICS_NOTICE_UPDATED, changeFrequency: "monthly", priority: 0.6 },
     { url: `${site.url}/contact`, lastModified: new Date("2026-10-06"), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${site.url}/quote`, lastModified: ANALYTICS_NOTICE_UPDATED, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${site.url}/quote`, lastModified: new Date("2026-11-22"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${site.url}/guides`, lastModified: CONTENT_LAST_UPDATED, changeFrequency: "monthly", priority: 0.7 },
   ];
 
   const productRoutes: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${site.url}/products/${p.slug}`,
-    // Search descriptions updated with owner-confirmed packaging on 30 October.
-    lastModified: new Date("2026-10-30"),
+    // Packaging guidance aligned with confirmed standard packs on 22 November.
+    lastModified: new Date("2026-11-22"),
     changeFrequency: "monthly",
     priority: 0.7,
   }));

@@ -20,6 +20,17 @@ Follow-up: the owner requested removal of the entry animation. The homepage now 
 - Public AI-readable exports now distinguish listed standard packs from order-specific availability and packaging requests; SDS remains available after enquiry.
 - Updated modification dates for the changed product metadata. Search Console/GA4 account reports, rankings and Lighthouse were not remeasured in this follow-up.
 
+## Follow-up audit — 22 November 2026
+
+- Live audit passed 44 sitemap pages, 80 internal link targets and eight image targets. All 52 mocked quote API cases passed without sending real emails.
+- Search Console's all-country Web report for the selected 28-day range (24 October–20 November as displayed) showed 69 clicks, about 1,300 impressions, 5.3% CTR and average position 6.6. The three-month view showed 144 clicks, 3.39K impressions, 4.2% CTR and average position 7.1. These are different windows, not a growth comparison or a fixed Nepal ranking.
+- Indexing report last updated 16 November: 35 indexed, nine discovered/not indexed, nine redirect exclusions and five proper-canonical alternates. Redirect and alternate exclusions are not automatically errors.
+- Pending examples: pool category, guide index, privacy, Ceramic Cleaner, Copper Sulphate, Glass Cleaner, Multi Cleaner Liquid, Soda Ash Powder and Wax Fuel. No new indexing request was completed. Browser access stopped before URL inspection and GA4 account checks; no current GA4 account claim is made.
+- Mobile Lighthouse single run: performance 92, accessibility 100, best practices 100, SEO 100; LCP 2.9 s, CLS 0, TBT 180 ms, FCP 1.1 s. Search Console still has insufficient field Core Web Vitals data. These results do not establish a performance regression against October's single runs or a passing real-user INP result. Report: `output/seo-lighthouse-2026-11-22.json`.
+- Fixed quote product prefill when the URL changes and draft storage is empty, corrupt or unavailable. Added component-effect regression checks for five storage states, retaining valid saved contact details.
+- Aligned all 27 packaging notes with confirmed standard sizes; preserved unknown product-form/concentration details, Wax Fuel tin weight and Cleaning Powder container type. No new specifications or stock claims were inferred.
+- Existing Product entities remain semantic catalogue information. The overview showed seven invalid product-snippet items; no invented offers, prices or ratings were added to obtain rich-result eligibility. Detail status was not rechecked in this session.
+
 ## Release verification — 27 October 2026
 
 - Deployed commits: `bc57ffe`, `e01f3f4`, `0d6dc68`, `16d0505`.
