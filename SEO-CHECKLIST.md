@@ -46,7 +46,17 @@ Follow-up: the owner requested removal of the entry animation. The homepage now 
 - Google Business Profile: submitted Chemical wholesaler as an accurate additional category, retaining Chemical Manufacturer as primary. The edit is pending Google review. Website, phone, customer address and normal opening hours match the confirmed business details. Google has not approved the existing WhatsApp Chat field; no repeated resubmission or policy workaround was attempted. Website WhatsApp links are separate from that profile field.
 - Added manual IndexNow tooling with explicit submission, canonical-sitemap allowlisting, live-page and ownership checks, redirect rejection and clear HTTP 200 versus 202 reporting. Mocked regression and production build checks passed. The planned first notification covers 24 products plus the quote page genuinely changed on 22 November, excluding the four URLs manually submitted to Bing earlier today.
 
+- IndexNow receipt: deployed `ab3fd4b`, verified the live ownership file, and sent the one-time notification for those 25 updated URLs. The endpoint returned HTTP 202: URLs received, ownership-key validation pending. No indexing or ranking result is implied, and no automatic retries were performed.
+
 ## Release verification — 27 October 2026
+
+### Final account and performance verification — 23 November 2026
+
+- Fresh production mobile Lighthouse run: performance 98, accessibility 100, best practices 100, SEO 100; LCP 2.3 s, CLS 0, TBT 40 ms and FCP 1.1 s. Report: `output/seo-lighthouse-2026-11-23.json`. This is one lab run, not a real-user Core Web Vitals or ranking guarantee.
+- GA4 admin confirms the domain Search Console property is linked to ESCU Website stream 15767935168, created 16 October 2026. No duplicate property or link was created.
+- GA4 Events confirms `contact_click` and `generate_lead` are marked as key events. Contact clicks show stream activity; generate_lead shows no detected stream data. A contact click measures intent, not a completed sale. No live enquiry was sent just to create a conversion.
+- GA4 Home's selected last-seven-day view showed one active user, seven events, three views and zero key events. This does not establish organic lead growth; consent choices and owner/test traffic affect coverage.
+- Google indexing of the remaining discovered commercial pages, review of the new GBP category, and approval of its existing WhatsApp field remain external outcomes, not completed website fixes. No repeated indexing requests, fabricated reviews, paid links or unsupported product claims were used.
 
 - Deployed commits: `bc57ffe`, `e01f3f4`, `0d6dc68`, `16d0505`.
 - Production build and TypeScript passed. Structured-data checks passed for 47 rendered pages, including 27 semantic Product entities and visible FAQs; invented offers and ratings are blocked.
