@@ -43,6 +43,9 @@ const isProductionDeployment = !process.env.VERCEL_ENV || process.env.VERCEL_ENV
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
+  verification: {
+    other: { "msvalidate.01": "74CAC297A7633CE7320D092374D1D267" },
+  },
   title: {
     default: `Chemical Supplier in Kathmandu, Nepal | ${site.name}`,
     template: `%s | ${site.name}`,
