@@ -32,6 +32,20 @@ Follow-up: the owner requested removal of the entry animation. The homepage now 
 - Existing Product entities remain semantic catalogue information. The overview showed seven invalid product-snippet items; no invented offers, prices or ratings were added to obtain rich-result eligibility. Detail status was not rechecked in this session.
 - Deployment diagnosis: `7793b99` initially failed on Vercel (`dpl_2QES5mMeYi9nv8Gn8DUDaAgm7gfP`). The owner restored access to `milans-projects-44d07115/escu-site`; the build log showed the Google-font resolver failing on Fraunces with `Can't resolve @vercel/turbopack-next/internal/font/google/font` and `next/font/google queries have exactly one entry`. Replaced build-time Google font fetching with the same cached Latin Inter, Fraunces normal/italic and Space Mono font assets through `next/font/local`, retaining weights, CSS variables and licences. Production build, TypeScript, source lint and all 47 rendered structured-data checks passed. No enquiry safeguard or Vercel security setting was weakened.
 
+## Search coverage actions — 23 November 2026
+
+- The corrected font deployment `a38cda3` reached Ready in Vercel and served the custom domain. The post-deployment live crawl passed all 44 sitemap pages and 80 internal targets.
+- Google URL Inspection confirmed the pool category was discovered but not indexed, with no previous crawl recorded. Request indexing completed successfully: Google displayed "Indexing requested" and added the URL to a priority crawl queue. This is not confirmation of indexing or ranking; do not repeatedly request it.
+- Brave's `site:everestsuperchemical.com.np` query returned one Bleaching Powder result with an older snippet and apex URL. This query is not an exhaustive index count. Brave's public submit-url form accepted refresh requests for the canonical www homepage and Bleaching Powder page, displaying Success for both. Acceptance does not establish refreshed content or improved rank.
+- Search Console Links reported External links Total 0 and Internal links Total 269. This is Google's reported sample, not proof no external link exists anywhere. Prioritize genuine manufacturer, partner and relevant association/directory references; no outreach was sent and no membership was invented.
+- Bing setup completed after the owner explicitly approved sign-in with `martintiwari0@gmail.com`. Basic Google sign-in was used; no Search Console account import/access was granted. Direct ownership was verified using the public `msvalidate.01` homepage tag deployed in `ce0bd39`; retain the tag to preserve verification.
+- Bing accepted `https://www.everestsuperchemical.com.np/sitemap.xml` on 23 November, status Processing. The initial display reported zero discovered URLs while processing; do not equate submission with completed crawl or indexing.
+- Bing's URL Submission tool confirmed "Success: 4 URLs submitted" for the canonical homepage, PAC Powder, TCCA and Bleaching Powder. No duplicate or repeated submissions were made. Screenshot evidence is kept in `output/website-preview/bing-sitemap-nov23.png` and `bing-priority-urls-nov23.png`.
+
+- Later Bing check: sitemap status Success with all 44 URLs discovered. This is not an indexed-page count.
+- Google Business Profile: submitted Chemical wholesaler as an accurate additional category, retaining Chemical Manufacturer as primary. The edit is pending Google review. Website, phone, customer address and normal opening hours match the confirmed business details. Google has not approved the existing WhatsApp Chat field; no repeated resubmission or policy workaround was attempted. Website WhatsApp links are separate from that profile field.
+- Added manual IndexNow tooling with explicit submission, canonical-sitemap allowlisting, live-page and ownership checks, redirect rejection and clear HTTP 200 versus 202 reporting. Mocked regression and production build checks passed. The planned first notification covers 24 products plus the quote page genuinely changed on 22 November, excluding the four URLs manually submitted to Bing earlier today.
+
 ## Release verification — 27 October 2026
 
 - Deployed commits: `bc57ffe`, `e01f3f4`, `0d6dc68`, `16d0505`.
@@ -81,9 +95,9 @@ These are single-run laboratory measurements, subject to network variability. LC
 
 ## Bing Webmaster Tools
 
-- [ ] Verify the canonical property, import the existing sitemap if the owner authorizes account linkage, and inspect priority pages.
+- [x] Verify the canonical property and submit its sitemap (23 November). Used direct homepage verification instead of linking Search Console. Bing processed the sitemap successfully and discovered 44 URLs.
 - [ ] Review indexing and crawler reports; ensure Bingbot is not challenged by CDN rules.
-- [ ] Consider IndexNow for genuine URL updates only after configuring the ownership key and reviewing the workflow. It is not a Google indexing API.
+- [x] Configure an IndexNow ownership file and a reviewed manual submission tool for genuine updates. It is not a Google indexing API. Run `node scripts/submit-indexnow.cjs /changed-page` for a read-only preflight; add `--submit` only after the content and ownership file are live. There is no build, page-view or scheduled submission hook.
 
 ## Google Business Profile and identity
 
